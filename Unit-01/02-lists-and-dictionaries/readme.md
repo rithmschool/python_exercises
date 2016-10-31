@@ -8,7 +8,7 @@ Write the following Python code to do the following (complete ALL of these using
 2. Given a list `[1,2,3,4]` print out all the values in the list multiplied by 20
 3. Given a list `["Elie", "Tim", "Matt"]`, return a new list with only the first letter (`["E", "T", "M"]`)
 4. Given a list `[1,2,3,4,5,6]` return a new list of all the even values
-5. Given two lists `[1,2,3,4]` and `[3,4,5,6]`, return a new list that is the intersection of the two `[3,4,5,6]`
+5. Given two lists `[1,2,3,4]` and `[3,4,5,6]`, return a new list that is the intersection of the two `[3,4]`
 6. Given a list of words `["Elie", "Tim", "Matt"]` return a new list with each word reversed and in lower case `['eile', 'mit', 'ttam']` (google how to reverse a string in python for help)
 7. Given two strings "first" and "third", return a new string with all the similar letters
 8. For all the numbers between 1 and 100, return a list with all the numbers that are divisible by 12
