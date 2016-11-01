@@ -92,7 +92,7 @@ def list_manipulation(list1,command,location,*value):
 			list1.insert(0,value)
 			return list1
 		else:
-			list1.insert(-1,value)
+			list1.append(value)
 			return list1
 
 
@@ -152,8 +152,11 @@ def mode(num_list):
 			counted[num]+=1
 	largest = None
 	for key in counted:
-		if counted[key]>largest:
-			largest = key 
+		if largest==None:
+			largest = counted[key]
+		else:
+			if counted[key]>largest:
+				largest = key 
 
 	return largest
 
@@ -166,6 +169,74 @@ def capitalize(string):
 
 capitalize("tim") # "Tim"
 capitalize("matt") # "Matt"
+
+
+def compact(some_list):
+	results = [value for value in some_list if value]
+	return results
+
+
+compact([0,1,2,"",[], False, {}, None, "All done"]) # [1,2, "All done"]
+
+
+
+
+def is_even(num):
+    return num % 2 == 0
+
+def partition(some_list, callback):
+	results=[]
+	truthy_list=[]
+	falsey_list=[]
+	for value in some_list:
+		if callback(value):
+			truthy_list.append(value)
+		else:
+			falsey_list.append(value)
+	results.extend([truthy_list, falsey_list])
+	return results
+
+
+partition([1,2,3,4], is_even) # [[2,4],[1,3]]
+
+
+def intersection(list1, list2):
+	results=[]
+	for val1 in list1:
+		for val2 in list2:
+			if val2 == val1:
+				results.append(val2)
+
+	return results
+
+intersection([1,2,3], [2,3,4]) # [2,3]
+
+
+
+def add(a,b):
+    return a+b
+
+def once(callback):
+	def returned_func(*args):
+		if returned_func.counter > 0:
+			return None
+		else:
+			returned_func.counter+=1
+			return callback(*args)
+
+	returned_func.counter=0
+	return returned_func
+
+
+one_addition = once(add)
+
+one_addition(2,2) # 4
+one_addition(2,2) # undefined
+one_addition(12,200) # undefined
+
+
+
+
 
 
 
