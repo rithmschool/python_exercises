@@ -2,14 +2,12 @@
 
 Create a new Flask application with the following:
 
-- A `base.html` template for others to inherit from
-- A route for `/person/<name>` 
-- s
-- s
-- s
-- s
+### Part 1
 
-### Bonus
+- A `base.html` template for others to inherit from
+- A route for `/person/<name>/<age>` which renders a template that displays the name and age entered for the URL. That template shoudl inherit from `base.html` 
+
+### Part 2
 
 Refactor your calculator application from before! 
 

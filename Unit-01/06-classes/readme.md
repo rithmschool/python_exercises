@@ -13,14 +13,24 @@ Answer the following questions
 
 ### Part 2
 
-Each cuisine instance should have a `name`, `taste_level`, `spicy_level`, `most_common_dish`
+Create a deck of cards class.  Internally, the deck of cards should use another class, a card class.  Your requirements are:
 
-Each cuisine instance should have a method called `describe`, which should be implemented by it's subclasses using polymorphsim. Also note that each restaurant can inherit from multiple cuisines.
+* The `Deck` class should have a `deal` method to deal a single card from the deck
+* After a card is dealt, it is removed from the deck.
+* There should be a `shuffle` method which makes sure the deck of cards has all 52 cards and then rearranges them randomly.
+* The `Card` class should have a suit (Hearts, Diamonds, Clubs, Spades) and a value (A,2,3,4,5,6,7,8,9,10,J,Q,K)
 
-Each restaurant instance should have a `name`, `location`, `rating` (which should be a number from 1 to 5).
 
-Each restaurant instance should have a method called `display_base_class` which lists the classes that it inherited from. You can read more about how to figure this out [here](http://stackoverflow.com/questions/1401661/python-list-all-base-classes-in-a-hierarchy-of-given-class)
+### Part 3
 
-### Bonus
+Make a the following 3 classes:
 
-Refactor your file-io example into a class called `FileManipulator`. This class should implement a method called `addLine` and `printLines`, which should be implemented in the two classes that inherit from it using Polymorphism. These classes should be called `CSVManipulator` and `TextManipulator` and both should be able to add and read to files.
+* `StreamReader`:  A stream reader should have a method `read` that reads data from the stream (a stream set of characters coming from some source).  Implement read so that it exists, but make it do nothing. You can just have it return `None`
+* `FileStreamReader`: A class that inherits from `StreamReader` and implements the `read` method.  The `FileStreamReader` should be given a file name to open when the class is instantiated.
+* `UrlStreamReader`: A class that inherits from `StreamReader` and implements the `read` method. The class should be given a url when the class is instantiated.  The `read` method should make a HTTP GET request and then read the data from the url.
+
+Next, create a main script that creates an array of `FileStreamReaders` and `UrlStreamReaders`. Loop through the array and call `read` on each stream.  Print the results to the terminal.
+
+__BONUS__
+
+Figure out how to read command line arguments using a python script.  If the argument starts with `http`, create a `UrlStreamReader`.  If the argument does not start with `http`, assume it is a file path and create a `FileStreamReader`.

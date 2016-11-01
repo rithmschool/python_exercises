@@ -9,3 +9,4 @@ For this application you will be building CRUD on the resouce `snacks`. Your app
 - allow a user to delete a snack
 
 You should use a list to store your snacks and make a class for a snack to create instances from.
+
