@@ -71,9 +71,63 @@ class Card():
 
 
 deck = Deck()
-deck.print_deck()
-deck.shuffle()
-deck.print_deck()
+
+
+
+################################################
+# Part 3
+import urllib.request
+
+class StreamReader():
+	def __init__(self):
+		return None
+
+	def read(data):
+		return None
+
+
+class FileStreamReader(StreamReader):
+	def __init__(self, file_name):
+		super().__init__()
+		self.file_name = file_name
+		return None
+
+	def read(self):
+		results = []
+		with open(self.file_name, 'r') as file:
+			for row in file:
+				results.append(row.strip())
+		return results
+
+
+class UrlStreamReader(StreamReader):
+	def __init__(self, url):
+		super().__init__()
+		self.url = url
+		return None
+
+	def read(self):
+		data = urllib.request.urlopen(self.url).read()
+		print(data)
+
+
+
+def setupStreamList():
+	streamReaders=[]
+	for value in range(0,2):
+		file_stream_reader = FileStreamReader("food.txt")
+		streamReaders.append(file_stream_reader)
+		url_stream_reader = UrlStreamReader("http://www.raychow.com/")
+		streamReaders.append(url_stream_reader)
+
+	return streamReaders
+
+streamReaders = setupStreamList()
+
+
+
+################################################
+# Bonus
 
 
 
