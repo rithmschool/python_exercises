@@ -212,7 +212,6 @@ def intersection(list1, list2):
 intersection([1,2,3], [2,3,4]) # [2,3]
 
 
-
 def add(a,b):
     return a+b
 
@@ -233,11 +232,5 @@ one_addition = once(add)
 one_addition(2,2) # 4
 one_addition(2,2) # undefined
 one_addition(12,200) # undefined
-
-
-
-
-
-
 
 
