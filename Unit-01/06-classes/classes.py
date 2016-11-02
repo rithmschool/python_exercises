@@ -43,16 +43,24 @@ class Deck():
 	# get an error from this for some reason
 
 	def print_deck(self):
+		print("Cards in the deck:")
 		for card in self.cards_in_deck:
 			print(card.suit, card.value)
 
-	def deal():
-		return
+	def print_out_of_play(self):
+		print("Cards out of play:")
+		for card in self.cards_out_of_play:
+			print(card.suit, card.value)
+
+	def deal(self):
+		dealt_card = self.cards_in_deck.pop(0)
+		print("Card dealt: " + dealt_card.suit, dealt_card.value)
+		self.cards_out_of_play.append(dealt_card)
+		
 
 	def shuffle(self):
 		random.shuffle(self.cards_in_deck)
-		random.shuffle(self.cards_in_deck) 
-		# seems to be more well shuffled after a second time
+		random.shuffle(self.cards_in_deck)
 
 
 class Card():
@@ -66,7 +74,6 @@ deck = Deck()
 deck.print_deck()
 deck.shuffle()
 deck.print_deck()
-
 
 
 
