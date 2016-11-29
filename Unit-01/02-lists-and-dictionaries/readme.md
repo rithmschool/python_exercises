@@ -15,6 +15,7 @@ Write the following Python code to do the following (complete ALL of these using
 9. Given the string "amazing", return a list with all the vowels removed `['m', 'z', 'n', 'g']`
 10. Generate a list with the value `[[0, 1, 2], [0, 1, 2], [0, 1, 2]]`
 11. Generate a list with the value: 
+ 
 ```py
 [
  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
