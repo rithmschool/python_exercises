@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for headline in headlines %}
+      <a target="_blank" href="{{headline.link}}"><li>{{ headline.title }}></li></a>
+    {% endfor %}
+{% endblock %}
+
+
+

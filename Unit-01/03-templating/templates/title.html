@@ -1,0 +1,15 @@
+
+
+
+{% extends "base.html" %}
+{% block content %}
+    {% for name in names %}
+        {{name}}
+    {% endfor %}
+
+    {% if name == 'Tom' %}
+        <p>Hello Tom!</p>
+    {% endif %}
+
+    Tired of this page? Head over to <a href="{{url_for('second')}}">the second page!</a>
+{% endblock %}
