@@ -1,0 +1,14 @@
+
+
+{% extends 'base.html' %}
+
+   {% block content %}
+   <ul>
+     {% for snack in snacks %}
+        <li>
+            <img src ={{snack.image_url}}></a>
+            <p>{{ snack.name }}</p>
+        </li>
+    {% endfor %}
+   </ul>
+    {% endblock %}
