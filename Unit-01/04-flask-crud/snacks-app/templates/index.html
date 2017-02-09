@@ -1,14 +1,11 @@
-
-
 {% extends 'base.html' %}
 
-   {% block content %}
-   <ul>
-     {% for snack in snacks %}
-        <li>
-            <img src ={{snack.image_url}}></a>
-            <p>{{ snack.name }}</p>
-        </li>
+{% block content %}
+<p>YO</p>
+    <ul>
+    {% for snack in snacks %}
+        <img src ={{snack.image_url}}>
+        <a href="{{url_for('show', id=snack.id)}}"><li>{{ snack.name }}</li></a>
     {% endfor %}
-   </ul>
-    {% endblock %}
+    </ul>
+{% endblock %}
