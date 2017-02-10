@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
+<a href="{{url_for('edit', id=snack.id)}}">EDIT A SNACK</a>
 <p>The name of the snack you clicked is {{snack.name}}</p>
 {% endblock %}

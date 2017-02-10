@@ -1,4 +1,13 @@
-class Snack():
+# notice that all models inherit from SQLAlchemy's db.Model
+
+
+
+
+
+
+
+
+'''class Snack():
 
     count = 1
     snack_list = []
@@ -13,7 +22,7 @@ class Snack():
 
     @classmethod
     def find(cls, snack_id):
-        return next(snack for snack in cls.snack_list if snack.id == snack_id)
+        return next(snack for snack in cls.snack_list if snack.id == snack_id)'''
 
 
 
