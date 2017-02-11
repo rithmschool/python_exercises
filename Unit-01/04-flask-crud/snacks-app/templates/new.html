@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <form action="{{url_for('index')}}" method="POST">
-    <label for="name-input">NAME</label>
-    <input type="text" name="name" id="name-input">
-    <label for="image-url-input">IMAGE URL</label>
-    <input type="text" name="image_url" id="image-url-input">
+    {{ form.hidden_tag() }}
+  {% for field in form if field.widget.input_type != 'hidden' %}
+
+ <p>
+ <label for="{{ name }}">{{ field.name }}</label>
+    {{ field }}
+    <span>
+      {% if field.errors %}
+        {% for error in field.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+
+    {% endfor %}
+
     <input type="submit" value="add a snack">
 </form>
 {% endblock %}

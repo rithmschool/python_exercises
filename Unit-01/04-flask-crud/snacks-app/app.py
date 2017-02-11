@@ -1,6 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_modus import Modus
 from flask_sqlalchemy import SQLAlchemy
+from forms import SignupForm
+from flask_wtf.csrf import CsrfProtect
+
+
 
 
 
@@ -8,9 +12,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 modus = Modus(app)
+CsrfProtect(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/snacks_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = "STRING"
 db = SQLAlchemy(app)
 
 
@@ -35,10 +41,14 @@ class Snack(db.Model):
         return "This {} has a url of {} ".format(self.name, self.image_url)
 
 
-db.create_all()
+
 
     ########################ROUTES
 
+
+@app.route('/welcome')
+def welcome():
+    return render_template('welcome')
 
 @app.route('/')
 def hello():
@@ -46,16 +56,21 @@ def hello():
 
 @app.route('/snacks', methods=["GET","POST"])
 def index():
-    if request.method == "POST":
+    form = SignupForm(request.form)
+    if request.method == "POST" and form.validate():
+        flash("You have successfully added a snack!")
         db.session.add(Snack(request.form['name'], request.form['image_url']))
         db.session.commit()
         return redirect(url_for('index'))
+    elif request.method =="POST" and not form.validate():
+        return render_template('new.html', form=form)
     return render_template('index.html', snacks=Snack.query.all())
 
 
-@app.route('/snacks/new')
+@app.route('/snacks/new', methods=['GET','POST'])
 def new():
-    return render_template('new.html')
+    form = SignupForm(request.form)
+    return render_template('new.html', form=form)
 
 @app.route('/snacks/<int:id>',methods=["GET","PATCH", "DELETE"])
 def show(id):
