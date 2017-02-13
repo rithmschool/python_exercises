@@ -1,0 +1,20 @@
+{%  extends 'base.html'  %}
+{%  block content  %}
+
+<h1>Here is a list of all the Snacks!   (feeling hungry yet?)</h1>
+	<a  href='{{url_for('new')}}''>Add some more snacks!</a>
+
+	<ul>
+		{%  for snack in snacks:  %}
+			<li>Name: {{snack.name}}, Type of Snack: {{snack.kind}} <button> <a href='/snacks/{{snack.id}}/edit'>Edit</a></button> </li>
+		{%  endfor  %}
+	</ul>
+
+{%  with messages = get_flashed_messages()  %}
+	{%  if messages  %}
+		{%  for message in messages  %}
+			<p>{{message}}</p>
+		{%  endfor  %}
+	{%  endif  %}
+{%  endwith  %}
+{%  endblock  %}

@@ -1,0 +1,28 @@
+{%  extends 'base.html'  %}
+{%  block content  %}
+<h1>Add some new snacks! </h1>
+<!-- # this is being passed the jinja var form -->
+<form action={{url_for('index')}} method='POST'>
+	{{ form.hidden_tag() }}
+  	{% for field in form if field.widget.input_type != 'hidden' %}
+	<!-- {{  form.csrf_token  }} -->
+	<p>
+		{{field.label}}
+		{{field}}
+			<span>
+			{%  if field.errors  %}
+				{%  for error in field.errors  %}
+					{{error}}
+				{%  endfor  %}
+			{%  endif  %}
+			</span>
+	</p>
+	{%  endfor  %}
+	
+<button type = 'submit'>Add A New Snack To Dream About!</button>
+
+</form>
+
+<p>Don't forget to eat some of this crap too!</p>
+
+{%  endblock  %}
