@@ -5,7 +5,6 @@ class TestTemplateRoutes(unittest.TestCase):
 
     def test_welcome(self):
         tester = app.test_client(self)
-
         response = tester.get('/person/bob/20', content_type='html/text')
         self.assertIn(b'bob', response.data)
         self.assertIn(b'20', response.data)
@@ -46,6 +45,20 @@ class TestTemplateRoutes(unittest.TestCase):
         self.assertIn(b'1', response.data)
         self.assertEqual(response.status_code, 200)
 
+    def test_index(self):
+        tester = app.test_client(self)
+        response = tester.get('/', content_type='html/text')
+        self.assertIn(b'<form', response.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_results(self):
+        tester = app.test_client(self)
+        response = tester.get('/results', content_type='html/text', query_string={'keyword': 'the'})
+        keyword_count = response.data.count(b'the')
+        li_count = response.data.count(b'<li')
+        self.assertEqual(response.status_code, 200)
+        self.assertGreater(li_count, 0)
+        self.assertLessEqual(li_count, keyword_count)
 
 if __name__ == '__main__':
     unittest.main()
