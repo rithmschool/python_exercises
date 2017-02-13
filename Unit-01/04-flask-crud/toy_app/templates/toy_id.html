@@ -1,0 +1,18 @@
+{% extends 'base.html'	%}
+
+
+{% block content %}
+
+{% for toy in toys:  %}
+	{% if toy.id == id %}
+		<p>{{ toy }}</p>
+		<img src='{{toy.image_url}}' alt="{{toy.name}}" >
+
+		<form action="{{ url_for('toy_id', id=toy.id) }}?_method=DELETE" method="POST">
+			DELETE ME! <input type='submit' value="Delete">
+		</form>
+			{% endif %}
+{% endfor %}
+
+
+{% endblock %}

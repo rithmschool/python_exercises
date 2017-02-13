@@ -1,0 +1,5 @@
+{%  extends 'base.html'  %}
+
+{%  block content  %}
+<p>Snack Name: {{snack.name}}, Snack Type: {{snack.kind}}, Snack ID: {{snack.id}}</p> <button> <a href={{url_for('index')}}> Go Back</a> </button>
+{%  endblock  %}
