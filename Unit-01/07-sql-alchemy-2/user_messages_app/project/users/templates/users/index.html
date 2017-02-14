@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 {% for user in users%}
-<p>{{user.username}}</p>
-<p>{{user.email}}</p>
-<p>{{user.first_name}}</p>
-<p>{{user.last_name}}</p>
+<div id = "user-div">
+    <p>{{user.username}}</p>
+    <p>{{user.email}}</p>
+    <p>{{user.first_name}}</p>
+    <p>{{user.last_name}}</p>
+</div>
 {% endfor %}
 {% endblock %}
