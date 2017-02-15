@@ -1,0 +1,10 @@
+li {
+
+display: list-item;
+
+}
+
+li p {
+margin: 10px;
+display: inline-block;
+}
