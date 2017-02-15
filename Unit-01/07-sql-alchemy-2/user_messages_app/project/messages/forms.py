@@ -9,3 +9,6 @@ class AddMessageForm(FlaskForm):
 
 class EditMessageForm(FlaskForm):
     message = StringField('Message', [validators.Length(min=1)])
+
+class DeleteMessageForm(FlaskForm):
+    message = StringField('Message', [validators.Length(min=1)])

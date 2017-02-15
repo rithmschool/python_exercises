@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<h2><a href="{{url_for('users.index')}}">See Users</a></h2>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <a class=flashes>

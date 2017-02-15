@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint
-from project.messages.forms import AddMessageForm, EditMessageForm
+from project.messages.forms import AddMessageForm, EditMessageForm, DeleteMessageForm
 from project.messages.models import Message
 from project import db
 from project.users.models import User
@@ -35,12 +35,13 @@ def index(user_id):
 @messages_blueprint.route('/<int:message_id>', methods=['GET', 'POST'])
 def edit(user_id, message_id):
     edit_form = EditMessageForm(request.form)
+    delete_form = DeleteMessageForm(request.form)
     this_user = User.query.get(user_id)
-    return render_template('/messages/edit_message.html', message=Message.query.get(message_id), user=this_user, form=edit_form)
+    return render_template('/messages/edit_message.html', message=Message.query.get(message_id), user=this_user, form=edit_form, d_form=delete_form)
 
 
 
-@messages_blueprint.route('/<int:message_id>/updated_messages', methods=['GET', 'POST', 'PATCH'])
+@messages_blueprint.route('/<int:message_id>/updated_messages', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def update(user_id, message_id):
     this_user = User.query.get(user_id)
     edit_message_form = EditMessageForm(request.form)
@@ -51,6 +52,16 @@ def update(user_id, message_id):
             db.session.add(message_to_update)
             db.session.commit()
             return render_template('/messages/user_messages.html', messages=this_user.messages.all(), user=this_user)
+
+    if request.method == b"DELETE":
+
+        db.session.delete(message_to_update)
+        db.session.commit()
+        return redirect(url_for('messages.index', user_id = this_user.id, messages=this_user.messages.all()))
+
+
+    elif request.method == b"PATCH" and not edit_message_form.validate():
+        return render_template('/messages/edit_message.html', user=this_user, message=Message.query.get(message_id), form=edit_message_form)
 
 
 
