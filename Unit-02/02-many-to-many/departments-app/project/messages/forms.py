@@ -7,5 +7,7 @@ from wtforms.validators import DataRequired
 class AddMessageForm(FlaskForm):
     message = StringField('Message', [validators.Length(min=1)])
 
-class AddFavoriteForm(FlaskForm):
-    message = StringField('Message', [validators.Length(min=1)])
+
+
+
+

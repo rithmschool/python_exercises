@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint, session
-from project.employees.forms import addEmployee, loginEmployee
+from project.employees.forms import addEmployee, loginEmployee, AddFavoriteForm
 from project.models import Employee, Message
 from project import db, bcrypt, login_manager
 from sqlalchemy.exc import IntegrityError
@@ -22,6 +22,12 @@ def index():
     employees = Employee.query.all()
 
     return render_template('employees/index.html', employees=employees)
+
+@employees_blueprint.route('/<int:employee_id>', methods=['GET', 'POST'])
+def show(employee_id):
+    this_employee = Employee.query.get(int(employee_id))
+    add_favorite_form = AddFavoriteForm(request.form)
+    return render_template('employees/show.html', employee=this_employee ,messages=Message.query.all(), form= add_favorite_form)
 
 @employees_blueprint.route('/new', methods=['GET', 'POST'])
 def new():
@@ -68,7 +74,7 @@ def login():
                         login_user(found_employee)
                         print(found_employee.username)
                         flash("Welcome to the app!")
-                        return redirect(url_for('messages.show', employee_id=found_employee.id))
+                        return redirect(url_for('employees.show', employee_id=found_employee.id))
                     else:
                         flash("Credentials not valid")
                 else:

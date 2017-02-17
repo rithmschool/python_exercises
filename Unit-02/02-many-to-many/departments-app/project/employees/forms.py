@@ -13,4 +13,8 @@ class loginEmployee(FlaskForm):
     password = PasswordField('password', validators=[DataRequired()])
 
 
+class AddFavoriteForm(FlaskForm):
+    message = StringField('Message', [validators.Length(min=1)])
+
+
 
