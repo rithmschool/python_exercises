@@ -3,13 +3,20 @@
 {% block content %}
 
 <h1>EMPLOYEES</h1>
+
+{%if employee%}
+<h1>{{employee.username}}</h1>
+{% endif %}
+{% if current_user.is_authenticated %}
+<h1>The current user is {{current_user.username.upper()}}</h1>
+{% endif %}
 <ol>
-{% for employee in employees %}
-<li><p>{{employee.first_name}}</p>
-    <p>{{employee.last_name}}</p>
-</li>
-     {%endfor%}
+
 
 </ol>
-<h2><a href="{{url_for('employees.new')}}">Add a new employee</a></h2>
+
+<h2><a href="{{url_for('employees.signup')}}">Sign Up</a></h2>
+<h2><a href="{{url_for('employees.login')}}">Login</a></h2>
+<h2><a href="{{url_for('employees.logout')}}">Logout</a></h2>
+
 {% endblock %}

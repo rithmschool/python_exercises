@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Add an Employee</h1>
-<form action="{{url_for('employees.index')}}" method="POST">
+<h1>Add a Message</h1>
+<form action="{{url_for('messages.new', employee_id = employee.id)}}" method="POST">
     {{ form.hidden_tag() }}
   {% for field in form if field.widget.input_type != 'hidden' %}
   <p>
@@ -19,7 +19,7 @@
   {% endfor %}
 
  <div id = "submit-post-button-div" >
-   <button class="btn" type="submit">Add Employee</button>
+   <button class="btn" type="submit">Add Message</button>
  </div>
 </form>
 {% endblock %}

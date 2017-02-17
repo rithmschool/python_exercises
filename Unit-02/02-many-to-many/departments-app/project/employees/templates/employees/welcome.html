@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome {{current_user.username}} </h1>
+
+<h2><a href="{{url_for('employees.index')}}">Head Home</a></h2>
+{% endblock %}

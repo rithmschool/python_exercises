@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>HELLO</h1>
+
+{%if employee%}
+<h1>{{employee.username}}</h1>
+{% endif %}
+
+<h1>All of Your Messages</h1>
+
+<ol>
+{% for message in messages %}
+    <li><p>{{message.message}}</p>
+
+    </li>
+    {% endfor %}
+
+</ol>
+
+
+
+{% endblock %}
