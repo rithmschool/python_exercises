@@ -25,7 +25,7 @@ def index():
 
 @employees_blueprint.route('/<int:employee_id>', methods=['GET', 'POST'])
 def show(employee_id):
-    this_employee = Employee.query.get(int(employee_id))
+    this_employee = Employee.query.get(employee_id)
     add_favorite_form = AddFavoriteForm(request.form)
     return render_template('employees/show.html', employee=this_employee ,messages=Message.query.all(), form= add_favorite_form)
 
@@ -51,7 +51,7 @@ def signup():
 
                     except IntegrityError as e:
                         return render_template('employees/signup.html', form=form)
-                    return redirect(url_for('employees.index'))
+                    return redirect(url_for('employees.show', employee_id= this_employee.id))
                 else:
                     flash("User credentials are invalid")
     else:

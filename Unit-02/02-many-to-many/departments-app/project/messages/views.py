@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint, session
-from project.messages.forms import AddMessageForm
+from project.messages.forms import AddMessageForm, EditMessageForm
 from project.models import Employee, Message
 from project import db, bcrypt, login_manager
 from sqlalchemy.exc import IntegrityError
@@ -28,15 +28,14 @@ def new(employee_id):
         message = Message(request.form['message'], this_employee.id)
         db.session.add(message)
         db.session.commit()
-        return redirect(url_for('messages.show', employee_id=this_employee.id))
+        return redirect(url_for('employees.show', employee_id=this_employee.id))
     return render_template('/messages/new.html', form=message_form, employee=this_employee)
 
 @messages_blueprint.route('/add_favorite/<int:message_id>', methods=['GET', 'POST'])
 def favorite(employee_id, message_id):
     this_employee = Employee.query.get(employee_id)
     this_message = Message.query.get(message_id)
-    print (this_employee.id)
-    print(this_message.id)
+
     if request.method == 'POST':
         this_message.employees.append(this_employee)
         db.session.add(this_message)
@@ -47,9 +46,9 @@ def favorite(employee_id, message_id):
 @messages_blueprint.route('/favorites', methods=['GET', 'POST'])
 def favorites(employee_id):
     this_employee = Employee.query.get(employee_id)
-    employee_favorites = [val.message for val in this_employee.favorites]
-    print(employee_favorites)
-    return render_template('messages/favorites.html', employee = this_employee, messages= employee_favorites)
+
+    #print(this_employee.favorites[4].employee.username)
+    return render_template('messages/favorites.html', employee = this_employee)
 
 @messages_blueprint.route('/all', methods=['GET', 'POST'])
 def all(employee_id):
@@ -57,4 +56,9 @@ def all(employee_id):
     return render_template('messages/all.html', employee = this_employee, messages=this_employee.messages.all())
 
 
-
+@messages_blueprint.route('/edit/<int:message_id>', methods=['GET', 'POST'])
+def edit(employee_id, message_id):
+    this_employee = Employee.query.get(employee_id)
+    this_message = Message.query.get(message_id)
+    form = EditMessageForm()
+    return render_template('messages/edit.html', employee = this_employee, message= this_message, form= form)

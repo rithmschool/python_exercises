@@ -2,17 +2,17 @@
 
 {% block content %}
 
-<h1>HELLO</h1>
+
 
 {%if employee%}
-<h1>{{employee.username}}</h1>
+<h1>Hello {{employee.username.upper()}}</h1>
 {% endif %}
 
 <h1>Favorited</h1>
 
 <ol>
-{% for message in messages %}
-    <li><p>{{message}}</p>
+{% for favorite in employee.favorites%}
+    <li><p>{{favorite.message}} | {{favorite.employee.username}}</p>
 
     </li>
     {% endfor %}

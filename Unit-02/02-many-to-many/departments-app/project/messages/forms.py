@@ -8,6 +8,7 @@ class AddMessageForm(FlaskForm):
     message = StringField('Message', [validators.Length(min=1)])
 
 
-
+class EditMessageForm(FlaskForm):
+    message = StringField('New Message', [validators.Length(min=1)])
 
 

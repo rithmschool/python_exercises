@@ -2,18 +2,18 @@
 
 {% block content %}
 
-<h1>HELLO</h1>
+
 
 {%if employee%}
-<h1>{{employee.username}}</h1>
+<h1>Hello {{employee.username.upper()}}</h1>
 {% endif %}
 
 <h1>All of Your Messages</h1>
 
 <ol>
 {% for message in messages %}
-    <li><p>{{message.message}}</p>
-
+    <li><p>{{message.message}} </p>
+<p><a href="{{url_for('messages.edit', employee_id=employee.id, message_id=message.id)}}">Edit Message</a></p>
     </li>
     {% endfor %}
 

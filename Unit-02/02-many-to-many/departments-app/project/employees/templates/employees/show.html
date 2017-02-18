@@ -10,7 +10,7 @@
 {% endif %}
 <ol>
 {% for message in messages %}
-    <li><p>{{message.message}}</p>
+    <li><p>{{message.message}} - {{message.employee.username}}</p>
     <form action="{{url_for('messages.favorite', employee_id = employee.id, message_id = message.id)}}" method="POST">
          {{ form.hidden_tag() }}
          <div class = "submit-post-button-div" >
