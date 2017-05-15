@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Here are the https://news.google.com headlines with the keyword: {{keyword}}</h1>
+
+<ul>
+{% for x in lst_results %}
+  <li>Article: {{x[0]}}; Headline: <a href="{{x[1]}}" target="_blank">{{x[1]}}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
