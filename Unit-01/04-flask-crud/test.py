@@ -23,7 +23,7 @@ class TestSnackMethods(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_edit(self):
-        tester = app.test_client(self)
+        tester = app.test_client(self)  
         response = tester.get('/snacks/1', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
