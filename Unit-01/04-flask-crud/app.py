@@ -5,11 +5,11 @@ from snack import Snack
 app = Flask(__name__)
 modus = Modus(app) # so we can override default form methods
 
-snickers = Snack(name='snickers',kind='chocolate')
-skittles = Snack(name='skittles',kind='candy')
+# snickers = Snack(name='snickers',kind='chocolate')
+# skittles = Snack(name='skittles',kind='candy')
 
-snack_list = [snickers, skittles]
-# snack_list = []
+# snack_list = [snickers, skittles]
+snack_list = []
 
 @app.route('/snacks', methods=["GET", "POST"])
 def index():
@@ -30,12 +30,12 @@ def show(id):
     # find a snack based on its id
     found_snack = next(snack for snack in snack_list if snack.id == id)
 
-    if request.method == b"PATCH":
+    if request.method == "PATCH":
         found_snack.name = request.form["name"]
         found_snack.kind = request.form["kind"]
         return redirect(url_for('index'))
 
-    if request.method == b"DELETE":
+    if request.method == "DELETE":
         snack_list.remove(found_snack)
         return redirect(url_for('index'))
 
