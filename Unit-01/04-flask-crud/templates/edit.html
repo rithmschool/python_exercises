@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <form action="{{url_for('show', id=snack.id)}}?_method=PATCH" method="POST">
-    <input type="text" name="name" value="{{snack.name}}" required>
-    <input type="text" name="kind" value="{{snack.kind}}" required>
+    <label for="name">Snack name: </label>
+    <input type="text" name="name" value="{{snack.name}}" id="name" required>
+    <br>
+    <label for="kind">Snack kind: </label>
+    <input type="text" name="kind" value="{{snack.kind}}" id="kind" required>
     <input type="submit" value="Add a snack">
 </form>
+<br>
 <form action="{{url_for('show', id=snack.id)}}?_method=DELETE" method="POST">
     <input type="submit" value="Delete a snack">
 </form>
