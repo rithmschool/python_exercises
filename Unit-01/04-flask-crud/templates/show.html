@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h1>You have selected {{ snack.name }}, which is a {{ snack.kind }} type of snack.</h1>
+	<a href="{{ url_for('index') }}">See all the snacks</a>
+	<br>
+	<a href="{{ url_for('edit', id=snack.id) }}">Edit this snack</a>
+{% endblock %}
