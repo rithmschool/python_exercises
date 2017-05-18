@@ -6,9 +6,9 @@ User app index.html
 {% block content %}
 <h1>All the users</h1>
 <ul>
-    id, username, email
+    id, username, email, first name
     {% for user in users %}
-    <li><a href="{{url_for('show', id=user.id)}}">{{ user.id }}</a> {{ user.username }} {{ user.email }}</li>
+    <li><a href="{{url_for('show', id=user.id)}}">{{ user.id }}</a> {{ user.username }} {{ user.email }} {{ user.first_name }}</li>
     {% endfor %}
 </ul>
 <p>
