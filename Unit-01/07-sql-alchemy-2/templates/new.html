@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+User app new.html
+{% endblock %}
+
+{% block content %}
+<h1>Add a new user</h1>
+<form action="{{url_for('index')}}" method="POST">
+    <label for="username">Username: </label>
+    <input type="text" name="username" placeholder="username" id="username" required>
+    <label for="email">Email: </label>
+    <input type="text" name="email" placeholder="email" id="email" required>
+    <input type="submit" value="Add a user">
+</form>
+<p>
+    <a href="{{url_for('index')}}">See all the users</a>
+</p>
+{% endblock %}

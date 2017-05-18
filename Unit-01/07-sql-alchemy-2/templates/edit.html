@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+User app edit.html
+{% endblock %}
+
+{% block content %}
+<h1>Edit: {{ user.username }}</h1>
+<form action="{{url_for('show', id=user.id)}}?_method=PATCH" method="POST">
+    <label for="username">Username: </label>
+    <input type="text" name="username" value="{{user.username}}" id="username" required>
+    <label for="email">Email: </label>
+    <input type="text" name="email" value="{{user.email}}" id="email" required>
+    <input type="submit" value="Edit user info">
+</form>
+<p></p>
+<form action="{{url_for('show', id=user.id)}}?_method=DELETE" method="POST">
+    <input type="submit" value="Delete user">
+</form>
+<p>
+    <a href="{{url_for('index')}}">See all the users</a>
+</p>
+<p>
+    <a href="{{url_for('show', id=user.id)}}">Show this user</a> 
+</p>
+{% endblock %}
