@@ -54,12 +54,14 @@ def show(id):
         db.session.delete(delete_snack)
         db.session.commit()
         return redirect(url_for('index'))
-
-    return render_template('show.html', snack=Snack.query.get(id))
+    
+    snack = Snack.query.filter_by(id=id).first_or_404() 
+    # raises 404 errors instead of returning None
+    return render_template('show.html', snack=snack)
 
 @app.route('/snacks/<int:id>/edit')
 def edit(id):
     return render_template('edit.html', snack=Snack.query.get(id))
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    app.run(port=3000)
