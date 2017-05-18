@@ -18,19 +18,21 @@ class User(db.Model):
     username = db.Column(db.Text)
     email = db.Column(db.Text)
     first_name = db.Column(db.Text)
+    last_name = db.Column(db.Text)
 
-    def __init__(self, username, email, first_name):
+    def __init__(self, username, email, first_name, last_name):
         self.username = username
         self.email = email
         self.first_name = first_name
+        self.last_name = last_name
     
     def __repr__(self):
-        return "Username: {}, email: {}, first name: {}".format(self.username, self.email, self.first_name)
+        return "Username: {}, email: {}, first name: {}, last name: {}".format(self.username, self.email, self.first_name, self.last_name)
 
 @app.route('/users', methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        db.session.add(User(request.form['username'], request.form['email'], request.form['first_name']))
+        db.session.add(User(request.form['username'], request.form['email'], request.form['first_name'], request.form['last_name']))
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('index.html', users=User.query.all())
@@ -46,6 +48,7 @@ def show(id):
         update_user.username = request.form['username']
         update_user.email = request.form['email']
         update_user.first_name = request.form['first_name']
+        update_user.last_name = request.form['last_name']
         db.session.add(update_user)
         db.session.commit()
         return redirect(url_for('index'))
