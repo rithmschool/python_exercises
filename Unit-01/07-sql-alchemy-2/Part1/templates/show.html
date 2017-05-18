@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h1>Here's some handy info about this user!</h1>
+	<p>
+		This user is named {{ user.first_name }} {{ user.last_name }}. This user's username is {{ user.username }}. This user's email is {{ user.email }}.
+	</p>
+	<a href="{{url_for('index')}}">See all users here</a>
+	<br>
+	<a href="{{url_for('edit', user_id=user.id)}}">Edit this user</a>
+{% endblock %}
+		
