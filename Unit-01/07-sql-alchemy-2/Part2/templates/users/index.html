@@ -1,8 +1,10 @@
 {% extends 'users/base.html' %}
 {% block content %}
+	<h1>All users</h1>
 	<ul>
 	{% for user in users %}
-		<li>{{ user.username }}: {{ user.first_name }} {{ user.last_name }} ({{ user.email }})</li>
+		<li><a href={{ url_for('show', user_id=user.id) }}>{{ user.username }}</a>: {{ user.first_name }} {{ user.last_name }} ({{ user.email }})
+		</li>
 	{% endfor %}
 	</ul>
 {% endblock %}
