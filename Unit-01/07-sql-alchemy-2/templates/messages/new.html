@@ -1,0 +1,21 @@
+{% extends './base.html' %}
+{% block title %}
+user app add new message
+{% endblock %}
+
+{% block content %}
+<h1>add a new message</h1>
+<form action="{{url_for('m_index', id=id)}}" method="POST">
+    <label for="message">message: </label>
+    <input type="text" name="message" placeholder="message" id="message" required>
+    <p></p>
+    <label for="user_id">user id: </label>
+    <input type="text" name="user_id" placeholder="user id" id="user_id" required>
+    <p></p>
+    <input class="btn btn-success" type="submit" value="add a message">
+</form>
+<p></p>
+<p>
+    <a href="{{url_for('m_index', id=id)}}">see all the messages</a>
+</p>
+{% endblock %}

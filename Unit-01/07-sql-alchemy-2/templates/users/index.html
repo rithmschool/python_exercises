@@ -1,0 +1,33 @@
+{% extends './base.html' %}
+{% block title %}
+user app users index
+{% endblock %}
+
+{% block content %}
+<h1>users index</h1>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <th>user id</th>
+            <th>username</th>
+            <th>email</th>
+            <th>first name</th>
+            <th>last name</th>
+        </thead>
+        <tbody>
+            {% for user in users%}
+            <tr>
+                <td><a href="{{url_for('show', id=user.id)}}">{{ user.id }}</a></td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<p>
+    <a class="btn btn-primary" href="{{url_for('new')}}">add a new user</a>
+</p>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends './base.html' %}
+{% block title %}
+user app message {{message.id}} page
+{% endblock %}
+
+{% block content %}
+<h1>message information</h1>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <th>id</th>
+            <th>message</th>
+            <th>user id</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ message.id }}</td>
+                <td>{{ message.text }}</td>
+                <td>{{ message.user.username }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p></p>
+<p>
+    <a class="btn btn-warning" href="{{url_for('m_edit', id=id, mid=message.id)}}">edit this message</a> 
+</p>
+<p>
+    <a href="{{url_for('m_index', id=id)}}">see all the messages of user {{ id }}</a>
+</p>
+{% endblock %}

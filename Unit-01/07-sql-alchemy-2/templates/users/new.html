@@ -1,22 +1,27 @@
-{% extends 'base.html' %}
+{% extends './base.html' %}
 {% block title %}
-User app new.html
+user app add new user
 {% endblock %}
 
 {% block content %}
-<h1>Add a new user</h1>
+<h1>add a new user</h1>
 <form action="{{url_for('index')}}" method="POST">
     <label for="username">Username: </label>
     <input type="text" name="username" placeholder="username" id="username" required>
+    <p></p>
     <label for="email">Email: </label>
     <input type="text" name="email" placeholder="email" id="email" required>
+    <p></p>
     <label for="first_name">First name: </label>
     <input type="text" name="first_name" placeholder="first name" id="first_name" required>
+    <p></p>
     <label for="last_name">Last name: </label>
     <input type="text" name="last_name" placeholder="last name" id="last_name" required>
-    <input type="submit" value="Add a user">
+    <p></p>
+    <input class="btn btn-success" type="submit" value="add a user">
 </form>
+<p></p>
 <p>
-    <a href="{{url_for('index')}}">See all the users</a>
+    <a href="{{url_for('index')}}">see all the users</a>
 </p>
 {% endblock %}

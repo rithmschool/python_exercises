@@ -1,0 +1,35 @@
+{% extends './base.html' %}
+{% block title %}
+user app messages of user {{ id }}
+{% endblock %}
+
+{% block content %}
+<h1>all the messages posted by user {{ id }}</h1>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <th>message id</th>
+            <th>message text</th>
+            <th>posted by user</th>
+        </thead>
+        <tbody>
+            {% for message in messages %}
+            <tr>
+                <td><a href="{{url_for('m_show', id=message.user.id, mid=message.id)}}">{{ message.id }}</a></td>
+                <td>{{ message.text }}</td>
+                <td>{{ message.user.username }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<p>
+    <a class="btn btn-primary" href="{{url_for('m_new', id=id)}}">add a new message</a>
+</p>
+<p>
+    <a href="{{url_for('show', id=id)}}">back to users page</a>
+</p>
+<p>
+    <a href="{{url_for('index')}}">see all the users</a>
+</p>
+{% endblock %}

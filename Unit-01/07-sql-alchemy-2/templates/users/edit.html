@@ -1,29 +1,34 @@
-{% extends 'base.html' %}
+{% extends './base.html' %}
 {% block title %}
-User app edit.html
+user app edit {{ user.username }}
 {% endblock %}
 
 {% block content %}
-<h1>Edit: {{ user.username }}</h1>
+<h1>edit: {{ user.username }}</h1>
 <form action="{{url_for('show', id=user.id)}}?_method=PATCH" method="POST">
     <label for="username">Username: </label>
     <input type="text" name="username" value="{{user.username}}" id="username" required>
+    <p></p>
     <label for="email">Email: </label>
     <input type="text" name="email" value="{{user.email}}" id="email" required>
+    <p></p>
     <label for="first_name">First name: </label>
     <input type="text" name="first_name" value="{{user.first_name}}" id="first_name" required>
+    <p></p>
     <label for="last_name">Last name: </label>
     <input type="text" name="last_name" value="{{user.last_name}}" id="last_name" required>
-    <input type="submit" value="Edit user info">
+    <p></p>
+    <input class="btn btn-warning" type="submit" value="edit user info">
 </form>
 <p></p>
 <form action="{{url_for('show', id=user.id)}}?_method=DELETE" method="POST">
-    <input type="submit" value="Delete user">
+    <input class="btn btn-danger" type="submit" value="delete user">
 </form>
+<p></p>
 <p>
-    <a href="{{url_for('index')}}">See all the users</a>
+    <a href="{{url_for('index')}}">see all the users</a>
 </p>
 <p>
-    <a href="{{url_for('show', id=user.id)}}">Show this user</a> 
+    <a href="{{url_for('show', id=user.id)}}">show {{user.username}}'s user page</a> 
 </p>
 {% endblock %}
