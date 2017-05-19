@@ -15,8 +15,8 @@ class User(db.Model):
 
     # id, username, email, first_name, last_name
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.Text)
-    email = db.Column(db.Text)
+    username = db.Column(db.Text, unique=True, nullable=False)
+    email = db.Column(db.Text, unique=True, nullable=False)
     first_name = db.Column(db.Text)
     last_name = db.Column(db.Text)
 
@@ -68,7 +68,7 @@ def show(user_id):
 @app.route('/users/<int:user_id>/edit')
 def edit(user_id):
     found_user = User.query.get_or_404(user_id)
-    return render_template('edit.html', user=found_user)
+    return render_template('edit.html', user=found_user) # this lets us prepopulate the form fields
 
 if __name__ == '__main__':
     app.run(debug=True,port=3000)

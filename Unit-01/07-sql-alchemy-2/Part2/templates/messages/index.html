@@ -1,0 +1,8 @@
+{% extends 'messages/base.html' %}
+{% block content %}
+	<ul>{{ user.first_name}}'s messages:
+	{% for message in user.messages %}
+		<li>{{ message.content }}</li>
+	{% endfor %}
+	</ul>
+{% endblock %}
