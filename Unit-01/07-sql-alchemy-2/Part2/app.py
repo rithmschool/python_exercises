@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_modus import Modus
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 modus = Modus(app)
@@ -131,5 +132,11 @@ def edit_msg(user_id,msg_id):
     return render_template('messages/edit.html', user=found_user, message=found_message)
 
 
+# If we are in production, make sure we DO NOT use the debug mode
+if os.environ.get('ENV') == 'production':
+    debug = False
+else:
+    debug = True
+
 if __name__ == '__main__':
-    app.run(debug=True,port=3000)
+    app.run(debug=debug)
