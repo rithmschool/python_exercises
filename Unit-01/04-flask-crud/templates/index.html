@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<ul>
+	  {% for val in snacks %}
+		<li>{{val["name"]}}</li>
+	  {% endfor %}
+</ul>
+{% endblock %}

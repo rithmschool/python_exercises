@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}
+Edit message
+{% endblock %}
+
+{% block content %}
+<form action="{{url_for('messages.show', user_id=user.id, id=message.id)}}?_method=PATCH" method="POST">
+	{{ form.csrf_token }}
+	<p>
+		{{ form.message }}
+    <span>
+		{% if form.message.errors %}
+			{% for error in form.message.errors %}
+				{{ error }}
+			{% endfor %}
+		{% endif %}
+    </span>
+	</p>
+	<button type="submit">Edit message</button>
+</form>
+<form action="{{url_for('messages.show', user_id=user.id, id=message.id)}}?_method=DELETE" method="POST">
+	<button type="submit">Delete message</button>
+</form>
+{% endblock %}
