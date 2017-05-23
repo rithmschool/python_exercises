@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for history in owner.histories %}
+	<p>
+		{{ owner.first_name}} has lived in {{ history.city_lived_in }}.
+	</p>
+{% endfor %}
+
+{% endblock %}

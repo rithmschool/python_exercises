@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Add new details to {{owner.first_name}}'s history</h1>
+
+<form action="{{url_for('histories.index', owner_id=owner.id)}}" method="POST">
+	
+	{{ form.csrf_token }}
+	<p>
+		{{ form.city_lived_in(placeholder="San Francisco") }}
+		<span>
+			{% if form.city_lived_in.errors %}
+				{% for error in form.city_lived_in.errors %}
+					{{ error }}
+				{% endfor %}
+			{% endif %}
+		</span>
+	</p>
+	<button type="submit">Add!</button>
+
+</form>
+
+{% endblock %}

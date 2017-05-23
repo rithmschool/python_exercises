@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Edit the city that {{owner.first_name}} has lived in called {{history.city_lived_in}}</h1>
+
+<form action="{{ url_for('histories.show', owner_id=owner.id, history_id=history.id) }}?_method=PATCH" method="POST">
+	
+	{{ form.csrf_token }}
+	<p>
+		{{ form.city_lived_in(placeholder="San Francisco") }}
+		<span>
+			{% if form.city_lived_in.errors %}
+				{% for error in form.city_lived_in.errors %}
+					{{ error }}
+				{% endfor %}
+			{% endif %}
+		</span>
+
+	</p>
+	<button type="submit">Submit edits</button>
+</form>
+
+{% endblock %}
