@@ -4,8 +4,9 @@ from flask import Flask
 # create an instance of the Flask class
 app = Flask(__name__)
 
-@app.route('/add/<num1>/<num2>')
-def add(num1, num2):
+@app.route('/math/<op>/<num1>/<num2>')
+def operation(op, num1, num2):
+	operation = 0
 	try:
 		num1 = int(num1)
 		num2 = int(num2)
@@ -13,11 +14,20 @@ def add(num1, num2):
 		num1 = float(num1)
 		num2 = float(num2)
 
-	sum = num1 + num2
-	return str(sum)
+	if op == 'add':
+		operation = num1 + num2
+	elif op == 'subtract':
+		operation = num1 - num2
+	elif op == 'multiply':
+		operation = num1 * num2
+	elif op == 'divide':
+		operation = num1 / num2
 
-@app.route('/subtract/<num1>/<num2>')
-def subtract(num1, num2):
+	return str(operation)
+
+@app.route('/<op>/<num1>/<num2>')
+def add(op, num1, num2):
+	operation = 0
 	try:
 		num1 = int(num1)
 		num2 = int(num2)
@@ -25,32 +35,16 @@ def subtract(num1, num2):
 		num1 = float(num1)
 		num2 = float(num2)
 
-	diff = num1 - num2
-	return str(diff)
+	if op == 'add':
+		operation = num1 + num2
+	elif op == 'subtract':
+		operation = num1 - num2
+	elif op == 'multiply':
+		operation = num1 * num2
+	elif op == 'divide':
+		operation = num1 / num2
 
-@app.route('/multiply/<num1>/<num2>')
-def multiply(num1, num2):
-	try:
-		num1 = int(num1)
-		num2 = int(num2)
-	except ValueError:
-		num1 = float(num1)
-		num2 = float(num2)
-
-	multiply = num1 * num2
-	return str(multiply)
-
-@app.route('/divide/<num1>/<num2>')
-def divide(num1, num2):
-	try:
-		num1 = int(num1)
-		num2 = int(num2)
-	except ValueError:
-		num1 = float(num1)
-		num2 = float(num2)
-
-	divide = num1 / num2
-	return str(divide)
+	return str(operation)
 
 if __name__ == "__main__":
 	app.run(debug=True,port=3000)
