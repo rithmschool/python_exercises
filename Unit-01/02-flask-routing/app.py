@@ -21,7 +21,10 @@ def operation(op, num1, num2):
 	elif op == 'multiply':
 		operation = num1 * num2
 	elif op == 'divide':
-		operation = num1 / num2
+		try:
+			operation = num1 / num2
+		except ZeroDivisionError:
+			return "Infinity"
 
 	return str(operation)
 
@@ -42,7 +45,10 @@ def add(op, num1, num2):
 	elif op == 'multiply':
 		operation = num1 * num2
 	elif op == 'divide':
-		operation = num1 / num2
+		try:
+			operation = num1 / num2
+		except ZeroDivisionError:
+			return "Infinity"
 
 	return str(operation)
 
