@@ -29,30 +29,41 @@ def index():
 
 @app.route('/snacks/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def show(id):
-    found_snack = next(snack for snack in snack_list if snack.id == id)
-    if request.method == b'PATCH':
-        found_snack.name = request.form.get('name')
-        found_snack.kind = request.form.get('kind')
+    if id > len(snack_list):
+        return render_template('404.html')
+    else:
+        found_snack = next(snack for snack in snack_list if snack.id == id)
+        if request.method == b'PATCH':
+            found_snack.name = request.form.get('name')
+            found_snack.kind = request.form.get('kind')
 
-        return redirect(url_for('index'))
+            return redirect(url_for('index'))
 
-    if request.method == b'DELETE':
-        snack_list.remove(found_snack)
-        
-        return redirect(url_for('index'))
+        if request.method == b'DELETE':
+            snack_list.remove(found_snack)
 
-    return render_template('show.html', snack=found_snack)
+            return redirect(url_for('index'))
+
+        return render_template('show.html', snack=found_snack)
 
 
 @app.route('/snacks/<int:id>/edit')
 def edit(id):
-    found_snack = next(snack for snack in snack_list if snack.id == id)
-    return render_template('edit.html', snack=found_snack)
+    if id > len(snack_list):
+        return render_template('404.html')
+    else:
+        found_snack = next(snack for snack in snack_list if snack.id == id)
+        return render_template('edit.html', snack=found_snack)
 
 
 @app.route('/snacks/new')
 def new():
     return render_template('new.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')
 
 
 if __name__ == '__main__':
