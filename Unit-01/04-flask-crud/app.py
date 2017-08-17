@@ -5,12 +5,11 @@ from flask_modus import Modus
 app = Flask(__name__)
 modus = Modus(app)
 
-# snack1 = Snack(name='GFBrownie', kind='Gluten Free')
-# snack2 = Snack(name='Ground Oats', kind='Organic')
-# snack3 = Snack(name='Protein Bar', kind='GMO')
+snack1 = Snack(name='GFBrownie', kind='Gluten Free')
+snack2 = Snack(name='Ground Oats', kind='Organic')
+snack3 = Snack(name='Protein Bar', kind='GMO')
 
-# snack_list = [snack1, snack2, snack3]
-snack_list = []
+snack_list = [snack1, snack2, snack3]
 
 @app.route('/')
 def root():
