@@ -31,13 +31,18 @@ def index():
 def new():
     return render_template('new.html')
 
-@app.route('/show/<int:id>', methods=["GET", "PATCH"])
+@app.route('/snacks/<int:id>', methods=["GET", "PATCH", "DELETE"])
 def show(id):
     found_snack = [snack for snack in snacks if snack.id == id][0]
-    from IPython import embed; embed()
+
     if request.method == b'PATCH':
         found_snack.name = request.form['name']
         found_snack.kind = request.form['kind']
+        return redirect(url_for('index'))
+
+    if request.method == b'DELETE':
+        snacks.remove(found_snack)
+        return redirect(url_for('index'))
 
     return render_template('show.html', snack=found_snack)
 
@@ -45,7 +50,6 @@ def show(id):
 def edit(id):
     # Capture the snack they are looking for. Find by Id
     found_snack = [snack for snack in snacks if snack.id == id][0]
-    from IPython import embed; embed()
     return render_template('edit.html', snack=found_snack)
 
 
