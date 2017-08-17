@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 style="margin-bottom: 0px;">Let's see some more information about this snack!</h2>
+    <br>
+    <ul style="margin-top: 0px;">
+    	<li>The name of the snack is: {{snack.name}}</li>
+    	<li>Its kind is: {{snack.kind}}</li>
+    </ul>
+    <button onclick="window.location.href='{{ url_for('update' , id=snack.id) }}';" class="fsSubmitButton">Edit this Snack</button>
+    <button style="margin-left: 20px;" onclick="window.location.href='{{url_for('index')}}';" class="fsSubmitButton">See All Snacks</button>
+{% endblock %}
