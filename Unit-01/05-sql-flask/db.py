@@ -2,15 +2,16 @@ import psycopg2
 import psycopg2.extras
 
 def connect():
-    conn = psycopg2.connect("dbname=flask-sql-snacks-test")
+    # conn = psycopg2.connect("dbname=flask-sql-snacks-test")
+    conn = psycopg2.connect("dbname=flask-sql-snacks")
     return conn
 
 def create_table():
     conn = connect()
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS snacks (id serial PRIMARY KEY, name text, kind text);")
-    # cur.execute("insert into snacks (name, kind) values (%s, %s)", ("apple", "fruit"))
-    # cur.execute("insert into snacks (name, kind) values (%s, %s)", ("M&Ms", "chocolate"))
+    cur.execute("insert into snacks (name, kind) values (%s, %s)", ("apple", "fruit"))
+    cur.execute("insert into snacks (name, kind) values (%s, %s)", ("M&Ms", "chocolate"))
     conn.commit()
     connect().close()
 
