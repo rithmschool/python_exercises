@@ -18,15 +18,43 @@ def close():
 # Implement these methods!
 
 def find_all_snacks():
-    pass
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("select * from snacks")
+    snacks = cur.fetchall()
+    cur.close()
+    conn.close()
+    return snacks
 
 def create_snack(name, kind):
-    pass
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("insert into snacks (name, kind) values (%s, %s)", (name,kind))
+    conn.commit()
+    cur.close()
+    conn.close()
 
 def find_snack(id):
-    pass
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("select * from snacks where id=(%s)", (id,))
+    found_snack = cur.fetchone()
+    cur.close()
+    conn.close()
+    return found_snack
 
-def edit_snack(name, kind, id):
-    pass
+def edit_snack(id, name, kind):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("UPDATE snacks SET name=(%s), kind=(%s) where id=(%s)", (name,kind,id))
+    conn.commit()
+    cur.close()
+    conn.close()
+
 def remove_snack(id):
-    pass
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("delete from snacks where id=(%s)", (id,))
+    conn.commit()
+    cur.close()
+    conn.close()

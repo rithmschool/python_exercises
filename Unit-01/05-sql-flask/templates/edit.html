@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Edit information for {{found_snack[1]}}</h3>
+
+<form action="{{url_for('show', id=found_snack[0])}}?_method=PATCH" method="POST">
+	<input type="text" name="id" value="{{found_snack[0]}}">
+	<input type="text" name="name" value="{{found_snack[1]}}">
+	<input type="text" name="type" value="{{found_snack[2]}}">
+	<!-- <input type="text" name="deliciousness" value="{{found_snack.deliciousness}}"> -->
+	<input type="submit">
+</form>
+
+{% endblock %}
