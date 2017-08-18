@@ -14,6 +14,7 @@ class Snacks(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.Text)
 	kind = db.Column(db.Text)
+	tastes_good = db.Column(db.Boolean)
 
 	def __init__(self,name,kind):
 		self.name = name
@@ -42,27 +43,33 @@ def new():
 
 @app.route('/snacks/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def show(id):
-	found_snack = Snacks.query.get(id)
+	if id in [snack.id for snack in Snacks.query.all()]:
+		found_snack = Snacks.query.get(id)
 	
-	if request.method == b'PATCH':
-		found_snack.name = request.form.get('name')
-		found_snack.kind = request.form.get('kind')
-		db.session.add(found_snack)
-		db.session.commit()
-		return redirect(url_for('index'))
+		if request.method == b'PATCH':
+			found_snack.name = request.form.get('name')
+			found_snack.kind = request.form.get('kind')
+			db.session.add(found_snack)
+			db.session.commit()
+			return redirect(url_for('index'))
 
-	if request.method == b'DELETE':
-		db.session.delete(found_snack)
-		db.session.commit()
-		return redirect(url_for('index'))
+		if request.method == b'DELETE':
+			db.session.delete(found_snack)
+			db.session.commit()
+			return redirect(url_for('index'))
 
-	return render_template('show.html', found_snack=found_snack)
+		return render_template('show.html', found_snack=found_snack)
+	else:
+		return render_template('404.html')
 
 @app.route('/snacks/<int:id>/edit')
 def edit(id):
-	found_snack = Snacks.query.filter_by(id=id).first()
-	
-	return render_template('edit.html', found_snack=found_snack)
+	if id in [snack.id for snack in Snacks.query.all()]:
+		found_snack = Snacks.query.filter_by(id=id).first()
+		
+		return render_template('edit.html', found_snack=found_snack)
+	else:
+		return render_template('404.html')
 
 
 if __name__ == "__main__":
