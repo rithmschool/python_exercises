@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<form action="{{url_for('new')}}">
+		<input type ="submit" value ="Add New Snack">
+	</form>
+	<br>
+
+	<table border=1>
+
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Kind</th>
+		</tr>
+
+		{% for snacks in snacks %}
+		
+		<tr>
+			<td><a href="{{url_for('show', id = snacks.id)}}">{{snacks.id}}</a></td>
+			<td><a href="{{url_for('edit', id = snacks.id)}}">{{snacks.name}}</a></td>
+			<td><a href="{{url_for('edit', id = snacks.id)}}">{{snacks.kind}}</a></td>
+		</tr>
+
+		{% endfor %}
+
+	</table>
+
+{% endblock %}
