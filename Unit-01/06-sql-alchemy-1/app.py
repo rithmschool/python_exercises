@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect, url_for, render_template
 from flask_modus import Modus
-from snack import Snack
-import db
+# from snack import Snack
+# import db
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -15,13 +15,15 @@ class Snack(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.Text)
 	kind = db.Column(db.Text)
+	is_good = db.Column(db.Boolean)
 
-	def __init__(self, name, kind):
+	def __init__(self, name, kind, is_good):
 		self.name = name
 		self.kind = kind
+		self.is_good = is_good
 
 	def __repr__(self):
-		return "Name: {} / Kind: {}".format(self.name, self.kind)
+		return "Name: {} / Kind: {} / Is Good? {}".format(self.name, self.kind, self.is_good)
 
 
 @app.route('/')
