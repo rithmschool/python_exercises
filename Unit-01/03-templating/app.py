@@ -11,7 +11,7 @@ def calc():
   return render_template("calc.html")
 
 @app.route('/math')
-def print_name():
+def math():
   num1 = float(request.args.get('num1'))
   num2 = float(request.args.get('num2'))
   calc = request.args.get('calculation')

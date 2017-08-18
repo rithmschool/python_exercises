@@ -5,3 +5,6 @@ It's time for more refactoring! This time, refactor your `snack` app to use Flas
 ### Bonus
 
 Research how to handle 404 errors using Flask-SQLAlchemy, and add a 404 page to your app that will get sent if someone tries to find a snack with an invalid id.
+
+
+db name  :   snacks-sql-alchemy
