@@ -2,7 +2,7 @@ import psycopg2
 import psycopg2.extras
 
 def connect():
-    conn = psycopg2.connect("dbname=flask-sql-snacks")
+    conn = psycopg2.connect("dbname=flask-sql-snacks-test")
     return conn
 
 def create_table():
@@ -18,15 +18,58 @@ def close():
 # Implement these methods!
 
 def find_all_snacks():
-    pass
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM snacks order by id")
+    snacks = cur.fetchall()
+    connect().close()
+    return snacks
 
 def create_snack(name, kind):
-    pass
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO snacks (name, kind) VALUES (%s, %s)", (name, kind))
+    conn.commit()
+    connect().close()
 
 def find_snack(id):
-    pass
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM snacks where snacks.id = %s", (id,))
+    found_snack = cur.fetchone()
+    connect().close()
+    return found_snack
 
 def edit_snack(name, kind, id):
-    pass
+    conn=connect()
+    cur=conn.cursor()
+    cur.execute("UPDATE snacks SET name = (%s), kind = (%s) where snacks.id = %s", (name,kind,id))
+    conn.commit()
+    connect().close()
+
+    
 def remove_snack(id):
-    pass
+    conn=connect()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM snacks WHERE id = %s", (id,))
+    conn.commit()
+    connect().close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

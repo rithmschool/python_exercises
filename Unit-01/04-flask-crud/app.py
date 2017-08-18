@@ -34,7 +34,11 @@ def new():
 
 @app.route('/snacks/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def show(id):
-	found_snack = [snack for snack in snack_list if snack.id == id][0]
+	if len([snack for snack in snack_list if snack.id == id][0]) == 0:
+		found_snack = [snack for snack in snack_list if snack.id == id][0]
+	else:
+		return render_template('404.html')
+
 	if request.method == b"PATCH":
 		found_snack.name = request.form.get('name')
 		found_snack.kind = request.form.get('kind')
@@ -47,7 +51,10 @@ def show(id):
 
 @app.route('/snacks/<int:id>/edit')
 def edit(id):
-	found_snack = [snack for snack in snack_list if snack.id == id][0]
+	if len([snack for snack in snack_list if snack.id == id][0]) == 0:
+		found_snack = [snack for snack in snack_list if snack.id == id][0]
+	else:
+		return render_template('404.html')	
 	return render_template('edit.html', snack=found_snack)
 
 
