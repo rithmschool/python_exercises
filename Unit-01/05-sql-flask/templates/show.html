@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     <p>
-        My snack is {{snack.name}}.
+        My snack is {{snack[1]}}.
     </p>
     <a href="{{url_for('index')}}">Show me da snacks!</a> 
     <br>
-    <a href="{{url_for('edit', id=snack.id)}}">Change this snack!</a>
+    <a href="{{url_for('edit', name=snack[1],kind=snack[2],id=snack[0])}}">Change this snack!</a>
 {% endblock %}

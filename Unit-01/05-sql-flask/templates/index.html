@@ -5,7 +5,7 @@
 	<p>
 	<ul>
 	{% for snack in snacks %}
-		<li><a href="{{url_for('show',id=snack.id)}}">{{ snack.name }}</a></li>
+		<li><a href="{{url_for('show',id=snack[0])}}">{{ snack[1] }}</a>: <a href="{{url_for('show',id=snack[0])}}">{{ snack[2] }}</a></li>
 	{% endfor %}
 	</ul>
 	</p>
