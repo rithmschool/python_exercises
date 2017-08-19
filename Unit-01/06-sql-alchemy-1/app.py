@@ -1,22 +1,46 @@
 from flask import Flask, render_template,url_for,redirect,request
 ##from classSnack import Snack
 from flask_modus import Modus
-import db
+
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 modus = Modus(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/snack-db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+class Snack(db.Model):
+
+	__tablename__ = "snacks" 
+
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.Text)
+	kind = db.Column(db.Integer)
+	calories = db.Column(db.Text)
+
+	def __init__(self, name, kind):
+	    self.name = name
+	    self.kind = kind
+
+	def __repr__(self):
+	    return "This {} is a {}".format(self.name, self.kind)
+
+
 
 @app.route('/')
 def root():
-	pass
+	return redirect(url_for('index'))
 
 @app.route('/snacks', methods=["GET","POST"])
 def index():
 	if request.method == "POST":
-		db.add_snack(request.form.get('name'),request.form.get('kind'))
+		new_snack = Snack(request.form.get('name'),request.form.get('kind'))
+		db.session.add(new_snack)
+		db.session.commit()
 		return redirect(url_for('index'))
 
-	return render_template('index.html', snacks=db.get_all_snacks())
+	return render_template('index.html', snacks=Snack.query.all())
 
 
 @app.route('/snacks/new')
@@ -25,21 +49,25 @@ def new():
 
 @app.route('/snacks/<int:id>', methods=["GET","PATCH","DELETE"])
 def show(id):
-	found_snack = db.find_snack(id)
+	found_snack = Snack.query.get(id)
 
 	if request.method == b"PATCH":
-		db.edit_snack(request.form.get('name'),request.form.get('kind'),id)
+		found_snack.name = request.form.get('name')
+		found_snack.kind = request.form.get('kind')
+		db.session.add(found_snack)
+		db.session.commit()
 		return redirect(url_for('index'))
 
 	if request.method == b"DELETE":
-		db.delete_snack(id)
+		db.session.delete(found_snack)
+		db.session.commit()
 		return redirect(url_for('index'))
 
 	return render_template('show.html',snack=found_snack)
 
 @app.route('/snacks/<int:id>/edit')
 def edit(id):
-	found_snack = db.find_snack(id)
+	found_snack = Snack.query.get(id)
 	##db.edit_snack(found_snack[1],found_snack[2],found_snack[0])
 	return render_template('edit.html',snack=found_snack)
 
