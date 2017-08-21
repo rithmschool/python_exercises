@@ -48,8 +48,8 @@ class BaseTestCase(TestCase):
         self.assertIn(b'chocolate', response.data)
 
     def test_update(self):
-        response = self.client.patch(
-            '/snacks/1',
+        response = self.client.post(
+            '/snacks/1?_method=PATCH',
             data=dict(name="updated", kind="information"),
             follow_redirects=True
         )
@@ -57,8 +57,8 @@ class BaseTestCase(TestCase):
         self.assertNotIn(b'hershey chocolate', response.data)
 
     def test_delete(self):
-        response = self.client.delete(
-            '/snacks/1',
+        response = self.client.post(
+            '/snacks/1?_method=DELETE',
             follow_redirects=True
         )
         self.assertNotIn(b'hershey chocolate', response.data)
