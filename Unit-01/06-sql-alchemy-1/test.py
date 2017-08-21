@@ -1,6 +1,7 @@
 from app import app,db, Snack
 from flask_testing import TestCase
 import unittest
+import re
 
 class BaseTestCase(TestCase):
     def create_app(self):
@@ -9,9 +10,9 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         db.create_all()
-        snack1 = Snack("Hershey", "Chocolate")
-        snack2 = Snack("Skittles", "Candy")
-        snack3 = Snack("Chips Ahoy", "Cookie")
+        snack1 = Snack("Hershey", "Chocolate",3)
+        snack2 = Snack("Skittles", "Candy",4)
+        snack3 = Snack("Chips Ahoy", "Cookie",3)
         db.session.add_all([snack1, snack2, snack3])
         db.session.commit()
 
@@ -21,9 +22,15 @@ class BaseTestCase(TestCase):
     def test_index(self):
         response = self.client.get('/snacks', content_type='html/text')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Hershey Chocolate', response.data)
-        self.assertIn(b'Skittles Candy', response.data)
-        self.assertIn(b'Chips Ahoy Cookie', response.data)
+        self.assertIsNotNone(re.compile(".*(Hershey).*(Chocolate)", re.DOTALL).
+            match(response.data.decode('utf-8')))
+        self.assertIsNotNone(re.compile(".*(Skittles).*(Candy)", re.DOTALL).
+            match(response.data.decode('utf-8')))
+        self.assertIsNotNone(re.compile(".*(Chips).*(Ahoy).*(Cookie)", re.DOTALL).
+            match(response.data.decode('utf-8')))
+        # self.assertIn(b'Hershey Chocolate', response.data)
+        # self.assertIn(b'Skittles Candy', response.data)
+        # self.assertIn(b'Chips Ahoy Cookie', response.data)
 
     def test_show(self):
         response = self.client.get('/snacks/1')
@@ -35,7 +42,9 @@ class BaseTestCase(TestCase):
             data=dict(name="New", kind="Student"),
             follow_redirects=True
         )
-        self.assertIn(b'New Student', response.data)
+        self.assertIsNotNone(re.compile(".*(New).*(Student)", re.DOTALL).
+            match(response.data.decode('utf-8')))
+        # self.assertIn(b'New Student', response.data)
 
     def test_edit(self):
         response = self.client.get(
@@ -45,13 +54,15 @@ class BaseTestCase(TestCase):
         self.assertIn(b'Chocolate', response.data)
 
     def test_update(self):
-        response = self.client.patch(
-            '/snacks/1',
+        response = self.client.post(
+            '/snacks/1?_method=PATCH',
             data=dict(name="updated", kind="information"),
             follow_redirects=True
         )
-        self.assertIn(b'updated information', response.data)
-        self.assertNotIn(b'Hershey Chocolate', response.data)
+        self.assertIsNotNone(re.compile(".*(updated).*(information)", re.DOTALL).
+            match(response.data.decode('utf-8')))
+        # self.assertIn(b'updated information', response.data)
+        # self.assertNotIn(b'Hershey Chocolate', response.data)
 
     def test_delete(self):
         response = self.client.delete(

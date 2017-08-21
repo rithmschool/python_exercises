@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="{{ url_for('index') }}" method="POST">
+        <label for="name" class="iLabels">Name: </label>
+        <input type="text" name="name" class="iTxtBoxes" required>
+        <label for="kind" class="iLabels">Kind: </label>
+        <input type="text" name="kind" class="iTxtBoxes" required>
+        <label for="price" class="iLabels">Price: </label>
+        <input type="number" min="1" name="price" class="iTxtBoxes" step="any" required/>
+        <input type="submit" value="Add a Snack" class="fsSubmitButton">
+    </form>
+{% endblock %}
