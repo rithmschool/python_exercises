@@ -68,9 +68,6 @@ def show(id):
 		db.session.commit()
 		return redirect(url_for('index'))
 
-	if request.method == "POST":
-		return redirect(url_for('index'))
-
 	return render_template('show.html', snack=found_snack)
 
 @app.route('/snacks/<int:id>/edit', methods=['GET'])
