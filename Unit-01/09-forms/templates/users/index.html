@@ -3,6 +3,8 @@
   <form action="{{ url_for('new') }}">
     <input type="submit" value="Add User">
   </form>
+  --------------------------------------------
+  <br>
   {% with message = get_flashed_messages() %}
     {% if messages %}
       {% for message in messages %}
@@ -16,6 +18,9 @@
     Full Name: {{ user.first_name }} {{ user.last_name }} <br>
     E-mail: {{ user.email }}
   </p>
+  <form action="{{ url_for('index_messages', user_id=user.id) }}">
+    <input type="submit" value="View Messages">
+  </form>
   <form action="{{ url_for('edit', id=user.id) }}">
     <input type="submit" value="Edit User">
   </form>

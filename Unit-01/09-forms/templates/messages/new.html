@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-  <form method = "POST" action="{{url_for('index')}}">
+  <form method = "POST" action="{{url_for('index_messages', user_id=user_id)}}">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden'%}
     <p>
@@ -8,13 +8,13 @@
       {{ field }}
       <span>
         {% if field.errors %}
-          {% for error in field.erros %}
+          {% for error in field.errors %}
             {{ error }}
           {% endfor %}
         {% endif %}
       </span>
     </p>
     {% endfor %}
-    <button type="submit">Add User</button>
+    <button type="submit">Add Message</button>
   </form>
 {% endblock %}

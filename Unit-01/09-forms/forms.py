@@ -6,3 +6,6 @@ class NewUser(FlaskForm):
     email = StringField('E-Mail', [validators.Length(min=6, max=35)])
     first_name = StringField('First Name', [validators.Length(min=1)])
     last_name = StringField('Last Name', [validators.Length(min=1)])
+
+class NewMessage(FlaskForm):
+    message = StringField('Message:', [validators.Length(min=1)])
