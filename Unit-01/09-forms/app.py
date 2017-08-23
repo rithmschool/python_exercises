@@ -131,9 +131,8 @@ def message_index(user_id):
     else:  
         user = User.query.get(user_id)
         messages = user.messages.all()
-        info = [user, messages]
 
-        return render_template('messages/index.html', info=info)
+        return render_template('messages/index.html', user=user, messages=messages)
 
 
 @app.route('/users/<int:user_id>/messages/show/<int:msg_id>', methods=['GET', 'PATCH', 'DELETE'])
