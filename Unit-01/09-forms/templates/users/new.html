@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>New User entry:</h1>
+    <form action="{{url_for('index')}}" method="POST">
+        {{ form.csrf_token }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <p>
+            {{ field.label }}
+            {{ field }}
+            <span>
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  {{ error }}
+                {% endfor %}
+              {% endif %}
+            </span>
+        </p>
+        {% endfor %}
+        <input type="submit" value="Add">
+    </form>
+{% endblock %}
