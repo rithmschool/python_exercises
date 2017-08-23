@@ -9,6 +9,7 @@ Flask-Script==2.0.5
 Flask-SQLAlchemy==2.2
 Flask-Testing==0.6.2
 Flask-WTF==0.14.2
+gunicorn==19.7.1
 ipython==6.1.0
 ipython-genutils==0.2.0
 itsdangerous==0.24
