@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>New Message entry:</h1>
+    <form action="{{url_for('message_index', user_id=user_id)}}" method="POST">
+        <p>Message length is limited to 100 characters!</p>
+        Message: <input type="text" name="message"><br>
+        <input type="submit" value="Add">
+    </form>
+{% endblock %}
