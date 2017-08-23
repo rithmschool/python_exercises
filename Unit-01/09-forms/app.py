@@ -83,9 +83,7 @@ def show(id):
 def edit(id):
     #UNABLE TO POPULATE FORM WITH PRIOR DATA!
     user = User.query.get(id)
-    form = NewUser()
-    form.populate_obj(user)
-    
+    form = NewUser(obj=user)
     return render_template('edit.html', id=user.id, form=form)
 
 if __name__ == '__main__':
