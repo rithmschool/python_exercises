@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form action="{{url_for('message_show', user_id=msg.user_id, msg_id=msg.id)}}?_method=PATCH" method="POST">
-       {{ form.csrf_token }}
-        {% for field in form if field.widget.input_type != 'hidden' %}
-          <p>
-            {{ field.label }}
-            {{ field }}
-            <span>
-              {% if field.errors %}
-                {% for error in field.errors %}
-                  {{ error }}
-                {% endfor %}
-              {% endif %}
-            </span>
-          </p>
-          {% endfor %}
-        <input type="submit" value="Submit Change"><br>
-    </form>
-    <br>
-    <form action="{{url_for('message_show', user_id=msg.user_id, msg_id=msg.id)}}?_method=DELETE" method="POST">
-        <input type="submit" value="Delete">
-    </form>
+    <h1 class="text-center">Edit Message for {{ msg.user.user_name }}</h1>
+    <div class="container">
+        <p>
+            <a href="{{url_for('message_index', user_id=msg.user_id)}}">List this user's messages</a> 
+        </p>
+      <form action="{{url_for('message_show', user_id=msg.user_id, msg_id=msg.id)}}?_method=PATCH" method="POST">
+         {{ form.csrf_token }}
+          {% for field in form if field.widget.input_type != 'hidden' %}
+            <p>
+              {{ field.label }}
+              {{ field }}
+              <span>
+                {% if field.errors %}
+                  {% for error in field.errors %}
+                    {{ error }}
+                  {% endfor %}
+                {% endif %}
+              </span>
+            </p>
+            {% endfor %}
+          <input type="submit" value="Submit Change"><br>
+      </form>
+      <br>
+      <form action="{{url_for('message_show', user_id=msg.user_id, msg_id=msg.id)}}?_method=DELETE" method="POST">
+          <input type="submit" value="Delete">
+      </form>
+    </div>
 {% endblock %}

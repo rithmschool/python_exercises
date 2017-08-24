@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>User Listing</h1>
-    <p><a href="{{url_for('new')}}">Add a new user</a></p>
-    <table>
-    <tr>
-        <th>User Name</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th></th>
-    </tr>
-    {% for user in users %}
-    <tr>
-        <td>{{ user.user_name }}</td>
-        <td>{{ user.first_name }}</td>
-        <td>{{ user.last_name }}</td>
-        <td>{{ user.email }} </td>
-        <td><a href="{{url_for('show', id=user.id)}}">View</a></td>
-    </tr>
-    {% endfor %}
-    </table>
+    <h1 class="text-center">User Listing</h1>
+    <p class="text-center"><a href="{{url_for('new')}}">Add a new user</a></p>
+    <div class="container">
+        <table class="table table-striped">
+        <tr>
+            <th>User Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td><a href="{{url_for('show', id=user.id)}}">{{ user.user_name }}</a></td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.email }} </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
 {% endblock %}

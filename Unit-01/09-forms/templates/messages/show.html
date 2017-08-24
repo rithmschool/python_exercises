@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Selected Message</h1>
-    <p>Message: {{ msg.message }}</p>
+    <h1 class="text-center">Selected Message</h1>
+    <div class="container">
+        <p>Message: {{ msg.message }}</p>
 
-    <p>
-        <a href="{{url_for('message_new', user_id=msg.user_id)}}">Add a message</a> |
-        <a href="{{url_for('message_index', user_id=msg.user_id)}}">List this user's messages</a> 
-    </p>
-    <p>
-        <a href="{{url_for('message_edit', user_id=msg.user_id, msg_id=msg.id)}}">Edit this message</a> |
-        <a href="{{url_for('index')}}">List All Users</a>
-    </p>
+        <p>
+            <a href="{{url_for('message_new', user_id=msg.user_id)}}">Add a message</a> |
+            <a href="{{url_for('message_index', user_id=msg.user_id)}}">List this user's messages</a> 
+        </p>
+        <p>
+            <a href="{{url_for('message_edit', user_id=msg.user_id, msg_id=msg.id)}}">Edit this message</a> |
+            <a href="{{url_for('index')}}">List All Users</a>
+        </p>
+    </div>
 {% endblock %}

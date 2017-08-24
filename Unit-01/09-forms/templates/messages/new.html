@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>New Message entry:</h1>
-    <form action="{{url_for('message_index', user_id=user_id)}}" method="POST">
-        <p>Message length is limited to 100 characters!</p>
-        {{ form.csrf_token }}
-        {% for field in form if field.widget.input_type != 'hidden' %}
-        <p>
-            {{ field.label }}
-            {{ field }}
-            <span>
-              {% if field.errors %}
-                {% for error in field.errors %}
-                  {{ error }}
-                {% endfor %}
-              {% endif %}
-            </span>
-        </p>
-        {% endfor %}
-        <input type="submit" value="Add">
-    </form>
+    <h1 class="text-center">New Message</h1>
+    <div class="container">
+        <form action="{{url_for('message_index', user_id=user_id)}}" method="POST">
+            <p>Message length is limited to 100 characters!</p>
+            {{ form.csrf_token }}
+            {% for field in form if field.widget.input_type != 'hidden' %}
+            <p>
+                {{ field.label }}
+                {{ field }}
+                <span>
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  {% endif %}
+                </span>
+            </p>
+            {% endfor %}
+            <input type="submit" value="Add">
+        </form>
+    </div>
 {% endblock %}

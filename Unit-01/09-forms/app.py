@@ -1,11 +1,12 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_modus import Modus
 from forms import UserForm, MessageForm
+from sqlalchemy.exc import IntegrityError
 import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/flask-sql-alchemy2'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/flask-sql-alchemy2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
@@ -67,7 +68,12 @@ def index():
             email = request.form.get('email')
 
             db.session.add(User(user_name, first_name, last_name, email))
-            db.session.commit()
+
+            try:
+                db.session.commit()
+            except IntegrityError as err:
+                print(err)
+                return render_template('users/new.html', form=form)
 
             return redirect(url_for('index'))
         else:

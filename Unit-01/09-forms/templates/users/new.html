@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>New User entry:</h1>
+    <h1 class="text-center">New User</h1>
+    <div class="container">
     <form action="{{url_for('index')}}" method="POST">
+
         {{ form.csrf_token }}
         {% for field in form if field.widget.input_type != 'hidden' %}
         <p>
@@ -18,4 +20,5 @@
         {% endfor %}
         <input type="submit" value="Add">
     </form>
+    </div>
 {% endblock %}

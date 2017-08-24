@@ -1,22 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Message Listing for {{ user.user_name }}</h1>
-    <p><a href="{{url_for('index')}}">List all Users</a></p>
-    <table>
-    <tr>
-        <th>User Name</th>
-        <th>Message</th>
-        <th>User</th>
-        <th>Message</th>
-    </tr>
-    {% for msg in messages %}
-    <tr>
-        <td>{{ msg.user.user_name }}</td>
-        <td>{{ msg.message }}</td>
-        <td><a href="{{url_for('show', id=msg.user_id)}}">View User</a></td>
-        <td><a href="{{url_for('message_show', user_id=msg.user_id, msg_id=msg.id)}}">View Message</a></td>
-    </tr>
-    {% endfor %}
-    </table>
-    <p><a href="{{url_for('message_new', user_id=user.id)}}">Add a message</a></p>
+    <h1 class="text-center">Message Listing for <a href="{{url_for('show', id=user.id)}}">{{ user.user_name }}</a></h1>
+    <div class="container">
+        <p><a href="{{url_for('index')}}">List all Users</a></p>
+        <table class="table table-striped">
+            <tr>
+                <th>Message</th>
+            </tr>
+            {% for msg in messages %}
+            <tr>
+                <td><a href="{{url_for('message_show', user_id=msg.user_id, msg_id=msg.id)}}">{{ msg.message }}</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+        <p><a href="{{url_for('message_new', user_id=user.id)}}">Add a message</a></p>
+    </div>
 {% endblock %}

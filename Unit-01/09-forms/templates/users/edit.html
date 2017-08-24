@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+    <h1 class="text-center">Edit User</h1>
+    <div class="container">
     <form action="{{url_for('show', id=user.id)}}?_method=PATCH" method="POST">
         {{ form.csrf_token }}
         {% for field in form if field.widget.input_type != 'hidden' %}
@@ -21,4 +23,5 @@
     <form action="{{url_for('show', id=user.id)}}?_method=DELETE" method="POST">
         <input type="submit" value="Delete">
     </form>
+    </div>
 {% endblock %}
