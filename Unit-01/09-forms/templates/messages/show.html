@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{message.text}}</h2>
+<a href="{{url_for('index_message', user_id = message.user_id)}}">Back to {{message.user.username}}'s' messages</a>
+{% endblock %}
