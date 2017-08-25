@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+	<h3>Click on the user to see their messages!</h3>
+	<ul>
+	{% for user in found_users %}
+		<li>
+			<a href="{{url_for('show',id=user.id)}}">{{ user.name }}</a>
+		</li>
+	{% endfor %}
+	</ul>
+	<br>
+	What user do you like? <a href="{{url_for('new')}}">Add user!</a>
+
+{% endblock %}

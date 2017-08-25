@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+	This message is:
+
+	<ul>
+		</li>{{found_message.title}}</li>
+	</ul>
+	<a href = "{{url_for('messages_index',user_id=user_id)}}">See all the messages this user wrote</a>
+	<br>
+	<a href = "{{url_for('messages_edit', user_id=user_id,message_id=found_message.id)}}">Edit or delete this message</a>
+
+{% endblock %}
+
+

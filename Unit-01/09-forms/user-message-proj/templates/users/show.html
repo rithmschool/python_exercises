@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+	This user is:
+	<ul>
+		</li>{{user.first_name}}</li>
+	</ul>
+	<a href = "{{url_for('index')}}">Go back to the list of users</a>
+	<br>
+	<a href = "{{url_for('edit', id=user.id)}}">Change this user</a>
+	<br>
+	<a href = "{{url_for('books_index', user_id=user.id)}}">See messages for this user</a>
+
+{% endblock %}

@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>My Profile</title>
+	<title>Twitter Clone</title>
 </head>
 <body>
+
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		{% for message in messages %}
+	  		<p>{{ message }}</p>
+		{% endfor %}
+		{% endif %}
+	{% endwith %}
+
 	{% block content %}
 	{% endblock %}
 </body>
