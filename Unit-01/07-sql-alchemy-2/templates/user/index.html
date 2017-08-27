@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+<ul>
+  {% for message in messages %}
+    <li> {{users[message.user_id].firstname}} </li>
+  {% endfor %}
+
+<br>
+    {% for user in users %}
+    <li> {{user.firstname}} {{user.lastname}}  {{user.email}} {{user.img_url}}
+
+         {% for message in messages %}
+             {% if message.user_id == user.id %}
+                {{ message.message }}
+             {% endif %}
+        {% endfor %}
+
+       <a href="{{url_for('edit', id=user.id)}}"> Edit </a>
+    </li>
+  {% endfor %}
+
+</ul>
+
+
+
+
+
+<h1>Welcome to the app!</h1>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST" action="{{url_for('signup')}}">
+  {{form.hidden_tag()}}
+  {% for field in form if field.widget.input_type != 'hidden'%}
+  <p>
+    {{ field.label }}
+    {{ field }}
+    <span>
+      {% if field.errors %}
+        {% for error in field.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  {% endfor %}
+  <button type="submit">Sign up!</button>
+</form>
+
+{% endblock %}
