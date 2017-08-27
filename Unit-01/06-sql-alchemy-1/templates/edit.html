@@ -4,6 +4,8 @@
 
 <form action="{{url_for('show', id=snacks.id)}}?_method=PATCH" method="POST">
   <input type="text" name="name" value="{{snacks.name}}">
+  <input type="text" name="kind" value="{{snacks.kind}}">
+  <input type="text" name="price" value="{{snacks.price}}">
   <input type="submit" value="Save Changes">
 </form>
 

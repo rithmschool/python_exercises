@@ -16,15 +16,17 @@ class Snack(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.Text)
   kind = db.Column(db.Text)
+  price = db.Column(db.Float)
 
   # define what each instance or row in the DB will have (id is taken care of for you)
-  def __init__(self, name, kind):
+  def __init__(self, name, kind, price):
     self.name = name
     self.kind = kind
+    self.price = price
 
   # this is not essential, but a valuable method to overwrite as this is what we will see when we print out an instance in a REPL.
     def __repr__(self):
-        return "{} is a kind of {} ".format(self.name, self.kind)
+        return "{} is a kind of {} ".format(self.name, self.kind, self.price)
 
 
 @app.route('/')
@@ -34,7 +36,7 @@ def root():
 @app.route('/snacks', methods=['GET', 'POST'])
 def index():
   if request.method == "POST":
-    found_snack = Snack(request.form['name'], request.form['kind'])
+    found_snack = Snack(request.form['name'], request.form['kind'],request.form['price'])
     db.session.add(found_snack)
     db.session.commit()
     return redirect(url_for('index'))
@@ -43,7 +45,6 @@ def index():
 @app.route('/snacks/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def show(id):
 
-
   found_snack = Snack.query.get(id)
 
   if not found_snack:
@@ -51,7 +52,6 @@ def show(id):
 
   if request.method == b"PATCH":
     found_snack.name = request.form.get('name')
-    found_snack.kind = request.form.get('kind')
     db.session.add(found_snack)
     db.session.commit()
     return redirect(url_for('index'))

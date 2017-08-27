@@ -4,7 +4,7 @@
 
 <ul>
   {% for snack in snacks %}
-    <li>{{snack.name}}   <a href="{{url_for('edit', id=snack.id)}}"> edit </a></li>
+    <li>{{snack.name}} {{snack.kind}} ${{snack.price}}  <a href="{{url_for('edit', id=snack.id)}}"> edit </a></li>
   {% endfor %}
 </ul>
 
