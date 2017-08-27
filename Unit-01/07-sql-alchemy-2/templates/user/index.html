@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<h1>Welcome to the app!</h1>
+
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     {% for message in messages %}
@@ -12,30 +14,24 @@
 
 
 <ul>
-  {% for message in messages %}
-    <li> {{users[message.user_id].firstname}} </li>
-  {% endfor %}
+ {% for user in users %}
+  <li>
+    <a href="{{url_for('index_message', user_id=user.id)}}"> Message </a> &nbsp; &nbsp;
+    <a href="{{url_for('edit', id=user.id)}}"> Edit </a> &nbsp; &nbsp;
+    {{user.username}},
+    {{user.email}},
+    {{user.firstname}},
+    {{user.lastname}},
+    {{user.img_url}},
 
-<br>
-    {% for user in users %}
-    <li> {{user.firstname}} {{user.lastname}}  {{user.email}} {{user.img_url}}
-
-         {% for message in messages %}
-             {% if message.user_id == user.id %}
-                {{ message.message }}
-             {% endif %}
-        {% endfor %}
-
-       <a href="{{url_for('edit', id=user.id)}}"> Edit </a>
-    </li>
-  {% endfor %}
-
+      {% for message in messages %}
+           {% if message.user_id == user.id %}
+              {{ message.message }}
+           {% endif %}
+      {% endfor %}
+  </li>
+{% endfor %}
 </ul>
 
-
-
-
-
-<h1>Welcome to the app!</h1>
 
 {% endblock %}
