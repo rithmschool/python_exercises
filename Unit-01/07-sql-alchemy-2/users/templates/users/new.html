@@ -1,3 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<h4>Add new user:</h4>
+
+<form action="{{url_for('new_user')}}" method="POST">
+	{{ form.hidden_tag() }}
+	{% for field in form if field.widget.input_type != 'hidden' %}
+		<p>
+			{{ field.label }}: 
+			{{ field }}
+			<span>
+				{% if field.errors %}
+					{% for error in field.errors %}
+						{{ error }}
+					{% endfor %}
+				{% endif %}
+			</span>
+		</p>
+	{% endfor %}
+	<button type="submit">Add user</button>
+</form>
+<br><a href="{{url_for('index_users')}}">Go back to all users</a>
+
 {% endblock %}

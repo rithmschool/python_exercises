@@ -10,30 +10,94 @@
 from flask import Flask, redirect, render_template, url_for, flash, request
 from flask_modus import Modus
 from flask_sqlalchemy import SQLAlchemy
-# from forms import 
+from forms import AddUserForm, AddMessageForm
 import os
 
 app = Flask(__name__)
+modus = Modus(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/flask-users'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+db = SQLAlchemy(app)
+
+class User(db.Model):
+	__tablename__ = "users"
+	id = db.Column(db.Integer, primary_key=True)
+	username = db.Column(db.Text)
+	email = db.Column(db.Text)
+	first_name = db.Column(db.Text)
+	last_name = db.Column(db.Text)
+	messages = db.relationship('Message', backref='user', lazy='dynamic')
+
+	def __init__(self, username, email, first_name, last_name):
+		self.username = username
+		self.email = email
+		self.first_name = first_name
+		self.last_name = last_name
+
+	def __repr__(self):
+		return "Username: {} / Email: {} / First & Last Names: {} {}".format(self.username, self.email, self.first_name, self.last_name)
+
+class Message(db.Model):
+	__tablename__ = "messages"
+	id = db.Column(db.Integer, primary_key=True)
+	text = db.Column(db.VARCHAR(100))
+	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+	def __init__(self, text, user_id):
+		self.text = text
+		self.user_id = user_id
 
 @app.route('/')
 def root():
-	pass
+	return redirect(url_for('index_users'))
 
 @app.route('/users')
 def index_users():
-	pass
+	return render_template('users/index.html', users=User.query.all())
 
-@app.route('/users/new')
+@app.route('/users/new', methods=['GET', 'POST'])
 def new_user():
-	pass
+	form = AddUserForm(request.form)
+	if request.method == "POST":
+		if form.validate():
+			created_user = User(form.username.data, form.email.data, form.first_name.data, form.last_name.data)
+			db.session.add(created_user)
+			db.session.commit()
+			flash("You have successfully created a new user!")
+			return redirect(url_for('index_users'))
+		return render_template('users/new.html', form=form)
+	return render_template('users/new.html', form=form)
 
-@app.route('/users/<int:user_id>')
-def show_user():
-	pass
+@app.route('/users/<int:user_id>', methods=['GET', 'PATCH', 'DELETE'])
+def show_user(user_id):
+	user = User.query.get(user_id)
+	form = AddUserForm(request.form)
+	if request.method == b"PATCH":
+		if form.validate():
+			user.username = form.username.data
+			user.email = form.email.data
+			user.first_name = form.first_name.data
+			user.last_name = form.last_name.data
+			db.session.add(user)
+			db.session.commit()
+			flash("You have successfully edited this user.")
+			return redirect(url_for('index_users'))
+		flash("Please enter proper values for each field.")
+		return redirect(url_for('edit_user', user_id=user.id, form=form))
+	if request.method == b"DELETE":
+		db.session.delete(user)
+		db.session.commit()
+		flash("You've successfully deleted {}".format(user.username))
+		return redirect(url_for('index_users'))
+	return redirect(url_for('edit_user', user_id=user.id, form=form))
 
 @app.route('/users/<int:user_id>/edit')
-def edit_user():
-	pass
+def edit_user(user_id):
+	user = User.query.get(user_id)
+	form = AddUserForm(request.form)
+	return render_template('users/edit.html', user=user, form=form)
 
 @app.route('/users/<int:user_id>/messages')
 def index_messages():
