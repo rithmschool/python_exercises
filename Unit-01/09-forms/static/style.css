@@ -1,0 +1,74 @@
+li {
+  font-size: 22px;
+}
+
+li span {
+	font-size: 16px;
+}
+
+h1, p {
+  text-align: center;
+  display: inline;
+}
+
+.edit_forms {
+  display: inline;
+}
+
+.edit_forms input:not([type=submit]) {
+  width: 14%;
+}
+
+.newF {
+  width: 40%;
+}
+
+span.block {
+  display: inline-block;
+  float: none;
+}
+
+.spanFormat
+{
+  text-align: left;
+  display: inline-block;
+  min-width: 10px;
+  padding-right: 10px;
+}
+
+.iLabels {
+	float: none;
+  display: inline-block;
+  width: 40%;
+	font-size: 20px;
+	padding: 10px 20px 11px !important;
+}
+
+.iTxtBoxes {
+  float: none;
+  display: inline-block;
+	padding: 10px 20px 11px !important;
+	font-size: 20px;
+	display: block;
+	margin-bottom: 10px;
+  width: 40%;
+}
+
+.fsSubmitButton
+{
+  margin-top: 10px;
+  padding: 10px 20px 11px !important;
+  font-size: 21px !important;
+  background-color: #F36C8C;
+  font-weight: bold;
+  text-shadow: 1px 1px #F36C8C;
+  color: #ffffff;
+  border-radius: 100px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border: 1px solid #F36C8C;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
