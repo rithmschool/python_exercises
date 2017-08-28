@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+  <span class="spanFormat">
+    <form action="{{ url_for('books_show', author_id=book.author_id, id=book.id) }}?_method=PATCH" method="POST">
+        <label for="title" class="iLabels">Title: </label>
+        <input type="text" name="title" value="{{ book.title }}" class="iTxtBoxes" required>
+        <label for="pages" class="iLabels">Pages: </label>
+        <input type="number" min="1" step="1" name="pages" value="{{ book.pages }}" class="iTxtBoxes" required>
+        <label for="publisher_name" class="iLabels">Publisher Name: </label>
+        <input type="text" name="publisher_name" value="{{ book.publisher_name }}" class="iTxtBoxes" required>
+        <input type="submit" value="Update" class="fsSubmitButton">
+    </form>
+  </span>
+  <span class="spanFormat">
+    <form class="frm2" action="{{ url_for('books_show', author_id=book.author_id, id=book.id) }}?_method=DELETE" method="POST">
+        <input type="submit" value="Delete" class="fsSubmitButton">
+    </form>
+  </span>
+{% endblock %}

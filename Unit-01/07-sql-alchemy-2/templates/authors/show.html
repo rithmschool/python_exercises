@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 style="margin-bottom: 0px;">Let's see some more information about this author!</h2>
+    <br>
+    <ul style="margin-top: 0px;">
+    	<li>The name of the author is: {{ author.first_name }} {{ author.last_name }}</li>
+    </ul>
+    <a href="{{ url_for('edit', id=author.id) }}"><button class="fsSubmitButton">Edit this Author</button></a>
+    <a href="{{ url_for('books_index', author_id=author.id) }}"><button style="margin-left: 20px;" class="fsSubmitButton">See All Books from this Author</button> </a>
+    <a href="{{url_for('index')}}"><button style="margin-left: 20px;" class="fsSubmitButton">See All Authors</button></a>
+{% endblock %}

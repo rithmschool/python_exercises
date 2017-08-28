@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Authors List</h1>
+    <span>(<a href="{{ url_for('new') }}">Add New Author</a>)</span>
+    <div style="margin-top: 10px; color: red;">
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+          {% for message in messages %}
+             <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+    <ul>
+    {% for val in authors %}
+        <li>{{ val.first_name }} {{ val.last_name }}
+        <span>
+        <a href="{{ url_for('show', id=val.id) }}">Show Author Details</a>
+        </span>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

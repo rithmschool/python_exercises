@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 style="margin-bottom: 0px;">Let's see some more information about this book!</h2>
+    <br>
+    <ul style="margin-top: 0px;">
+    	<li>The book title is: {{ book.title }} </li>
+    	<li>Total Pages: {{ book.pages }} </li>
+    	<li> Publisher Name: {{ book.publisher_name }} </li>
+    </ul>
+    <a href="{{ url_for('books_edit', author_id=book.author_id, id=book.id) }}"><button class="fsSubmitButton">Edit this Book</button></a>
+    <a href="{{ url_for('books_index', author_id=book.author_id) }}"><button style="margin-left: 20px;" class="fsSubmitButton">See All Books from this Author</button> </a>
+    <a href="{{url_for('index')}}"><button style="margin-left: 20px;" class="fsSubmitButton">See All Authors</button></a>
+
+
+    <!-- <button onclick="window.location.href='{{ url_for('books_edit', author_id=book.author_id, id=book.id) }}';" class="fsSubmitButton">Edit this Book</button>
+    <button style="margin-left: 20px;" onclick="window.location.href='{{ url_for('books_index', author_id=book.author_id) }}';" class="fsSubmitButton">See All Books from this Author</button>
+    <button style="margin-left: 20px;" onclick="window.location.href='{{url_for('index')}}';" class="fsSubmitButton">See All Authors</button> -->
+{% endblock %}
