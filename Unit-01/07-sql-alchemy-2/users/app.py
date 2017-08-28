@@ -100,21 +100,52 @@ def edit_user(user_id):
 	return render_template('users/edit.html', user=user, form=form)
 
 @app.route('/users/<int:user_id>/messages')
-def index_messages():
-	pass
+def index_messages(user_id):
+	user = User.query.get(user_id)
+	return render_template('messages/index.html', user=user)
 
-@app.route('/users/<int:user_id>/messages/new')
-def new_message():
-	pass
+@app.route('/users/<int:user_id>/messages/new', methods=['GET', 'POST'])
+def new_message(user_id):
+	form = AddMessageForm(request.form)
+	user = User.query.get(user_id)
+	if request.method == "POST":
+		if form.validate():
+			created_msg = Message(form.text.data, user.id)
+			db.session.add(created_msg)
+			db.session.commit()
+			flash("You have successfully added a new message!")
+			return redirect(url_for('index_messages', user_id=user.id))
+		flash("Please enter valid text.")
+		return redirect(url_for('new_message', user_id=user.id, form=form))
+	return render_template('messages/new.html', user=user, form=form)
 
-@app.route('/users/<int:user_id>/messages/<int:message_id>')
-def show_message():
-	pass
+@app.route('/users/<int:user_id>/messages/<int:message_id>', methods=['GET', 'PATCH', 'DELETE'])
+def show_message(user_id, message_id):
+	user = User.query.get(user_id)
+	message = Message.query.get(message_id)
+	form = AddMessageForm(request.form)
+	if request.method == b"PATCH":
+		if form.validate():
+			message.text = form.text.data
+			db.session.add(message)
+			db.session.commit()
+			flash("You have successfully edited this message.")
+			return redirect(url_for('index_messages', user_id=user.id))
+		flash("Please enter proper values.")
+		return redirect(url_for('edit_message', user_id=user.id, message_id=message.id, form=form))
+	if request.method == b"DELETE":
+		db.session.delete(message)
+		db.session.commit()
+		flash("You've successfully deleted {}'s message.".format(user.username))
+		return redirect(url_for('index_messages', user_id=user.id))
+	return render_template('messages/edit.html', user_id=user.id, message_id=message.id)
 
 @app.route('/users/<int:user_id>/messages/<int:message_id>/edit')
-def edit_message():
-	pass
-
+def edit_message(user_id, message_id):
+	user = User.query.get(user_id)
+	message = Message.query.get(message_id)
+	form = AddMessageForm(request.form)
+	return render_template('messages/edit.html', user=user, message=message, form=form)
 
 if __name__ == "__main__":
 	app.run(debug=True,port=3000)

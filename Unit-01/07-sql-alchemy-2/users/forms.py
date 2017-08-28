@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, StringField, PasswordField, IntegerField, validators
+from wtforms import BooleanField, StringField, PasswordField, IntegerField, TextAreaField, validators
 
 class AddUserForm(FlaskForm):
 	username = StringField('Username', [validators.Length(min=1)])
@@ -9,4 +9,4 @@ class AddUserForm(FlaskForm):
 
 
 class AddMessageForm(FlaskForm):
-	text = StringField('text', [validators.Length(max=100)])
+	text = TextAreaField('Text', [validators.Length(max=100)])

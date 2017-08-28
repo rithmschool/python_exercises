@@ -1,3 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h3>Edit message {{ message.id }} for {{ user.username }}</h3>
+
+<form action="{{ url_for('show_message', user_id=user.id, message_id=message.id) }}?_method=PATCH" method="POST">
+	{{ form.hidden_tag() }}
+	{% for field in form if field.widget.input_type != 'hidden' %}
+	<p>
+		{{ field.label }}:
+		{{ field }}
+		<span>
+			{% if field.errors %}
+				{{ error }}
+			{% endif %}
+		</span>
+	</p>
+	{% endfor %}
+	<button type="submit">Edit message</button>
+</form>
+
+<br><br>
+
+<form action="{{url_for('show_message', user_id=user.id, message_id=message.id)}}?_method=DELETE" method="POST">
+	{{ form.hidden_tag() }}
+	<input type="submit" value="Delete this message">
+</form>
+
 {% endblock %}
