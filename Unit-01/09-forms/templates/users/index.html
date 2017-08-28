@@ -13,6 +13,7 @@
     {% endif %}
   {% endwith %}
   {% for user in users %}
+  <img src="{{ user.image_url }}" alt="">
   <p>
     Username: {{ user.username }} <br>
     Full Name: {{ user.first_name }} {{ user.last_name }} <br>
