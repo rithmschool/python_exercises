@@ -1,3 +1,3 @@
 # Flask Login
 
-Refactor your applications from the [previous](https://github.com/rithmschool/python_curriculum_exercises/tree/master/Unit-03/03-hashing-sessions) chapter to use Flask login! (If you'd like to see a simple working example, [here](https://github.com/rithmschool/python_curriculum/tree/master/Unit-03/examples/flask_login) you go.)
+Refactor your users and messages application to use flask_login! This should not be a terribly long refactor so now is a great time to go back and add some more testing and styling to your application! 

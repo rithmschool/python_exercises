@@ -58,7 +58,7 @@ class BaseTestCase(TestCase):
 
     def test_delete(self):
         response = self.client.post(
-            '/snacks/?_method=DELETE',
+            '/snacks/1?_method=DELETE',
             follow_redirects=True
         )
         self.assertNotIn(b'hershey chocolate', response.data)

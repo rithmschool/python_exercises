@@ -16,8 +16,6 @@
 
 - [01 Structuring Larger Flask Applications](./Unit-02/01-blueprints/readme.md)
 - [02 Many to Many](./Unit-02/02-many-to-many/readme.md)
-- [03 Authentication with Flask Login](./Unit-02/03-hashing-sessions/readme.md)
-- [04 OAuth with Flask](./Unit-02/04-flask-login/readme.md)
-- [05 Testing Continued](./Unit-02/05-oauth/readme.md)
-- [06 Building JSON APIs](./Unit-02/06-json-apis/readme.md)
-- [07 Testing](./Unit-02/07-testing/readme.md)
+- [03 Hashing and Sessions](./Unit-02/03-hashing-sessions/readme.md)
+- [03 Authentication with Flask Login](./Unit-02/04-flask-login/readme.md)
+- [04 OAuth with Flask](./Unit-02/05-oauth/readme.md)
