@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, abort, flash
 from flask_modus import Modus
 from flask_sqlalchemy import SQLAlchemy
-from forms import AuthorForm, BookForm, Edit_AuthorForm
+from forms import AuthorForm, BookForm, Edit_AuthorForm, Edit_BookForm
 import os
 
 app = Flask(__name__)
@@ -70,7 +70,7 @@ def new():
 	form = AuthorForm(request.form)
 	return render_template('authors/new.html', form=form)
 
-@app.route('/authors/<int:id>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
+@app.route('/authors/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def show(id):
 	found_author = Author.query.filter_by(id=id).first()
 
@@ -80,38 +80,46 @@ def show(id):
 	if request.method == b"DELETE":
 		db.session.delete(found_author)
 		db.session.commit()
+		flash("You have successfully deleted Author {} {}".
+			format(found_author.first_name, found_author.last_name))
 		return redirect(url_for('index'))
 
 	if request.method == b"PATCH":
-		form = Edit_AuthorForm(obj=found_author)
+		form = Edit_AuthorForm(request.form)
 		if form.validate():
 			found_author.first_name = request.form.get('first_name')
 			found_author.last_name = request.form.get('last_name')
 			db.session.add(found_author)
 			db.session.commit()
+			flash("You have successfully updated an Author!")
 			return redirect(url_for('index'))
 		else:
-			render_template('authors/edit.html', author=found_author, form=form)
+			return render_template('authors/edit.html', author=found_author, form=form)
 
 	return render_template('authors/show.html', author=found_author)
 
 @app.route('/authors/<int:author_id>/books', methods=['GET', 'POST'])
 def books_index(author_id):
 	found_author = Author.query.filter_by(id=author_id).first()
-	form = BookForm(request.form)
-	if request.method == "POST" and form.validate():
-		n_book = Book(request.form.get('title'), request.form.get('pages'),
-		 request.form.get('publisher_name'), found_author.id)
-		db.session.add(n_book)
-		db.session.commit()
-		flash("You have successfully added a Book!")
-		return redirect(url_for('books_index', author_id=found_author.id))
+
+	if request.method == "POST":
+		form = BookForm(request.form)
+		if form.validate():
+			n_book = Book(request.form.get('title'), request.form.get('pages'),
+			 request.form.get('publisher_name'), found_author.id)
+			db.session.add(n_book)
+			db.session.commit()
+			flash("You have successfully added a Book!")
+			return redirect(url_for('books_index', author_id=found_author.id))
+		else:
+			return render_template('books/new.html', author_id=found_author.id, form=form)
 		
 	return render_template('books/index.html', author=found_author)
 
 @app.route('/authors/<int:author_id>/books/new')
 def books_new(author_id):
-    return render_template('books/new.html', author_id=author_id)
+	form = BookForm(request.form)
+	return render_template('books/new.html', author_id=author_id, form=form)
 
 @app.route('/authors/<int:author_id>/books/<int:id>', methods=['GET', 'POST',
  'PATCH', 'DELETE'])
@@ -124,16 +132,21 @@ def books_show(author_id, id):
 	if request.method == b"DELETE":
 		db.session.delete(found_book)
 		db.session.commit()
+		flash("You have successfully deleted Book {}".format(found_book.title))
 		return redirect(url_for('books_index', author_id=found_book.author_id))
 
 	if request.method == b"PATCH":
-		found_book.title = request.form.get('title')
-		found_book.pages = request.form.get('pages')
-		found_book.publisher_name = request.form.get('publisher_name')
-		db.session.add(found_book)
-		db.session.commit()
-		return redirect(url_for('books_index', author_id=found_book.author_id))
-
+		form = Edit_BookForm(request.form)
+		if form.validate():
+			found_book.title = request.form.get('title')
+			found_book.pages = request.form.get('pages')
+			found_book.publisher_name = request.form.get('publisher_name')
+			db.session.add(found_book)
+			db.session.commit()
+			flash("You have successfully updated a Book!")
+			return redirect(url_for('books_index', author_id=found_book.author_id))
+		else:
+			return render_template('books/edit.html', book=found_book, form=form)
 
 	return render_template('books/show.html', book=found_book)
 
@@ -150,8 +163,12 @@ def edit(id):
 @app.route('/authors/<int:author_id>/books/<int:id>/edit', methods=['GET'])
 def books_edit(author_id, id):
 	found_book = Book.query.filter_by(id=id).first()
+	form = Edit_BookForm(obj=found_book)
 
-	return render_template('books/edit.html', book=found_book)
+	if found_book is None:
+		abort(404)
+
+	return render_template('books/edit.html', book=found_book, form=form)
 
 if __name__ == '__main__':
     app.run(debug=True,port=3000)

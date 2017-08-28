@@ -1,25 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-  <form action="{{ url_for('show', id=author.id) }}?_method=PATCH" method="POST">
+  <div>
+  <form class="edit_forms" action="{{ url_for('show', id=author.id) }}?_method=PATCH" method="POST">
     {{form.hidden_tag()}}
     {% for field in form if field.widget.input_type != 'hidden' %}
-    <div class="newF">
       {{ field.label(class='iLabels') }}
       {{ field(class='iTxtBoxes') }}
-      <span>
+      <span style="display: block">
         {% if field.errors %}
           {% for error in field.errors %}
             {{ error }}
           {% endfor %}
         {% endif %}
       </span>
-    </div>
     {% endfor %}
     <input type="submit" value="Update" class="fsSubmitButton">
   </form>
-  <!-- <span class="spanFormat"> -->
-    <form class="frm2" action="{{ url_for('show', id=author.id) }}?_method=DELETE" method="POST">
-        <input type="submit" value="Delete" class="fsSubmitButton">
-    </form>
-  <!-- </span> -->
+    <form style="margin-left: 10px;" class="edit_forms" action="{{ url_for('show', id=author.id) }}?_method=DELETE" method="POST">
+      {{form.hidden_tag()}}
+      <input type="submit" value="Delete" class="fsSubmitButton">
+  </form>
+  </div>
 {% endblock %}

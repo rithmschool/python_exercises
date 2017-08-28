@@ -11,10 +11,18 @@ h1, p {
   display: inline;
 }
 
+.edit_forms {
+  display: inline;
+}
+
+.edit_forms input:not([type=submit]) {
+  width: 14%;
+}
+
 .newF {
-  /*width: 700px;*/
   width: 40%;
 }
+
 span.block {
   display: inline-block;
   float: none;
