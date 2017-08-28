@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>List of Users</h1>
+
+<form action="{{url_for('new')}}">
+	<input type="submit" value="Add New User">
+</form>
+
+<ol>
+{% for user in user_list %}
+	<li>
+		<a href='{{url_for("show", id=user.id)}}'>{{user.username}}</a> &nbsp;
+		<a href='{{url_for("edit", id = user.id)}}'>Edit User</a> &nbsp;
+		- <a href='{{url_for("message_index", user_id=user.id)}}'>Messages</a>
+	</li>
+{% endfor %}
+
+</ol>
+
+
+{% endblock %}
