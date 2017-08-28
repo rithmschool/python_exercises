@@ -43,7 +43,7 @@ class TestSnackMethods(unittest.TestCase):
 
     def test_editing_snack(self):
       tester = app.test_client(self)
-      tester.patch('/snacks/1',
+      tester.post('/snacks/1?_method=PATCH',
                         data=dict(name="almond_snickers", kind="almonds_and_chocolate"), follow_redirects = True)
       self.assertEqual(snack_list[0].name, 'almond_snickers')
       self.assertEqual(snack_list[0].kind, 'almonds_and_chocolate')
@@ -51,8 +51,8 @@ class TestSnackMethods(unittest.TestCase):
 
     def test_deleting_snack(self):
       tester = app.test_client(self)
-      tester.delete('/snacks/1', follow_redirects = True)
-      tester.delete('/snacks/2', follow_redirects = True)
+      tester.post('/snacks/1?_method=DELETE', follow_redirects = True)
+      tester.post('/snacks/2?_method=DELETE', follow_redirects = True)
       self.assertEqual(len(snack_list), 0)
 
 if __name__ == '__main__':

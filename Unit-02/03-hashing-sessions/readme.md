@@ -6,4 +6,8 @@ Continue building on the simple authentication app from the [curriculum](https:/
 
 ### Part 2
 
-Add user authentication to an application you've already built! The code shouldn't be so different from what you've seen, you'll just have to integrate it into a preexisting application. See how much you can do without referencing the curriculum. 
+Add authentication to your users and messages application! You should also have an additional route:
+
+`GET /messages` - shows all of the messages for every user - a user does not need to be logged in to see this content.
+
+- Make sure that users can not create, edit or delete other users AND that users can not create, edit or delete messages for other users! This will require you to write some custom decorators so you can successfully implement authorization. 
