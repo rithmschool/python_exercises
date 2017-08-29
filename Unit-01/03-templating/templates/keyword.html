@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Enter a keyword to grab headlines: </h1>
+
+<form action="/results">
+  <input type="text" name="keyword"></input>
+  <input type="submit" value="Get results"></input>
+</form>
+
+{% endblock %}
