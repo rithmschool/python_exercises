@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	{% for title, link in correct_links.items() %}
+		<li><a href="{{link}}">{{title}}</a></li>
+	{% endfor %}
+</body>
+</html>
