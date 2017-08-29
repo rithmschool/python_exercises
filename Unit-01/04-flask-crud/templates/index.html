@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="{{url_for('new')}}">
+      <input type="submit" value="Add New Snack">
+    </form>
+  {% for snack in snacks %}
+    <span>
+      {{ snack.name }}, which is totally a {{ snack.kind }}
+    </span>
+    <span>
+      <form action="{{url_for('edit', id=snack.id)}}">
+        <input type="submit" value="Edit">
+      </form>
+    </span>
+      
+  {% endfor %}
+{% endblock %}
