@@ -12,7 +12,7 @@ messages_blueprint = Blueprint(
 )
 
 
-@messages_blueprint.route('/<int:user_id>', methods=['GET', 'POST'])
+@messages_blueprint.route('/', methods=['GET', 'POST'])
 def index(user_id):
     if request.method == 'POST':
         form = MessageForm()
@@ -32,20 +32,20 @@ def index(user_id):
         return render_template('messages/index.html', user=user, messages=messages)    
 
 
-@messages_blueprint.route('/<int:user_id>/messages/<int:msg_id>/edit')
+@messages_blueprint.route('/<int:msg_id>/edit')
 def edit(user_id, msg_id):
     found_message = Message.query.get_or_404(msg_id)
     form = MessageForm(obj=found_message)
     return render_template('messages/edit.html', form=form, msg=found_message)
 
 
-@messages_blueprint.route('/<int:user_id>/messages/new')
+@messages_blueprint.route('/new')
 def new(user_id):
     form = MessageForm(request.form)
     return render_template('messages/new.html', form=form, user_id=user_id)
 
 
-@messages_blueprint.route('/<int:user_id>/messages/show/<int:msg_id>', methods=['GET', 'PATCH', 'DELETE'])
+@messages_blueprint.route('/show/<int:msg_id>', methods=['GET', 'PATCH', 'DELETE'])
 def show(user_id, msg_id):
     found_message = Message.query.get_or_404(msg_id)
     if request.method == b'PATCH':

@@ -12,9 +12,9 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         db.create_all()
-        user1 = User("Elie", "Schoppik")
-        user2 = User("Tim", "Garcia")
-        user3 = User("Matt", "Lane")
+        user1 = User("user1", "Elie", "Schoppik", "elie@test.com")
+        user2 = User("user2", "Tim", "Garcia", "tim@test.com")
+        user3 = User("user3", "Matt", "Lane", "matt@test.com")
         db.session.add_all([user1, user2, user3])
         message1 = Message("Hello Elie!!", 1)
         message2 = Message("Goodbye Elie!!", 1)
@@ -29,9 +29,12 @@ class BaseTestCase(TestCase):
     def test_users_index(self):
         response = self.client.get('/users', content_type='html/text', follow_redirects=True)
         self.assertLess(response.status_code, 400)
-        self.assertIn(b'Elie Schoppik', response.data)
-        self.assertIn(b'Tim Garcia', response.data)
-        self.assertIn(b'Matt Lane', response.data)
+        self.assertIn(b'Elie', response.data)
+        self.assertIn(b'Schoppik', response.data)
+        self.assertIn(b'Tim', response.data)
+        self.assertIn(b'Garcia', response.data)
+        self.assertIn(b'Matt', response.data)
+        self.assertIn(b'Lane', response.data)
 
     def test_users_show(self):
         response = self.client.get('/users/1')
@@ -40,12 +43,12 @@ class BaseTestCase(TestCase):
     def test_users_create(self):
         response = self.client.post(
             '/users/',
-            data=dict(first_name="Awesome", last_name="Student"),
+            data=dict(user_name="testuser", first_name="Awesome", last_name="Student", email="awesome@student.com"),
             follow_redirects=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Awesome', response.data)
-        self.assertIn(b'User Created!', response.data)
+        self.assertIn(b'User created!', response.data)
 
     def test_users_edit(self):
         response = self.client.get(
@@ -57,10 +60,11 @@ class BaseTestCase(TestCase):
     def test_users_update(self):
         response = self.client.patch(
             '/users/1?_method=PATCH',
-            data=dict(first_name="updated", last_name="information"),
+            data=dict(user_name="user4", first_name="updated", last_name="information", email="jim@company.com"),
             follow_redirects=True
         )
-        self.assertIn(b'updated information', response.data)
+        self.assertIn(b'updated', response.data)
+        self.assertIn(b'information', response.data)
         self.assertNotIn(b'Elie Schoppik', response.data)
 
     def test_users_delete(self):

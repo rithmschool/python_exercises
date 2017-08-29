@@ -1,4 +1,4 @@
-from flask import redirect, request, render_template, Blueprint, url_for
+from flask import redirect, request, render_template, Blueprint, url_for, flash
 from project.users.models import User
 from project.users.forms import UserForm
 from sqlalchemy.exc import IntegrityError
@@ -26,6 +26,7 @@ def index():
 
             try:
                 db.session.commit()
+                flash('User created!')
             except IntegrityError as err:
                 print(err)
                 return render_template('users/new.html', form=form)
@@ -64,7 +65,7 @@ def show(id):
             db.session.commit()
             return redirect(url_for('users.index'))
         else:
-            return render_template('users/edit.html', form=form)
+            return render_template('users/edit.html', form=form, user=found_user)
     if request.method == b'DELETE':
         db.session.delete(found_user)
         db.session.commit()
