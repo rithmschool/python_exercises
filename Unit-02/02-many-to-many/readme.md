@@ -2,15 +2,15 @@
 
 ### Part 1 
 
-1. Finish building CURD in the many to many application with employees and departments.
+1. Finish building CURD in the many to many application with employees and departments. You can find the starter code [here](https://github.com/rithmschool/flask-many-many-example)
 
 Your app should have the following features:
 
 * Full CRUD on employees
-	* The index page for employees should show the department name
-* Able to see index page and show page for department (no need to have create, delete, or edit for departments)
-	* The departments show page should show all employees in the department
-* Use WTF for all of your forms in employees
+* Full CRUD on departments 
+* The index page for employees should show the department name for each employee
+* The index page for departments should show all employees in the department
+* Use WTForms for all CRUD operations for both employees and departments 
 
 ### Part 2 
 
