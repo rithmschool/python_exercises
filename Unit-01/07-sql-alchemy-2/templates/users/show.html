@@ -1,0 +1,37 @@
+{% extends './base.html' %}
+{% block title %}
+user app {{ user.username }} user page
+{% endblock %}
+
+{% block content %}
+<h1>{{ user.username }}'s user information</h1>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <th>username</th>
+            <th>email</th>
+            <th>first name</th>
+            <th>last name</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p></p>
+<p>
+    <a class="btn btn-warning" href="{{url_for('edit', id=user.id)}}">edit this user</a> 
+</p>
+<p>
+    <a href="{{url_for('m_index', id=user.id)}}">see all the messages by {{ user.username }}</a>
+</p>
+<p>
+    <a href="{{url_for('index')}}">back to all the users</a>
+</p>
+{% endblock %}

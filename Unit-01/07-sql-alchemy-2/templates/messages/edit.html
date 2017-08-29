@@ -1,0 +1,28 @@
+{% extends './base.html' %}
+{% block title %}
+user app edit {{ message.text }}
+{% endblock %}
+
+{% block content %}
+<h1>edit: {{ message.text }}</h1>
+<form action="{{url_for('m_show', id=id, mid=message.id)}}?_method=PATCH" method="POST">
+    <label for="message">Message: </label>
+    <input type="text" name="message" value="{{message.text}}" id="message" required>
+    <p></p>
+    <label for="user_id">User id: </label>
+    <input type="text" name="user_id" value="{{message.user_id}}" id="user_id" required>
+    <p></p>
+    <input class="btn btn-warning" type="submit" value="edit message">
+</form>
+<p></p>
+<form action="{{url_for('m_show', id=id, mid=message.id)}}?_method=DELETE" method="POST">
+    <input class="btn btn-danger" type="submit" value="delete message">
+</form>
+<p></p>
+<p>
+    <a href="{{url_for('m_index', id=id)}}">see all the messages</a>
+</p>
+<p>
+    <a href="{{url_for('show', id=id)}}">show this user</a> 
+</p>
+{% endblock %}
