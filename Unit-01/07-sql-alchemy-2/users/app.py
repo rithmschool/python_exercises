@@ -53,14 +53,10 @@ class Message(db.Model):
 def root():
 	return redirect(url_for('index_users'))
 
-@app.route('/users')
+@app.route('/users', methods=["GET", "POST"])
 def index_users():
-	return render_template('users/index.html', users=User.query.all())
-
-@app.route('/users/new', methods=['GET', 'POST'])
-def new_user():
-	form = AddUserForm(request.form)
 	if request.method == "POST":
+		form = AddUserForm(request.form)
 		if form.validate():
 			created_user = User(form.username.data, form.email.data, form.first_name.data, form.last_name.data)
 			db.session.add(created_user)
@@ -68,13 +64,18 @@ def new_user():
 			flash("You have successfully created a new user!")
 			return redirect(url_for('index_users'))
 		return render_template('users/new.html', form=form)
+	return render_template('users/index.html', users=User.query.all())
+
+@app.route('/users/new')
+def new_user():
+	form = AddUserForm()
 	return render_template('users/new.html', form=form)
 
 @app.route('/users/<int:user_id>', methods=['GET', 'PATCH', 'DELETE'])
 def show_user(user_id):
 	user = User.query.get(user_id)
-	form = AddUserForm(request.form)
 	if request.method == b"PATCH":
+		form = AddUserForm(request.form)
 		if form.validate():
 			user.username = form.username.data
 			user.email = form.email.data
@@ -91,24 +92,19 @@ def show_user(user_id):
 		db.session.commit()
 		flash("You've successfully deleted {}".format(user.username))
 		return redirect(url_for('index_users'))
-	return redirect(url_for('edit_user', user_id=user.id, form=form))
+	return render_template('users/show.html', user=user)
 
 @app.route('/users/<int:user_id>/edit')
 def edit_user(user_id):
 	user = User.query.get(user_id)
-	form = AddUserForm(request.form)
+	form = AddUserForm(obj=user)
 	return render_template('users/edit.html', user=user, form=form)
 
-@app.route('/users/<int:user_id>/messages')
+@app.route('/users/<int:user_id>/messages', methods=["GET", "POST"])
 def index_messages(user_id):
 	user = User.query.get(user_id)
-	return render_template('messages/index.html', user=user)
-
-@app.route('/users/<int:user_id>/messages/new', methods=['GET', 'POST'])
-def new_message(user_id):
-	form = AddMessageForm(request.form)
-	user = User.query.get(user_id)
 	if request.method == "POST":
+		form = AddMessageForm(request.form)
 		if form.validate():
 			created_msg = Message(form.text.data, user.id)
 			db.session.add(created_msg)
@@ -117,14 +113,20 @@ def new_message(user_id):
 			return redirect(url_for('index_messages', user_id=user.id))
 		flash("Please enter valid text.")
 		return redirect(url_for('new_message', user_id=user.id, form=form))
+	return render_template('messages/index.html', user=user)
+
+@app.route('/users/<int:user_id>/messages/new', methods=['GET', 'POST'])
+def new_message(user_id):
+	form = AddMessageForm(request.form)
+	user = User.query.get(user_id)
 	return render_template('messages/new.html', user=user, form=form)
 
 @app.route('/users/<int:user_id>/messages/<int:message_id>', methods=['GET', 'PATCH', 'DELETE'])
 def show_message(user_id, message_id):
 	user = User.query.get(user_id)
 	message = Message.query.get(message_id)
-	form = AddMessageForm(request.form)
 	if request.method == b"PATCH":
+		form = AddMessageForm(request.form)
 		if form.validate():
 			message.text = form.text.data
 			db.session.add(message)
@@ -138,13 +140,13 @@ def show_message(user_id, message_id):
 		db.session.commit()
 		flash("You've successfully deleted {}'s message.".format(user.username))
 		return redirect(url_for('index_messages', user_id=user.id))
-	return render_template('messages/edit.html', user_id=user.id, message_id=message.id)
+	return render_template('messages/show.html', user=user, message=message)
 
 @app.route('/users/<int:user_id>/messages/<int:message_id>/edit')
 def edit_message(user_id, message_id):
 	user = User.query.get(user_id)
 	message = Message.query.get(message_id)
-	form = AddMessageForm(request.form)
+	form = AddMessageForm(obj=message)
 	return render_template('messages/edit.html', user=user, message=message, form=form)
 
 if __name__ == "__main__":
