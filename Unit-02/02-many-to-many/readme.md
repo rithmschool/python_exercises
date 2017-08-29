@@ -2,7 +2,7 @@
 
 ### Part 1 
 
-1. Finish building CURD in the many to many application with employees and departments. You can find the starter code [here](https://github.com/rithmschool/flask-many-many-example)
+1. Finish building CRUD in the many to many application with employees and departments. You can find the starter code [here](https://github.com/rithmschool/flask-many-many-example)
 
 Your app should have the following features:
 
