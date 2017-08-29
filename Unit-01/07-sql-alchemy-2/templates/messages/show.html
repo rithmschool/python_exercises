@@ -1,0 +1,13 @@
+{% extends '/base.html' %}
+{% block content %}
+
+  <p>{{ message.content }}</p>
+  <p>By: {{ message.user.username }}</p>
+  
+  <button><a href="{{ url_for('message_edit', user_id=message.user_id, message_id=message.id) }}">Edit Message</a></button>
+  <form action="{{ url_for('message_show', user_id=message.user_id, message_id=message.id) }}?_method=DELETE" method="POST">
+    <input type="submit" value="Delete Message">
+  </form>
+  <button><a href="{{ url_for('message_index', user_id=message.user_id) }}">Back To All Messages by {{ message.user.username }}</a></button>
+
+{% endblock %}

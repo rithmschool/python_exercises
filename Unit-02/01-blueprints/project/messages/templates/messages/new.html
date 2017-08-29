@@ -1,0 +1,27 @@
+{% extends '/base.html' %}
+{% block content %}
+
+  <h1>Add New Message</h1>
+  <form action="{{ url_for('messages.index', user_id=user.id) }}" method="POST">
+     {{ form.csrf_token }}
+    <p>
+     {{ form.content.label }}: 
+     {{ form.content(placeholder="Message") }}
+      <span>
+        {% if form.content.errors %}
+          {% for error in form.content.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+    
+    {% if e %}
+      <p>{{ e }}</p>
+    {% endif %}
+    <button type="submit">Add New Message</button>
+  </form>
+  <br>
+  <a href="{{ url_for('messages.index', user_id=user.id) }}">Back To All Messages by {{ user.username }}</a>
+
+{% endblock %}
