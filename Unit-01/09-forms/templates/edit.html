@@ -1,0 +1,28 @@
+{%  block content  %}
+
+<h1>Edit this snack, because you failed the first time</h1>
+
+<form action = '/snacks/{{snack.id}}/edit?_method=PATCH', method='POST'>
+
+{{ form.hidden_tag() }}
+  	{% for field in form if field.widget.input_type != 'hidden' %}
+	<p>
+		{{field.label}}
+		{{field}}
+			<span>
+			{%  if field.errors  %}
+				{%  for error in field.errors  %}
+					{{error}}
+				{%  endfor  %}
+			{%  endif  %}
+			</span>
+	</p>
+	{%  endfor  %}
+
+<form action = '/snacks/{{snack.id}}/edit?_method=DELETE', method='POST'>
+<button>Or just DELETE ME, and forever live in starvation!</button>
+</form>
+
+
+{%  endblock  %}
+

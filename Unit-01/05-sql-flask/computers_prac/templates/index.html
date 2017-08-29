@@ -1,0 +1,11 @@
+{%  extends 'base.html'  %}
+
+{%  block content  %}
+<h1> SHOW ALLLLLL THE THINGS!!!!!!</h1>
+<ul>
+	{%  for computer in computers  %}
+	<li>Computer:  {{computer.name}} - GBs in Memory: {{computer.memory}}gb</li>
+	{%  endfor  %}
+</ul>
+
+{%  endblock  %}

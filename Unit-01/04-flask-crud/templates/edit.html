@@ -1,0 +1,21 @@
+{%  block content  %}
+
+<h1>Edit this snack, because you failed the first time</h1>
+
+<form action = '/snacks/{{snack.id}}/edit?_method=PATCH', method='POST'>
+<label for="snack_name">
+	Snack Name: <input type='text', name='name', id='snack_name', value='{{snack.name}}' >
+</label>
+<label for='snack_type'>
+	Snack Type: <input type='text', name='kind', id='snack_type', value='{{snack.kind}}' >
+</label>
+<label>
+	<input type='submit'>
+</label>
+</form>
+<form action = '/snacks/{{snack.id}}/edit?_method=DELETE', method='POST'>
+<button>Or just DELETE ME, and forever live in starvation!</button>
+</form>
+
+{%  endblock  %}
+

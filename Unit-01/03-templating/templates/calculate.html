@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form action='/math'>
+	1st Number:<input type="number" name="num1"><br>
+	2nd Number:<input type="number" name="num2"><br>
+	<select name = "operation">
+	Operation:   <option type='radio' name='add'>Add</option>
+				 <option type='radio' name='subtract'>Subtract</option>
+				 <option type='radio' name='multiply'>Multiply</option>
+				 <option type='radio' name='divide'>Divide</option>
+	</select>
+	<input type='submit'>
+</form>
+
+{% endblock %}

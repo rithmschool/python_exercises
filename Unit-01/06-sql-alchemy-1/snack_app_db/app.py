@@ -5,9 +5,6 @@ from flask_modus import Modus
 app = Flask(__name__)
 modus = Modus(app)
 
-Snack('Carrots','Rabbit Food')
-Snack('Oreo','Heavenly Cookie')
-Snack('Snickers','Rat Poison')
 
 @app.route('/')
 def root():

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for toy in toys %}
+	<p>{{toy}}</p>
+	<img src = {{toy.image_url}} alt = {{toy.name}}>
+{% endfor %}
+
+
+
+{% endblock %}

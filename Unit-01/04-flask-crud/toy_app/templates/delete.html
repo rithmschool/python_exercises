@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- <form action = "{{url_for('index', id = toy.id')}}?_method=DELETE" method='POST'>  -->
+<form action="{{url_for('show', id=toy.id)}}?_method=PATCH" method="POST">
+
+Toy ID: <input type="text" name="ID_to_delete"><br>
+Delete Toy<input type='submit' name='delete'>
+
+</form>
+
+{% endblock %}
