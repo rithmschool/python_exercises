@@ -1,0 +1,21 @@
+{% extends 'users/base.html' %}
+{% block content %}
+	<h1>Here's some handy info about this user!</h1>
+	<p>
+	<ul>
+		<li>Username: {{ user.username }}</li>
+		<li>Name: {{ user.first_name }} {{ user.last_name }}</li>
+		<li>Email: {{ user.email }}</li>
+	</ul>
+	</p>
+	<hr>
+	<p>
+		<div><strong>More options</strong></div>
+		<a href={{ url_for('index_msg', user_id=user.id) }}>View {{user.username}}'s messages</a>
+		<br>
+		<a href="{{url_for('edit', user_id=user.id)}}">Edit this user</a>
+		<br>
+		<a href="{{url_for('index')}}">View all users</a>
+	</p>
+{% endblock %}
+		

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1>Welcome to the show page!</h1>
+<p>Delete {{ owner.first_name }} {{ owner.last_name }}?</p>
+
+<form action="{{url_for('owners.show', owner_id=owner.id)}}?_method=DELETE" method="POST">
+	<button type="submit" value="X"></button>
+</form>
+
+{% endblock %}

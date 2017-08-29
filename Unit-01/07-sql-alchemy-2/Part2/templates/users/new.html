@@ -1,0 +1,14 @@
+{% extends 'users/base.html' %}
+{% block content %}
+	<form action="{{url_for('index')}}" method="POST">
+		<label for="username">Username: </label>
+		<input type="text" name="username" id="username">
+		<label for="email">Email: </label>
+		<input type="text" name="email" id="email">
+		<label for="first_name">First name: </label>
+		<input type="text" name="first_name" id="first_name">
+		<label for="last_name">Last name: </label>
+		<input type="text" name="last_name" id="last_name">
+		<input type="submit" value="Add a user">
+	</form>
+{% endblock %}

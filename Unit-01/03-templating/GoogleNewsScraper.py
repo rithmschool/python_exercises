@@ -8,27 +8,6 @@ app = Flask(__name__)
 app.jinja_env.undefined = jinja2.StrictUndefined
 app.jinja_env.auto_reload = True
 
-@app.route('/person/<name>/<int:age>')
-def person(name,age):
-    return render_template('person.html', name=name, age=str(age))
-
-@app.route('/calculate')
-def calc():
-    return render_template('calc.html')
-
-@app.route('/math')
-def math():
-    a = int(request.args.get('num1'))
-    b = int(request.args.get('num2'))
-    op = request.args.get('op')
-    if op == "add":
-        return str(a+b)
-    if op == "subtract":
-        return str(a-b)
-    if op == "multiply":
-        return str(a*b)
-    if op == "divide":
-        return str(a/b)
 
 @app.route('/')
 def search():

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Google News{% endblock %}
+{% block content %}
+  <h4>
+  <ul>
+	{% for headline, anchor in links.items() %}
+		{%if keyword in headline%}
+	  		<li><a href={{anchor}}>{{headline}}</a></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+</h4>
+{% endblock %}
+
