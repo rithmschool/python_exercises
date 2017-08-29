@@ -1,0 +1,34 @@
+{% extends '/base.html' %}
+{% block title %}
+User Details
+{% endblock %}
+{% block content %}
+  
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% if delete_e %}
+    <span>{{ delete_e }}</span>
+  {% endif %}
+
+<h1>Username: {{ user.username }}</h1>
+<h3>Email: {{ user.email }}</h3>
+<h3>Name: {{ user.first_name }} {{ user.last_name }}</h3>
+<span>
+<button>
+<a href="{{ url_for('messages.index', user_id=user.id) }}">Messages by {{ user.username }}</a></button></span>
+<br>
+
+<button><a href="{{ url_for('users.edit', user_id=user.id) }}">Edit User</a></button>
+<form action="{{ url_for('users.show', user_id=user.id) }}?_method=DELETE" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <button type="submit">Delete User</button>
+</form>
+<button><a href="{{ url_for('users.index') }}">Back To All Users</a></button>
+
+{% endblock %}
