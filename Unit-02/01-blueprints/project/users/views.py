@@ -15,7 +15,7 @@ users_blueprint = Blueprint(
 @users_blueprint.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        form = UserForm()
+        form = UserForm(request.form)
         if form.validate():
             user_name = request.form.get('user_name')
             first_name = request.form.get('first_name')

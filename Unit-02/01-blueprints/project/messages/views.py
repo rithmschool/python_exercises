@@ -15,7 +15,7 @@ messages_blueprint = Blueprint(
 @messages_blueprint.route('/', methods=['GET', 'POST'])
 def index(user_id):
     if request.method == 'POST':
-        form = MessageForm()
+        form = MessageForm(request.form)
         if form.validate():
             message = request.form.get('message')
 
