@@ -27,7 +27,7 @@ class Snack(db.Model):
 
 @app.route('/')
 def root():
-    return redirect('index')
+    return redirect(url_for('index'))
 
 @app.route('/snacks', methods=["GET", "POST"])
 def index():
