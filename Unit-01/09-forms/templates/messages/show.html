@@ -1,0 +1,21 @@
+{% extends '/base.html' %}
+{% block content %}
+  
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <p>{{ message.content }}</p>
+  <p>By: {{ user.username }}</p>
+  
+  <button><a href="{{ url_for('message_edit', user_id=user.id, message_id=message.id) }}">Edit Message</a></button>
+  <form action="{{ url_for('message_show', user_id=user.id, message_id=message.id) }}?_method=DELETE" method="POST">
+    <input type="submit" value="Delete Message">
+  </form>
+  <button><a href="{{ url_for('message_index', user_id=user.id) }}">Back To All Messages by {{ user.username }}</a></button>
+
+{% endblock %}

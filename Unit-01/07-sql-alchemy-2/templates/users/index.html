@@ -1,0 +1,14 @@
+{% extends '/base.html' %}
+{% block content %}
+
+  <h1>Users List</h1>
+  <button><a href="{{ url_for('new') }}">Create New User</a></button>
+  <ul>
+    {% for user in users %}
+      <li>{{ user.username }} <a href="{{ url_for('show', id=user.id) }}">More Info</a>
+      <a href="{{ url_for('message_index', user_id=user.id) }}">Messages</a></li>
+    {% endfor %}
+  </ul>
+
+
+{% endblock %}

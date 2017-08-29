@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{snack.name}}</h1>
+    <p>
+        The name of this snack is {{snack.name}}.
+    </p>
+    <p>
+        The kind of snack is {{snack.kind}}.
+    </p>
+    <p>
+        {{snack.name}} has {{snack.calories}} calories.
+    </p>
+    <br>
+    <button><a href="{{url_for('index')}}">Back to all of the snacks</a></button>
+    <br>
+    <button><a href="{{url_for('edit', id=snack.id)}}">Edit snack</a></button>
+    <form action="{{url_for('show', id=snack.id)}}?_method=DELETE" method="POST">
+    	<input type="submit" value="Delete snack">
+    </form>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends '/base.html' %}
+{% block content %}
+
+  <h1>Edit User</h1>
+  <form action="{{ url_for('users.show', user_id=user.id) }}?_method=PATCH" method="POST">
+    {{ form.csrf_token }}
+     <p>
+      {{ form.username.label }}: 
+      {{ form.username(placeholder="Username") }}
+       <span>
+         {% if form.username.errors %}
+           {% for error in form.username.errors %}
+             {{ error }}
+           {% endfor %}
+         {% endif %}
+       </span>
+     </p>
+     <p>
+      {{ form.email.label }}: 
+      {{ form.email(placeholder="Email") }}
+       <span>
+         {% if form.email.errors %}
+           {% for error in form.email.errors %}
+             {{ error }}
+           {% endfor %}
+         {% endif %}
+       </span>
+     </p>
+     <p>
+      {{ form.first_name.label }}: 
+      {{ form.first_name(placeholder="First Name") }}
+       <span>
+         {% if form.first_name.errors %}
+           {% for error in form.first_name.errors %}
+             {{ error }}
+           {% endfor %}
+         {% endif %}
+       </span>
+     </p>
+     <p>
+      {{ form.last_name.label }}: 
+      {{ form.last_name(placeholder="Last Name") }}
+       <span>
+         {% if form.last_name.errors %}
+           {% for error in form.last_name.errors %}
+             {{ error }}
+           {% endfor %}
+         {% endif %}
+       </span>
+     </p>   
+    
+    {% if e or user_e or email_e %}
+      <p>{{ user_e }}</p>
+      <p>{{ email_e }}</p>
+      <p>{{ e }}</p>
+    {% endif %}
+    <button type="submit">Edit User</button>
+  </form>
+  <br>
+  <a href="{{ url_for('users.index') }}">Back To All Users</a>
+
+{% endblock %}
