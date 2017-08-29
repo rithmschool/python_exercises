@@ -7,8 +7,11 @@ class UserForm(FlaskForm):
 	last_name = StringField('Last Name', [validators.Length(min=1)])
 	email = StringField('Email', [validators.Length(min=1)])
 
-class Edit_UserForm(FlaskForm):
+class EditUserForm(FlaskForm):
 	username = StringField('Username', [validators.Length(min=1)])
 	first_name = StringField('First Name', [validators.Length(min=1)])
 	last_name = StringField('Last Name', [validators.Length(min=1)])
 	email = StringField('Email', [validators.Length(min=1)])
+
+class DeleteUserForm(FlaskForm):
+	pass

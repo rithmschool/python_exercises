@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for, Blueprint, abort, flash
 from project.messages.models import Message
 from project.users.models import User
-from project.messages.forms import MessageForm, Edit_MessageForm
+from project.messages.forms import MessageForm, EditMessageForm, DeleteMessageForm
 from project import db
 
 
@@ -41,30 +41,38 @@ def show(user_id, id):
 		abort(404)
 
 	if request.method == b"DELETE":
-		db.session.delete(found_message)
-		db.session.commit()
-		flash("You have successfully deleted Message.")
-		return redirect(url_for('messages.index', user_id=found_message.user_id))
+		d_form = DeleteMessageForm(request.form)
+		if d_form.validate():			
+			db.session.delete(found_message)
+			db.session.commit()
+			flash("You have successfully deleted Message.")
+			return redirect(url_for('messages.index', user_id=found_message.user_id))
+		else:
+			# e_form = EditMessageForm(obj=found_message)
+			# return render_template('messages/edit.html', message=found_message, e_form=e_form, d_form=d_form)
+			return redirect(url_for('messages.show', user_id=found_message.user_id, id=found_message.id))
 
 	if request.method == b"PATCH":
-		form = Edit_MessageForm(request.form)
-		if form.validate():
+		e_form = EditMessageForm(request.form)
+		if e_form.validate():
 			found_message.text = request.form.get('text')
 			db.session.add(found_message)
 			db.session.commit()
 			flash("You have successfully updated a Message!")
 			return redirect(url_for('messages.index', user_id=found_message.user_id))
 		else:
-			return render_template('messages/edit.html', message=found_message, form=form)
+			d_form = DeleteMessageForm(request.form)
+			return render_template('messages/edit.html', message=found_message, e_form=e_form, d_form=d_form)
 
 	return render_template('messages/show.html', message=found_message)
 
 @messages_blueprint.route('/<int:id>/edit', methods=['GET'])
 def edit(user_id, id):
 	found_message = Message.query.filter_by(id=id).first()
-	form = Edit_MessageForm(obj=found_message)
+	e_form = EditMessageForm(obj=found_message)
+	d_form = DeleteMessageForm()
 
 	if found_message is None:
 		abort(404)
 
-	return render_template('messages/edit.html', message=found_message, form=form)
+	return render_template('messages/edit.html', message=found_message, e_form=e_form, d_form=d_form)

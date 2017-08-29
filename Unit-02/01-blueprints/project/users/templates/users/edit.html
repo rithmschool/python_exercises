@@ -2,8 +2,8 @@
 {% block content %}
   <div>
   <form class="edit_forms" action="{{ url_for('users.show', id=user.id) }}?_method=PATCH" method="POST">
-    {{form.hidden_tag()}}
-    {% for field in form if field.widget.input_type != 'hidden' %}
+    {{e_form.hidden_tag()}}
+    {% for field in e_form if field.widget.input_type != 'hidden' %}
       {{ field.label(class='iLabels') }}
       {{ field(class='iTxtBoxes') }}
       <span style="display: block">
@@ -17,7 +17,7 @@
     <input type="submit" value="Update" class="fsSubmitButton">
   </form>
     <form style="margin-left: 10px;" class="edit_forms" action="{{ url_for('users.show', id=user.id) }}?_method=DELETE" method="POST">
-      {{form.hidden_tag()}}
+      {{d_form.hidden_tag()}}
       <input type="submit" value="Delete" class="fsSubmitButton">
   </form>
   </div>
