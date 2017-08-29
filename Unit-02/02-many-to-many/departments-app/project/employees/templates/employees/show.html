@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+
+{% if current_user.is_authenticated %}
+<h1>Hello {{current_user.username.upper()}}</h1>
+{% endif %}
+<ol>
+{% for message in messages %}
+    <li><p>{{message.message}} - {{message.employee.username}}</p>
+    <form action="{{url_for('messages.favorite', employee_id = employee.id, message_id = message.id)}}" method="POST">
+         {{ form.hidden_tag() }}
+         <div class = "submit-post-button-div" >
+            <button class="btn" type="submit">Favorite This Message</button>
+        </div>
+    </form>
+    </li>
+    {% endfor %}
+
+</ol>
+
+<h2><a href="{{url_for('messages.new', employee_id=employee.id)}}">Add Message</a></h2>
+<h2><a href="{{url_for('messages.favorites', employee_id=employee.id)}}">Favorited Messages</a></h2>
+<h2><a href="{{url_for('messages.all', employee_id=employee.id)}}">Your Messages</a></h2>
+
+{% endblock %}

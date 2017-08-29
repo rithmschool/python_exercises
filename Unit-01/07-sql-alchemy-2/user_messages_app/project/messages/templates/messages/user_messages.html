@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2><a href="{{url_for('users.index')}}">See Users</a></h2>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <a class=flashes>
+    {% for message in messages %}
+
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+    <h1>{{user.username}}</h1>
+    {% for message in messages%}
+        <h3> <a href="{{url_for('messages.edit', message_id = message.id , user_id= user.id)}}"> EDIT</a> </h3>
+    <p>{{message.message}}</p>
+{% endfor %}
+
+{% endblock %}

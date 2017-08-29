@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>EDIT YOUR MESSAGE</h1>
+<h1>{{message.message}}</h1>
+<form action="{{url_for('messages.update', user_id=user.id, message_id = message.id)}}?_method=PATCH" method="POST">
+    {{ form.hidden_tag() }}
+  {% for field in form if field.widget.input_type != 'hidden' %}
+  <p>
+    {{ field.label }}
+    {{ field }}
+    <span>
+      {% if field.errors %}
+        {% for error in field.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  {% endfor %}
+
+ <div id = "submit-post-button-div" >
+   <button class="btn" type="submit">Edit Message</button>
+ </div>
+</form>
+<form action="{{url_for('messages.update', user_id = user.id, message_id = message.id)}}?_method=DELETE" method="POST">
+<div id = "delete-message-button-div" >
+   <button class="btn" type="submit">Delete Message</button>
+ </div>
+</form>
+{% endblock %}

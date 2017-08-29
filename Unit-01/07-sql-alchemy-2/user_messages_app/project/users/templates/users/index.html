@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2><a href="{{url_for('users.newUser')}}">Add User</a></h2>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% for user in users%}
+<div id = "user-div">
+    <p>{{user.username}}</p>
+    <p>{{user.email}}</p>
+    <p>{{user.first_name}}</p>
+    <p>{{user.last_name}}</p>
+    <h2><a href="{{url_for('messages.new', user_id=user.id)}}">Add Message</a></h2>
+    <h2><a href="{{url_for('messages.index', user_id=user.id)}}">See User Messages</a></h2>
+    <h2><a href="{{url_for('users.edit', id=user.id)}}">Edit User</a></h2>
+
+
+</div>
+{% endfor %}
+{% endblock %}
