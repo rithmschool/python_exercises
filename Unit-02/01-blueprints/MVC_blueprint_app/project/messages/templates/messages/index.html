@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+Messages
+{% endblock %}
+
+{% block content %}
+<h2>Hello {{user.first_name}} {{user.last_name}}, you have written the following messages:</h2>
+<ul>
+	  {% for message in messages %}
+		<li>{{message.message}} <span>(<a href="{{url_for('messages.edit', user_id=user.id, id=message.id)}}">edit message</a>)</span></li>
+	  {% endfor %}
+</ul>
+<a href="{{url_for('messages.new', user_id=user.id)}}">New message</a>
+{% endblock %}

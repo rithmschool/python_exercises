@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}
+User page
+{% endblock %}
+
+{% block content %}
+<h1>{{user.first_name}} {{user.last_name}}, I am your father.</h1>
+<p><a href="{{url_for('users.edit',id=user.id)}}">Edit user</a></p>
+{% endblock %}

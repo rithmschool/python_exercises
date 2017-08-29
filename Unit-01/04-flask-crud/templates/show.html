@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+	<p> There are many snacks in the world to be eaten, your chosen snack is {{one_snack["name"]}}.  This snack is a {{one_snack["kind"]}}.<p>
+	<a href="{{url_for('index')}}">See all the snacks</a> 
+    <br>
+{% endblock %}

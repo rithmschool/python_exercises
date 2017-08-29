@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+New message
+{% endblock %}
+
+{% block content %}
+<form action="{{url_for('messages.index', user_id=user.id)}}" method="POST">
+	{{ form.csrf_token }}
+	<p>
+		{{ form.message(placeholder="Write something...") }}
+    <span>
+		{% if form.message.errors %}
+			{% for error in form.message.errors %}
+				{{ error }}
+			{% endfor %}
+		{% endif %}
+    </span>
+	</p>
+	<button type="submit">Submit message</button>
+</form>
+{% endblock %}
