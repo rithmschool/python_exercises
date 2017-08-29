@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_modus import Modus
 import os
@@ -25,3 +25,8 @@ app.register_blueprint(messages_blueprint, url_prefix='/messages')
 @app.route('/')
 def root():
     return "HELLO BLUEPRINTS!"
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')
