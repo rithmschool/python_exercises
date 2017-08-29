@@ -8,8 +8,8 @@ Your app should have the following features:
 
 * Full CRUD on employees
 * Full CRUD on departments 
-* The index page for employees should show the department name for each employee
-* The index page for departments should show all employees in the department
+* The index or show page for employees should show the department name for each employee
+* The index or show page for departments should show all employees in the department
 * Use WTForms for all CRUD operations for both employees and departments 
 
 ### Part 2 
