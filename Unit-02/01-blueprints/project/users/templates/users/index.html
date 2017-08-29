@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+  <form action="{{ url_for('users.new') }}">
+    <input type="submit" value="Add User">
+  </form>
+  --------------------------------------------
+  <br>
+  {% with message = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% for user in users %}
+  <img src="{{ user.image_url }}" alt="">
+  <p>
+    Username: {{ user.username }} <br>
+    Full Name: {{ user.first_name }} {{ user.last_name }} <br>
+    E-mail: {{ user.email }}
+  </p>
+  <form action="{{ url_for('messages.index', user_id=user.id) }}">
+    <input type="submit" value="View Messages">
+  </form>
+  <form action="{{ url_for('users.edit', id=user.id) }}">
+    <input type="submit" value="Edit User">
+  </form>
+  --------------------------------------------
+  {% endfor %}
+{% endblock %}

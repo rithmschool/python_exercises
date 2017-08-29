@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+  Messages for User: {{ username }}
+  <form action="{{ url_for('messages.new', user_id=user_id) }}">
+    <input type="submit" value="Add Message">
+  </form>
+  --------------------------------------------
+  <br>
+  {% with message = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% for user_message in user_messages %}
+  <p>
+    Message: {{ user_message.message }}
+  </p>
+  <form action="{{ url_for('messages.edit', user_id=user_id, message_id=user_message.id) }}">
+    <input type="submit" value="Edit Message">
+  </form>
+  --------------------------------------------
+  {% endfor %}
+{% endblock %}
