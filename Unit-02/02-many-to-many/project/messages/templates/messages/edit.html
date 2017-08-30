@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<a href='{{url_for("messages.index", user_id=found_user.id)}}'><- Back to Message List</a>
+<br>
+<br>
+
+<form action="{{url_for('messages.show', user_id=found_user.id, id=found_message.id)}}?_method=PATCH" method='POST'>
+	{{form.csrf_token}}
+	<p>
+		{{form.text.label}}
+		{{form.text(value=found_message.text)}}
+		<span>
+			{% if form.text.errors %}
+				{% for error in form.text.errors %}
+					{{error}}
+				{% endfor %}
+			{% endif %}
+		</span>
+
+	</p>
+	<p>
+		{{ form.tags }}
+	</p>
+	<input type='submit' value='Edit Message'>
+</form>
+<br>
+<br>
+
+<form action="{{url_for('messages.show', user_id=found_user.id, id=found_message.id)}}?_method=DELETE" method='POST' >
+	{{delete_form.csrf_token}}
+	Delete Message? <input type='submit' value='Delete'>
+</form>
+
+{% endblock %}

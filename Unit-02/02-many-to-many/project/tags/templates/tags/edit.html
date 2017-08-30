@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method='POST' action='{{url_for("tags.show", id = tag.id)}}?_method=PATCH'>
+		{{ form.csrf_token }}
+		<p>
+			{{form.text.label}}
+			{{form.text(value=tag.text)}}
+			<span>
+				{% if form.text.errors %}
+					{% for error in form.text.errors %}
+						{{error}}
+					{% endfor %}
+				{% endif %}
+			</span>
+		</p>
+		<p>
+			{{form.messages}}
+		</p>
+	<input type='submit' value='Edit Tag'>
+</form>
+
+<br>
+<form method = 'POST' action='{{url_for("tags.show", id=tag.id)}}?_method=DELETE'>
+	{{delete_form.csrf_token}}
+	Delete Tag? <input type='submit' value='Delete Tag'>
+</form>
+
+{% endblock %}
