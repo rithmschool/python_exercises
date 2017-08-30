@@ -1,6 +1,6 @@
 # Blueprints 
 
-### Part I - Questions
+### Part I - Question
 
 1. Describe the MVC pattern.
 2. In the MVC pattern, does the model communicate directly with the view?

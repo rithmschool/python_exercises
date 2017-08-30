@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google News</title>
+</head>
+<body>
+  <h1>Search Google News!</h1>
+  <form action="{{ url_for('results') }}">
+    <input type="text" name="keyword">
+    <input type="submit">
+  </form>
+</body>
+</html>
