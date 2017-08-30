@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" action="{{url_for('departments.index')}}">
+        {{ form.csrf_token }}
+        <p>
+            {{form.name.label}}
+            {{form.name}}
+        </p>
+        <p>
+        	{{form.employees}}
+        </p>
+    <button type="submit" class="btn btn-primary">CREATE</button>
+</form>
+{% endblock %}

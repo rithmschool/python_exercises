@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" action="{{url_for('departments.show', id=department.id)}}?_method=PATCH">
+        {{ form.csrf_token }}
+        <p>
+            {{form.name.label}}
+            {{form.name(value=department.name)}}
+        </p>
+        <p>
+            {{form.employees}}
+        </p>
+
+    <button type="submit" class="btn btn-primary">SAVE</button>
+</form>
+<form method="POST" action="{{url_for('departments.show', id=department.id)}}?_method=DELETE">
+    {{ form.csrf_token }}
+    <button type="submit" class="btn btn-danger">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </button>
+</form>
+{% endblock %}
