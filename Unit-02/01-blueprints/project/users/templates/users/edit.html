@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="{{url_for('messages.index', user_id = user.id)}}" method="POST">
-  {{form.hidden_tag()}}
-  {% for field in form if field.widget.input_type != 'hidden' %}
+
+<form action="{{url_for('users.show', id = user.id)}}?_method=PATCH" method="POST">
+{{form.hidden_tag()}}
+{% for field in form if field.widget.input_type != 'hidden' %}
   <div class="form-group">
     {{field.label}}
     {{field}}
@@ -14,8 +15,8 @@
       {% endif %}
     </span>
   </div>
-  {% endfor %}
-  <div class="form-group">
+{% endfor %}
+<div class="form-group">
     <input type="submit" class="btn btn-primary">
   </div>
 </form>

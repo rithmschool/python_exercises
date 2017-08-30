@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for message in user.messages %}
+  <p>{{message.id}} {{message.text}} <a href="{{url_for('messages.show', user_id = user.id, id = message.id)}}">Show</a> <a href="{{url_for('messages.edit', user_id = user.id, id = message.id)}}">Edit</a></p>
+  <form action="{{url_for('messages.show', user_id = user.id, id = message.id)}}?_method=DELETE" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <input type="submit" value="Please, delete me, let me go!" class="btn btn-primary">
+    </form>
+{% endfor %}
+
+<a href="{{url_for('messages.new', user_id = user.id)}}">Create a new message</a>
+
+{% endblock %}
+
