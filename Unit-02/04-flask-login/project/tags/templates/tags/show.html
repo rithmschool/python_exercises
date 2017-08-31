@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href='{{url_for("messages.index", user_id=current_user.id)}}'><- Back to messages</a>
+
+<h1>{{tag.text}}</h1>
+<h4>Messages with tag:</h4>
+
+<ol>
+	{% if tag.messages %}
+		{% for message in tag.messages %}
+			<li>{{message.text}}</li>
+		{% endfor %}
+	{% endif %}
+</ol>
+
+
+{% endblock %}

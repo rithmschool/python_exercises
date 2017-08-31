@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href='{{url_for("users.index")}}'><- Back to User List</a>
+<br>
+<br>
+
+<h1>{{found_user.username}}</h1>
+<p>Email: {{found_user.email}}  First_Name: {{found_user.first_name}}  Last_Name: {{found_user.last_name}}</p>
+
+<h3>See all of {{found_user.username}}'s messages <a href='{{url_for("messages.index", user_id=found_user.id)}}'>here</a></h3>
+
+
+{% endblock %}

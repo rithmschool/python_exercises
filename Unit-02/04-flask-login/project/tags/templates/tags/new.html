@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method='POST' action='{{url_for("tags.index")}}'>
+		{{ form.csrf_token }}
+		<p>
+			{{form.text.label}}
+			{{form.text}}
+			<span>
+				{% if form.text.errors %}
+					{% for error in form.text.errors %}
+						{{error}}
+					{% endfor %}
+				{% endif %}
+			</span>
+		</p>
+		<p>
+			{{form.messages}}
+		</p>
+	<input type='submit' value='Add Tag'>
+</form>
+
+{% endblock %}

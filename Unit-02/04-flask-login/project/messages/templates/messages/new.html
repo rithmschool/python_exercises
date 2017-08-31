@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<a href='{{url_for("messages.index", user_id = found_user.id)}}'><- Back to User's Messages</a>
+<br>
+<br>
+
+<form action="{{url_for('messages.index', user_id = found_user.id)}}" method='POST'>
+	{{form.csrf_token}}
+	<p>
+		{{form.text.label}}
+		{{form.text}}
+		<span>
+			{% if form.text.errors %}
+				{% for error in form.text.errors %}
+					{{error}}
+				{% endfor %}
+			{% endif %}
+		</span>
+
+	</p>
+	<p>
+		{{ form.tags }}
+	</p>
+	<input type='submit' value='Add Message'>
+</form>
+
+
+{% endblock %}

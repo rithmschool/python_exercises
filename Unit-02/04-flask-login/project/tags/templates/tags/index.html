@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>All Tags</h1>
+
+<form action="{{url_for('tags.new')}}">
+	<input type="submit" value ="Add Tag">
+</form>
+<br>
+
+<ol>
+	{% for tag in tag %}
+		<li>
+			<a href='{{url_for("tags.show", id=tag.id)}}'>{{tag.text}}</a> &nbsp; <a href='{{url_for("tags.edit", id=tag.id)}}'>Edit Tag</a>
+		</li>
+	{% endfor %}
+</ol>
+
+
+{% endblock %}
