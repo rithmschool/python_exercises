@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_modus import Modus
 import os
@@ -26,7 +26,7 @@ app.register_blueprint(tags_blueprint, url_prefix='/tags')
 
 @app.route('/')
 def root():
-    return redirect('users.index')
+    return redirect(url_for('users.index'))
 
 
 @app.errorhandler(404)

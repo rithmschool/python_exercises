@@ -17,11 +17,10 @@ def index(user_id):
         form = MessageForm(request.form)
         form.set_choices()
         if form.validate():
-            message = request.form.get('message')
+            new_message = Message(form.message.data, user_id)
             for tag in form.tags.data:
-                message.messages.append(Tag.query.get(tag))
-
-            db.session.add(Message(message, user_id))
+                new_message.tags.append(Tag.query.get(tag))
+            db.session.add(new_message)
             db.session.commit()
 
             flash('New message added.')

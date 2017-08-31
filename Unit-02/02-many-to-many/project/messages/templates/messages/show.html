@@ -4,7 +4,7 @@
     <div class="container">
         <h3>Message: {{ msg.message }}</h3>
         <h5>Tags</h5>
-        {% for tag in message.tags %}
+        {% for tag in msg.tags %}
         <p>
           {{tag.text}} | <a href="{{url_for('tags.edit', tag_id=tag.id)}}">Edit this tag!</a>
         </p>

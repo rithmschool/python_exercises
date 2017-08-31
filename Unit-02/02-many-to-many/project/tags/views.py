@@ -24,8 +24,8 @@ def index():
             db.session.commit()
         else:
             return render_template('tags/new.html', form=form)
-    else:  
-        return render_template('tags/index.html', tags=Tag.query.all())
+    
+    return render_template('tags/index.html', tags=Tag.query.all())
 
 
 @tags_blueprint.route('/<int:tag_id>/edit')

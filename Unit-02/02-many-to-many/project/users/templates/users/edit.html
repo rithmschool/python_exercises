@@ -23,8 +23,6 @@
     <form action="{{url_for('users.show', id=user.id)}}?_method=DELETE" method="POST">
       {{ form.csrf_token }}
         <input type="submit" value="Delete">
-      }
-      }
     </form>
     </div>
 {% endblock %}
