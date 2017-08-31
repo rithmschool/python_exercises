@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h2>List of User Messages</h2>
+	<ul>
+		<!-- python code to loop thru messages_list -->
+		{% for message in found_user.messages %}
+
+			<li> {{message.message}}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="">
+<!-- build a form which has two inputs (one with a name of num1 and another with the name of num2for numbers and a select field with the name of calculation with options for "add", "subract", "multiply" and "divide".	 -->
+	<label for="num1" class="col-md-2 col-form-label">Number 1</label>
+	<div class="col-md-6">
+		<input type="text" name="num1"><br>
+	</div>
+
+	<label for="num2" class="col-md-2 col-form-label">Number 2</label>
+	<div class="col-md-6">
+		<input type="text" name="num2"><br>
+	</div>	
+
+	<div>
+		<select name="calculation">
+		  <option value="add">Add</option>
+		  <option value="subtract">Subtract</option>
+		  <option value="multiply">Multiply</option>
+		  <option value="divide">Divide</option>
+		</select>
+	</div>
+
+</form>
+{% endblock %}

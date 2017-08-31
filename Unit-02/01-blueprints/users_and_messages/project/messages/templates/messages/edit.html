@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<form action="{{url_for('messages.show', user_id=message.user.id, id=message.id)}}?_method=PATCH" method="POST">
+		{{ form.csrf_token }}
+
+		<p>
+			{{ form.message(placeholder="Text") }}
+		</p>
+		<button type="submit">Add Message!</button>
+	</form>
+
+{% endblock %}
