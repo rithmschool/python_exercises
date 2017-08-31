@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" action="{{url_for('tags.index')}}">
+        {{ form.csrf_token }}
+        <p>
+            {{form.text.label}}
+            {{form.text}}
+        </p>
+        <p>
+            {{form.messages}}
+        </p>
+    <button type="submit" class="btn btn-primary">CREATE</button>
+</form>
+{% endblock %}
