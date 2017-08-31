@@ -2,21 +2,8 @@
 {% block content %}
     <h1 class="text-center">Message Listing for <a href="{{url_for('users.show', id=user.id)}}">{{ user.user_name }}</a></h1>
     <div class="container">
-        <p><a href="{{url_for('users.index')}}">List all Users</a></p>
-<!--         <table class="table table-striped">
-            <tr>
-                <th>Message</th>
-            </tr>
-            {% for msg in messages %}
-            <tr>
-                <td><a href="{{url_for('messages.show', user_id=msg.user_id, msg_id=msg.id)}}">{{ msg.message }}</a></td>
-            </tr>
-            <p>Tags</p>
-            {% for tag in msg.tags %}
-            <p>{{ tag.text }} | <a href="{{url_for('tags.edit', tag_id=tag.id)}}">Edit this tag!</a></p>
-            {% endfor %}
-        {% endfor %}
-        </table> -->
+        <p class="text-center"><a href="{{url_for('users.index')}}">Home</a></p>
+
         {% for message in user.messages %}
     <h2>{{message.message}}</h2>
     <p>
@@ -25,7 +12,7 @@
         <h5>Tags:</h5>
         {% for tag in message.tags %}
         <p>
-          {{tag.text}} | <a href="{{url_for('tags.edit', tag_id=tag.id)}}">Edit this tag!</a>
+          {{tag.text}} | <a href="{{url_for('tags.edit', tag_id=tag.id)}}">Edit this tag</a>
         </p>
         {% endfor %}
     </p>

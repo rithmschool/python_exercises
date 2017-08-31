@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1 class="text-center">Selected Message</h1>
+    <p class="text-center"><a href="{{url_for('users.index')}}">Home</a></p>
     <div class="container">
         <h3>Message: {{ msg.message }}</h3>
         <h5>Tags</h5>
@@ -16,7 +17,7 @@
         </p>
         <p>
             <a href="{{url_for('messages.edit', user_id=msg.user_id, msg_id=msg.id)}}">Edit this message</a> |
-            <a href="{{url_for('users.index')}}">List All Users</a>
+            <a href="{{url_for('users.index')}}">Home</a>
         </p>
     </div>
 {% endblock %}

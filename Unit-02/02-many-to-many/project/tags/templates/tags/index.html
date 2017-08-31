@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1 class="text-center">All Tags</h1>
+<p class="text-center"><a href="{{url_for('users.index')}}">Home</a></p>
 <div class="container">
     <a href="{{url_for('tags.new')}}">Add a new tag!</a>
     {% for tag in tags %}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1 class="text-center">Selected User</h1>
+    <p class="text-center"><a href="{{url_for('users.index')}}">Home</a></p>
     <div class="container">
         <p>User Name: {{ user.user_name }}</p>
         <p>First Name: {{ user.first_name }}</p>

@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1 class="text-center">Edit Tag</h1>
+<p class="text-center"><a href="{{url_for('users.index')}}">Home</a></p>
 <div class="container">
     <form method="POST" action="{{url_for('tags.show', tag_id=tag.id)}}?_method=PATCH">
             {{ edit_form.csrf_token }}
@@ -13,13 +14,12 @@
                 {{edit_form.messages}}
             </p>
 
-        <button type="submit" class="btn btn-primary">Edit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
+    <br>
     <form method="POST" action="{{url_for('tags.show', tag_id=tag.id)}}?_method=DELETE">
         {{ delete_form.csrf_token }}
-        <button type="submit" class="btn btn-danger">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        </button>
+        <button type="submit" class="btn btn-danger">Delete</button>
     </form>
 </div>
 {% endblock %}

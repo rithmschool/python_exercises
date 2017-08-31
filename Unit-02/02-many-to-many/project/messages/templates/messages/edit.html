@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1 class="text-center">Edit Message for {{ msg.user.user_name }}</h1>
+    <p class="text-center"><a href="{{url_for('users.index')}}">Home</a></p>
     <div class="container">
         <p>
             <a href="{{url_for('messages.index', user_id=msg.user_id)}}">List this user's messages</a> 
@@ -21,12 +22,12 @@
             </p>
             {% endfor %}
             <p> {{ form.tags }}</p>
-          <input type="submit" value="Submit Change"><br>
+          <button type="submit" class="btn btn-primary">Update</button>
       </form>
       <br>
       <form action="{{url_for('messages.show', user_id=msg.user_id, msg_id=msg.id)}}?_method=DELETE" method="POST">
         {{ form.csrf_token }}
-          <input type="submit" value="Delete">
+          <button type="submit" class="btn btn-danger">Delete</button>
 
       </form>
     </div>
