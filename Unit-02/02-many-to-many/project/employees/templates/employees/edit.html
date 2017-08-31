@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" action="{{url_for('employees.show', id=employee.id)}}?_method=PATCH">
+        {{ form.csrf_token }}
+        <p>
+            {{form.name.label}}
+            {{form.name(value=employee.name)}}
+        </p>
+        <p>
+            {{form.years_at_company.label}}
+            {{form.years_at_company(value=employee.years_at_company)}}
+        </p>
+        <p>
+            {{form.departments}}
+        </p>
+
+    <button type="submit" class="btn btn-primary">SAVE</button>
+</form>
+<form method="POST" action="{{url_for('employees.show', id=employee.id)}}?_method=DELETE">
+    {{ form.csrf_token }}
+    <button type="submit" class="btn btn-danger">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </button>
+</form>
+{% endblock %}

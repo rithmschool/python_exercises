@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Employee Directory</h1>
+{% for employee in employees %}
+  <p>
+    {{employee.name}} - {{employee.years_at_company}} years of service 
+    <a href="{{url_for('employees.edit', id=employee.id)}}" class="btn btn-primary">Edit</a>  
+  </p>
+  Departments:
+  {% if employee.departments %}
+    <ul>
+      {% for department in employee.departments %}
+        <li>{{ department.name }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endfor %}
+{% endblock %}

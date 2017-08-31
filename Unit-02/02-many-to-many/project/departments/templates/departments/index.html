@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>All Departments</h1>
+    {% for department in departments %}
+        <p class="department">
+            {{department.name}} | <a href="{{url_for('departments.show', id=department.id)}}">See More</a> | <a href="{{url_for('departments.edit', id=department.id)}}">Edit Department</a>
+        </p>
+        Employees:
+        {% if department.employees %}
+          <ul>
+            {% for employee in department.employees %}
+              <li>{{ employee.name }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
