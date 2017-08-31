@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>You are logged in!</h3>
+How about a list of all users?
+{% for user in users %}
+  <p>
+    {{ user.username }}
+    <a href="{{ url_for('users.show', id=user.id) }}">View</a>
+  </p>
+{% endfor %}
+{% endblock %}

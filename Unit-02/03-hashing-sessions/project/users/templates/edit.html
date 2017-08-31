@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST" action="{{ url_for('users.show', id=user.id) }}?_method=PATCH">
+  {{ form.csrf_token }}
+  <p> {{ form.username }}
+    <span>
+      {% if form.username.errors %}
+        {% for error in form.username.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <button type="submit">Edit User!</button>
+</form>
+<form method="POST" action="{{ url_for('users.show', id=user.id)}}?_method=DELETE">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <button type="submit">Delete User :(</button>
+</form>
+{% endblock %}

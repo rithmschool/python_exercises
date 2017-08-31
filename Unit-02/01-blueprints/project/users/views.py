@@ -69,3 +69,8 @@ def edit(id):
 
     form = NewUser(obj=user)
     return render_template('users/edit.html', id=user.id, form=form)
+
+
+
+
+    

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+  {{ user.username }}
+  {% if authorized %}
+    <a href="{{ url_for('users.edit', id=user.id) }}">Edit</a>
+  {% endif %}
+</p>
+
+{% endblock %}
