@@ -22,7 +22,7 @@ class User(db.Model):
                                                         self.user_name)
 
 
-message_tag_table = dbTable('message_tags',
+message_tag_table = db.Table('message_tags',
     db.Column('message_id', db.Integer, db.ForeignKey('messages.id')),
     db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
 )
@@ -45,6 +45,8 @@ class Message(db.Model):
 class Tag(db.Model):
 
     __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
 
     def __init__(self, text):
