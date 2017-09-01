@@ -28,7 +28,7 @@ app.register_blueprint(tags_blueprint, url_prefix='/tags')
 
 @app.route('/')
 def root():
-    return redirect(url_for('users.index'))
+    return redirect(url_for('users.login'))
 
 
 @app.errorhandler(404)

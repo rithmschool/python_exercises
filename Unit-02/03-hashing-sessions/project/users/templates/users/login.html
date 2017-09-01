@@ -2,15 +2,15 @@
 
 {% block content %}
 
-<h1>Login</h1>
+<h1 class="text-center">Login</h1>
 <p class="text-center"><a href="{{url_for('users.signup')}}">Need to signup instead?</a></p>
 <div class="container">
   <form method="POST" action="{{url_for('users.login')}}">
     {{ form.csrf_token }}
     <p>
-      {{ form.username(placeholder="username") }}
+      {{ form.user_name(placeholder="username") }}
       <span>
-        {% if form.username.errors %}
+        {% if form.user_name.errors %}
           {% for error in form.username.errors %}
             {{ error }}
           {% endfor %}
@@ -28,7 +28,7 @@
         {% endif %}
       </span>
     </p>
-    <button type="submit">Login!</button>
+    <button type="submit" class="btn btn-default">Login!</button>
   </form>
 </div>
 {% endblock %}

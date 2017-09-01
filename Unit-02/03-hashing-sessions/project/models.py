@@ -26,8 +26,8 @@ class User(db.Model):
     # making a class method here since we will be invoking this using User.authenticate()    
     @classmethod
     # let's pass some username and some password 
-    def authenticate(cls, username, password):
-        found_user = cls.query.filter_by(username=username).first()
+    def authenticate(cls, user_name, password):
+        found_user = cls.query.filter_by(user_name=user_name).first()
         if found_user:
             authenticated_user = bcrypt.check_password_hash(found_user.password, password)
             if authenticated_user:

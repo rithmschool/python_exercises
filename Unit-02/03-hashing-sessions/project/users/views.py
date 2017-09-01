@@ -1,6 +1,6 @@
 from flask import redirect, request, render_template, Blueprint, url_for, flash, session
 from project.models import User
-from project.users.forms import UserForm, DeleteForm
+from project.users.forms import UserForm, LoginForm, DeleteForm
 from sqlalchemy.exc import IntegrityError
 from project import db, bcrypt
 from project.decorators import ensure_authenticated, prevent_login_signup, ensure_correct_user
@@ -14,10 +14,10 @@ users_blueprint = Blueprint(
 
 
 # =============================================================================
-# routes
+# users routes
 # =============================================================================
-@ensure_authenticated
 @users_blueprint.route('/')
+@ensure_authenticated
 def index():
     return render_template('users/index.html', users=User.query.order_by(User.user_name).all())
 
@@ -25,8 +25,8 @@ def index():
 @users_blueprint.route('/signup', methods=['GET', 'POST'])
 @prevent_login_signup
 def signup():
+    form = UserForm(request.form)
     if request.method == 'POST':
-        form = UserForm(request.form)
         if form.validate():
             user_name = request.form.get('user_name')
             password = request.form.get('password')
@@ -52,18 +52,18 @@ def signup():
 @users_blueprint.route('/login', methods=["GET", "POST"])
 @prevent_login_signup
 def login():
-    form = UserForm(request.form)
+    form = LoginForm(request.form)
     if request.method == "POST" and form.validate():
-        found_user = User.query.filter_by(username=form.data['username']).first()
-        if found_user:
-            authorized_user = bcrypt.check_password_hash(found_user.password, form.data['password'])
+        # found_user = User.query.filter_by(user_name=form.data['user_name']).first()
+        # if found_user:
+            authorized_user = User.authenticate(form.user_name.data, form.password.data)
             if authorized_user:
                 session['user_id'] = authorized_user.id
                 flash('Login successful.')
-                return redirect(url_for('users.welcome'))
+                return redirect(url_for('users.index'))
             else:
                 flash('Invalid login. Please try again.')
-        return redirect(url_for('users.login'))
+                return redirect(url_for('users.login'))
     return render_template('users/login.html', form=form)
 
 

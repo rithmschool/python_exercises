@@ -3,7 +3,7 @@
     <h1 class="text-center">Sign Up</h1>
     <p class="text-center"><a href="{{url_for('users.login')}}">Need to login instead?</a></p>
     <div class="container">
-    <form action="{{url_for('users.index')}}" method="POST">
+    <form action="{{url_for('users.signup')}}" method="POST">
 
         {{ form.csrf_token }}
         {% for field in form if field.widget.input_type != 'hidden' %}

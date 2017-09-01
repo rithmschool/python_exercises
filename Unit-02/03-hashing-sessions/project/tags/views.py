@@ -2,7 +2,7 @@ from flask import redirect, request, render_template, Blueprint, url_for
 from project.models import Message, Tag
 from project.tags.forms import TagForm, DeleteForm
 from project import db
-from project.decorators import ensure_authenciated
+from project.decorators import ensure_authenticated
 
 # let's create the tags_blueprint to register in our __init__.py
 tags_blueprint = Blueprint(
@@ -13,7 +13,7 @@ tags_blueprint = Blueprint(
 
 
 @tags_blueprint.route('/', methods=['GET', 'POST'])
-@ensure_authenciated
+@ensure_authenticated
 def index():
     if request.method == 'POST':
         form = TagForm(request.form)
@@ -31,7 +31,7 @@ def index():
 
 
 @tags_blueprint.route('/<int:tag_id>/edit')
-@ensure_authenciated
+@ensure_authenticated
 def edit(tag_id):
     found_tag = Tag.query.get_or_404(tag_id)
     messages = [message.id for message in found_tag.messages]
@@ -43,7 +43,7 @@ def edit(tag_id):
 
 
 @tags_blueprint.route('/new')
-@ensure_authenciated
+@ensure_authenticated
 def new():
     form = TagForm(request.form)
     form.set_choices()
@@ -51,7 +51,7 @@ def new():
 
 
 @tags_blueprint.route('/show/<int:tag_id>', methods=['GET', 'PATCH', 'DELETE'])
-@ensure_authenciated
+@ensure_authenticated
 def show(tag_id):
     found_tag = Tag.query.get_or_404(tag_id)
     if request.method == b'PATCH':
