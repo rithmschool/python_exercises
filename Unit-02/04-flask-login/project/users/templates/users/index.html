@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center">User Listing</h1>
+    <p class="text-center"><a href="{{url_for('users.logout')}}">Log Out</a></p>
+
+    <div class="container">
+        {% for user in users %}
+    <p>
+        <strong>{{user.first_name}} {{user.last_name}}</strong>
+        <br>
+        <a href="{{url_for('users.show', id=user.id)}}">See more about {{user.first_name}}</a> |
+        <a href="{{url_for('messages.index', user_id=user.id)}}">See {{user.first_name}}'s messages!</a> |
+        <a href="{{url_for('users.edit', id=user.id)}}">Edit a user</a>
+    </p>
+{% endfor %}
+    </div>
+{% endblock %}
