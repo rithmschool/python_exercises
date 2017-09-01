@@ -26,7 +26,8 @@ class BaseTestCase(TestCase):
     def test_index(self):
         response = self.client.get('/snacks', content_type='html/text')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'hershey chocolate', response.data)
+        self.assertIn(b'hershey', response.data)
+        self.assertIn(b'chocolate', response.data)
 
     def test_show(self):
         response = self.client.get('/snacks/1')
@@ -38,7 +39,8 @@ class BaseTestCase(TestCase):
             data=dict(name="New", kind="Snack"),
             follow_redirects=True
         )
-        self.assertIn(b'New Snack', response.data)
+        self.assertIn(b'New', response.data)
+        self.assertIn(b'Snack', response.data)
 
     def test_edit(self):
         response = self.client.get(
@@ -53,7 +55,8 @@ class BaseTestCase(TestCase):
             data=dict(name="updated", kind="information"),
             follow_redirects=True
         )
-        self.assertIn(b'updated information', response.data)
+        self.assertIn(b'updated', response.data)
+        self.assertIn(b'information', response.data)
         self.assertNotIn(b'hershey chocolate', response.data)
 
     def test_delete(self):
@@ -61,8 +64,8 @@ class BaseTestCase(TestCase):
             '/snacks/1?_method=DELETE',
             follow_redirects=True
         )
-        self.assertNotIn(b'hershey chocolate', response.data)
-
+        self.assertNotIn(b'hershey', response.data)
+        self.assertNotIn(b'chocolate', response.data)
 
 if __name__ == '__main__':
     unittest.main()

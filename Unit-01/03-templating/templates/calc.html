@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="/math" method="post">
+    <label for "num1">Num 1: </label><input type="text" name="num1" id="num1">
+    <label for "num2">Num 2: </label><input type="text" name="num2" id="num2">
+    <br><br>
+    <fieldset>
+        <legend>Operation:</legend>
+        <input type="radio" name="operation" value="add"><label> Add</label><br>
+        <input type="radio" name="operation" value="subtract"><label> Subtract</label><br>
+        <input type="radio" name="operation" value="multiply"><label> Multiply</label><br>
+        <input type="radio" name="operation" value="divide"><label> Divide</label><br>
+    </fieldset>
+    <br>
+    <button type="submit">Go!</button>
+</form>
+{% endblock %}

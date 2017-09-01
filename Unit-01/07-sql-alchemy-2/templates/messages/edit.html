@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="{{url_for('message_show', user_id=msg.user_id, msg_id=msg.id)}}?_method=PATCH" method="POST">
+        Message: <input type="text" name="message" value="{{msg.message}}"><br>
+        <input type="submit" value="Submit Change"><br>
+    </form>
+    <br>
+    <form action="{{url_for('message_show', user_id=msg.user_id, msg_id=msg.id)}}?_method=DELETE" method="POST">
+        <input type="submit" value="Delete">
+    </form>
+{% endblock %}

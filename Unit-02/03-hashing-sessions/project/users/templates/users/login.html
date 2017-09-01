@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="text-center">Login</h1>
+<p class="text-center"><a href="{{url_for('users.signup')}}">Need to signup instead?</a></p>
+<div class="container">
+  <form method="POST" action="{{url_for('users.login')}}">
+    {{ form.csrf_token }}
+    <p>
+      {{ form.user_name(placeholder="username") }}
+      <span>
+        {% if form.user_name.errors %}
+          {% for error in form.username.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+    <p></p>
+    <p>
+      {{ form.password(placeholder="password") }}
+      <span>
+        {% if form.password.errors %}
+          {% for error in form.password.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    </p>
+    <button type="submit" class="btn btn-default">Login!</button>
+  </form>
+</div>
+{% endblock %}

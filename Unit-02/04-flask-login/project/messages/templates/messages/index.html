@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="text-center">Message Listing for <a href="{{url_for('users.show', id=user.id)}}">{{ user.user_name }}</a></h1>
+    <div class="container">
+        <p class="text-center"><a href="{{url_for('users.index')}}">Home</a></p>
+
+        {% for message in user.messages %}
+    <h2>{{message.message}}</h2>
+    <p>
+        <a href="{{url_for('messages.show', user_id=user.id, msg_id=message.id)}}">See more about {{message.message}}</a> |
+        <a href="{{url_for('messages.edit', user_id=user.id, msg_id=message.id)}}">Edit message</a>
+        <h5>Tags:</h5>
+        {% for tag in message.tags %}
+        <p>
+          {{tag.text}} | <a href="{{url_for('tags.edit', tag_id=tag.id)}}">Edit this tag</a>
+        </p>
+        {% endfor %}
+    </p>
+{% endfor %}
+
+        <p><a href="{{url_for('messages.new', user_id=user.id)}}">Add a message</a></p>
+        <p><a href="{{url_for('tags.new')}}">Create a tag</a></p>
+    </div>
+{% endblock %}
