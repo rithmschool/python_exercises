@@ -6,8 +6,8 @@ from flask_login import current_user
 def prevent_login_signup(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        if current_user:
-            flash("You are logged in already")
+        if current_user.is_authenticated:
+            flash("You are logged in already.")
             return redirect(url_for('users.index'))
         return fn(*args, **kwargs)
     return wrapper
