@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, url_for,Blueprint, flash
-from project.models import User, Message
+from project.models import User, Message, Tag
 from project.messages.forms import MessageForm
 from project import db
 
@@ -35,12 +35,11 @@ def new(user_id):
 @messages_blueprint.route('/<int:id>/edit')
 def edit(user_id,id):
   found_user = User.query.get_or_404(user_id)
-  found_message = Message.query.get_or_404(id)
-  form = MessageForm(obj=found_message)
-
-  return render_template('messages/edit.html', user=found_user, message=found_message, form=form)
-
-
+  message = Message.query.get(id)
+  tags = [tag.id for tag in message.tags]
+  form = MessageForm(tags=tags)
+  form.set_choices()
+  return render_template('messages/edit.html', user=found_user, form=form, message = message)
 
 @messages_blueprint.route('/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def show(user_id, id):
@@ -49,9 +48,13 @@ def show(user_id, id):
 
   if request.method == b"PATCH":
     form = MessageForm(request.form)
+    form.set_choices()
     if form.validate():
       flash("Message Updated")
-      found_message.message = request.form.get('message')
+      found_message.message = form.message.data
+      found_message.tags = []
+      for tag in form.tags.data:
+        found_message.tags.append(Tag.query.get(tag))
       db.session.add(found_message)
       db.session.commit()
       return redirect(url_for('messages.index', user_id = user_id))

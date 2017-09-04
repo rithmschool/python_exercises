@@ -2,16 +2,20 @@
 {% block content %}
 <h4> {{user.firstname}}'s Messages !!!</h4>
 
-<ul>
+<p>
   {% for message in messages %}
-      <li>
-        <a href="{{url_for('messages.edit', user_id=user.id, id=message.id)}}">Edit</a> &nbsp;
-        {{message.message}}
+    <a href="{{url_for('messages.edit', user_id=user.id, id=message.id)}}">Edit</a> &nbsp;
+    {{message.message}}
+</p>
 
-      </li>
+    {% if message.tags %}
+    <ul>
+      {% for tag in message.tags %}
+        <li>{{tag.tag}}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
   {% endfor%}
-
-</ul>
-
 
 {% endblock %}
