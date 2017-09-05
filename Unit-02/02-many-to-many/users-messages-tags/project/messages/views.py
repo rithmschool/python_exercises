@@ -26,6 +26,7 @@ def index(user_id):
 @messages_blueprint.route('/new', methods=['GET', 'POST'])
 def new(user_id):
 	form = MessageForm(request.form)
+	form.set_choices()
 	user = User.query.get(user_id)
 	return render_template('messages/new.html', user=user, form=form)
 
