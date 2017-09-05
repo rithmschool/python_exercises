@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h3>All Users</h3>
+
+{% for user in users %}
+<p><b>Username:</b> {{ user.username }} / <b>Email:</b> {{ user.email }} / <b>Full Name:</b> {{ user.first_name }} {{ user.last_name }} / <a href="{{ url_for('show_user', user_id=user.id)}}">View</a></p>
+{% endfor %}
+
+<a href="{{ url_for('new_user') }}">Add a new user!</a>
+
+{% endblock %}

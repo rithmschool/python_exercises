@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Add messages for {{ user.username }}</h3>
+
+<form action="{{ url_for('messages.index', user_id=user.id) }}" method="POST">
+	{{ form.hidden_tag() }}
+	<p>
+		{{ form.text.label }}:
+		{{ form.text }}
+		<span>
+			{% if form.text.errors %}
+				{{ form.text.error }}
+			{% endif %}
+		</span>
+	</p>
+	<p> {{ form.tags }}</p>
+	<button type="submit">Add message</button>
+</form>
+
+{% endblock %}

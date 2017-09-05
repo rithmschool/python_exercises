@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Edit message {{ message.id }} for {{ user.username }}</h3>
+
+<form action="{{ url_for('messages.show', user_id=user.id, message_id=message.id) }}?_method=PATCH" method="POST">
+	{{ form.hidden_tag() }}
+	<p>
+		{{ form.text.label }}:
+		{{ form.text(value=message.text) }}
+		<span>
+			{% if form.text.errors %}
+				{{ form.text.error }}
+			{% endif %}
+		</span>
+	</p>
+	<p>
+		Tags:
+		{{ form.tags }}
+		<span>
+			{% if form.text.errors %}
+				{{ form.text.error }}
+			{% endif %}
+		</span>
+	</p>
+	<button type="submit">Edit message</button>
+</form>
+
+<br><br>
+
+<form action="{{url_for('messages.show', user_id=user.id, message_id=message.id)}}?_method=DELETE" method="POST">
+	{{ delete_form.hidden_tag() }}
+	<input type="submit" value="Delete this message">
+</form>
+
+{% endblock %}

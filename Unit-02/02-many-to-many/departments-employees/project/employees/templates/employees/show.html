@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Information for {{ employee.name }}</h3>
+<ul>
+	<li>Employee Name: {{ employee.name }}</li>
+	<li>Years at Company: {{ employee.years_at_company }}</li>
+	<li>Departments:
+		<ul>
+		{% for d in employee.departments %}
+			<li>{{ d.name }}</li>
+		{% endfor %}
+		</ul>
+	</li>
+</ul>
+
+<a href="{{ url_for('employees.edit', id=employee.id) }}">Edit {{ employee.name }}</a>
+
+{% endblock %}

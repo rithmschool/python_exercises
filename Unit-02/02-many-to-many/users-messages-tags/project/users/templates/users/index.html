@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>All Users</h3>
+
+{% for user in users %}
+<p><b>Username:</b> {{ user.username }} / <b>Email:</b> {{ user.email }} / <b>Full Name:</b> {{ user.first_name }} {{ user.last_name }} / <a href="{{ url_for('users.show', user_id=user.id)}}">View</a></p>
+{% endfor %}
+
+<a href="{{ url_for('users.new') }}">Add a new user!</a>
+
+{% endblock %}
