@@ -1,6 +1,5 @@
 from flask import Flask, redirect, render_template, url_for, flash, request, Blueprint
-from project.messages.models import Message
-from project.users.models import User
+from project.models import User, Message, Tag
 from project.messages.forms import MessageForm, DeleteForm
 from project import db
 
@@ -11,8 +10,11 @@ def index(user_id):
 	user = User.query.get(user_id)
 	if request.method == "POST":
 		form = MessageForm(request.form)
+		form.set_choices()
 		if form.validate():
 			created_msg = Message(form.text.data, user.id)
+			for tag in form.tags.data:
+				created_msg.tags.append(Tag.query.get(tag))
 			db.session.add(created_msg)
 			db.session.commit()
 			flash("You have successfully added a new message!")
@@ -33,8 +35,12 @@ def show(user_id, message_id):
 	message = Message.query.get(message_id)
 	if request.method == b"PATCH":
 		form = MessageForm(request.form)
+		form.set_choices()
 		if form.validate():
 			message.text = form.text.data
+			message.tags = []
+			for tag in form.tags.data:
+				message.tags.append(Tag.query.get(tag))
 			db.session.add(message)
 			db.session.commit()
 			flash("You have successfully edited this message.")
@@ -55,6 +61,8 @@ def show(user_id, message_id):
 def edit(user_id, message_id):
 	user = User.query.get(user_id)
 	message = Message.query.get(message_id)
-	form = MessageForm(obj=message)
+	tags = [tag.id for tag in message.tags]
+	form = MessageForm(tags=tags)
+	form.set_choices()
 	delete_form = DeleteForm(obj=message)
 	return render_template('messages/edit.html', user=user, message=message, form=form, delete_form=delete_form)

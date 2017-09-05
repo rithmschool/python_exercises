@@ -5,17 +5,24 @@
 
 <form action="{{ url_for('messages.show', user_id=user.id, message_id=message.id) }}?_method=PATCH" method="POST">
 	{{ form.hidden_tag() }}
-	{% for field in form if field.widget.input_type != 'hidden' %}
 	<p>
-		{{ field.label }}:
-		{{ field }}
+		{{ form.text.label }}:
+		{{ form.text(value=message.text) }}
 		<span>
-			{% if field.errors %}
-				{{ error }}
+			{% if form.text.errors %}
+				{{ form.text.error }}
 			{% endif %}
 		</span>
 	</p>
-	{% endfor %}
+	<p>
+		Tags:
+		{{ form.tags }}
+		<span>
+			{% if form.text.errors %}
+				{{ form.text.error }}
+			{% endif %}
+		</span>
+	</p>
 	<button type="submit">Edit message</button>
 </form>
 

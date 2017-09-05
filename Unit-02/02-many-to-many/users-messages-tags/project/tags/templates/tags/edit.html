@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('tags.show', tag_id=tag.id) }}?_method=PATCH">
+        {{ form.csrf_token }}
+        <p>
+            {{form.text.label}}
+            {{form.text(value=tag.text)}}
+        </p>
+        <p>
+            {{form.messages}}
+        </p>
+
+    <button type="submit" class="btn btn-primary">SAVE</button>
+</form>
+<form method="POST" action="{{url_for('tags.show', tag_id=tag.id)}}?_method=DELETE">
+    {{ form.csrf_token }}
+    <button type="submit" class="btn btn-danger">Delete tag</button>
+</form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<h3>Posts with tag #{{ tag.text }}</h3>
+
+<ul>
+	{% for m in tag.messages %}
+		<li><a href="{{ url_for('messages.show', user_id=m.user_id, message_id=m.id) }}">{{ m.text }}</a></li>
+	{% endfor %}
+</ul>
+
+<a href="{{ url_for('tags.index') }}">Go back to all tags</a>
+
+{% endblock %}
