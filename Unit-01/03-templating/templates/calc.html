@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+   <div class="container" style="width: 300px">
+        <form action="/math" class="form-inline">
+
+          <div class="form-group">
+            <label>Num1</label>
+            <input type="number" step="any" name="num1" class="form-control" placeholder="">
+          </div>
+
+          <div class="form-group">
+            <label>Num2</label>
+            <input type="number" step="any" name="num2" class="form-control" placeholder="">
+          </div>
+
+          <div class="form-group">
+            <label>Calculate</label>
+            <select class="form-control" name="calculation">
+              <option value="add">Add</option>
+              <option value="subtract">Subtract</option>
+              <option value="multiply">Multiple</option>
+              <option value="divide">Divide</option>
+            </select>
+          </div>
+
+          <button type="submit" value="Submit Form" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+
+{% endblock %}

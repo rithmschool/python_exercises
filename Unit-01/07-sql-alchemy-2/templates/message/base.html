@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{user.firstname.title()}}'s Messages!</title>
+</head>
+<body>
+    <a href="{{url_for('index')}}">Home</a>
+    <a href="{{url_for('new_message', user_id=user.id)}}"> Add New Message</a>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

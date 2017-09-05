@@ -1,0 +1,21 @@
+{% extends 'tags/base.html' %}
+
+{% block content %}
+
+<h4>New Tag</h4>
+
+
+<form method="POST" action="{{url_for('tags.index')}}">
+  {{form.hidden_tag()}}
+  <p>
+    {{ form.tag.label }}
+    {{ form.tag }}
+  </p>
+  <p>
+    {{form.messages}}
+  </p>
+
+  <button type="submit">Add Tag</button>
+</form>
+
+{% endblock %}

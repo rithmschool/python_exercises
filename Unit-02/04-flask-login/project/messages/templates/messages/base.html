@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{user.firstname.title()}}'s Messages!</title>
+</head>
+<body>
+
+    <a href="{{url_for('users.index')}}">Home</a>
+    <a href="{{url_for('tags.index')}}">Tags</a>
+
+    {% if current_user.is_authenticated %}
+      <a href="{{url_for('messages.new', user_id=current_user.id)}}">
+        Add New Message
+      </a>
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

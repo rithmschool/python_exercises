@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST" action="{{url_for('users.signup')}}">
+  {{ form.csrf_token }}
+  <ul>
+   <li> {{ form.username(placeholder="username") }}
+      <span>
+        {% if form.username.errors %}
+          {% for error in form.username.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+   </li>
+   <li>{{ form.password(placeholder="password") }}
+      <span>
+        {% if form.password.errors %}
+          {% for error in form.password.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+   </li>
+   <li>{{ form.email(placeholder="email")}}
+      <span>
+        {% if form.email.errors %}
+          {% for error in form.email.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+   </li>
+   <li>{{ form.firstname(placeholder="first name") }}
+      <span>
+        {% if form.firstname.errors %}
+          {% for error in form.firstname.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+   </li>
+   <li>{{ form.lastname(placeholder="last name") }}
+      <span>
+        {% if form.lastname.errors %}
+          {% for error in form.lastname.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+   </li>
+   <li>{{ form.img_url(placeholder="image URL") }}
+      <span>
+        {% if form.img_url.errors %}
+          {% for error in form.img_url.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+   </li>
+  </ul>
+  <button type="submit">Sign Up!</button>
+</form>
+
+{% endblock %}

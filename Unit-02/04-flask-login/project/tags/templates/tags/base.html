@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tags!</title>
+</head>
+<body>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <a href="{{url_for('users.index')}}">Home</a>
+    <a href="{{url_for('tags.new')}}"> Add New Tag</a>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+{% extends 'tags/base.html' %}
+{% block content %}
+<h4> All Tags!!!</h4>
+
+
+  {% for tag in tags %}
+      <p>
+        <a href="{{url_for('tags.edit', id=tag.id)}}">Edit</a> &nbsp;
+        {{tag.tag}}
+
+      </p>
+      {% if tag.messages%}
+      <ul>
+        {% for message in tag.messages %}
+          <li>
+              {% for user in message.users %}
+                {% if user.id  == message.user_id %}
+                  {{user.firstname}}
+                {% endif %}
+              {% endfor %}
+
+            <a href="{{url_for('messages.index', user_id = message.user_id)}}">
+              {{message.message}}
+            </a>
+          </li>
+        {% endfor %}
+
+      </ul>
+
+      {% endif %}
+  {% endfor%}
+
+
+
+{% endblock %}
