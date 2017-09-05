@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Welcome to the app!</h1>
+
+<ul>
+ {% for user in users %}
+  <li>
+    <a href="{{url_for('messages.index', user_id=user.id)}}"> Messages </a> &nbsp; &nbsp;
+    {{user.username}},
+    {{user.email}},
+    {{user.firstname}},
+    {{user.lastname}},
+    {{user.img_url}},
+        {% for message in user.messages.message %}
+         {% if message.user_id == user.id %}
+            {{ message.message }}
+         {% endif %}
+      {% endfor %}
+  </li>
+{% endfor %}
+</ul>
+
+
+
+{% endblock %}

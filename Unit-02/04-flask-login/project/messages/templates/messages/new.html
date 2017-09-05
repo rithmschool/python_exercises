@@ -1,0 +1,21 @@
+{% extends 'messages/base.html' %}
+
+{% block content %}
+
+<h4>New Message - {{user.firstname.title()}}</h4>
+
+
+<form method="POST" action="{{url_for('messages.index', user_id=user.id)}}">
+  {{ form.csrf_token }}
+  <p>
+    {{ form.message.label }}
+    {{ form.message }}
+  </p>
+  <p>
+    {{form.tags}}
+  </p>
+
+  <button type="submit">Add Message</button>
+</form>
+
+{% endblock %}
