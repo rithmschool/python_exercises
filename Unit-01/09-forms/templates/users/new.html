@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST" action="{{ url_for('index') }}">
+  {{form.hidden_tag()}}
+	{% for field in form if field.widget.input_type != 'hidden' %}
+	<div class="newF">
+		{{ field.label(class='iLabels') }}
+		{{ field(class='iTxtBoxes') }}
+		<span>
+			{% if field.errors %}
+			   {% for error in field.errors %}
+			      {{ error }}
+			   {% endfor %}
+			{% endif %}
+		</span>
+	</div>
+	{% endfor %}
+	<input type="submit" value="Add User" class="fsSubmitButton">
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 style="margin-bottom: 0px;">Let's see some more information about this Message!</h2>
+    <br>
+    <ul style="margin-top: 0px;">
+        <li>Message id is: {{ message.id }} </li>
+    	<li>Message text is: {{ message.text }} </li>
+    	{% if message.tags|length != 0 %}
+    	  <li>
+    	  	Tags:
+          {% for t in message.tags %}
+            {%- if loop.last %}
+              <a href="{{ url_for('tags.show', id=t.id) }}"> {{ t.name }} </a>
+            {% else %}
+              <a href="{{ url_for('tags.show', id=t.id) }}"> {{ t.name }} </a> |
+            {% endif %}
+          {% endfor %}
+    	  </li>
+    	{% endif %}
+    </ul>
+    <a href="{{ url_for('messages.edit', user_id=message.user_id, id=message.id) }}"><button class="fsSubmitButton">Edit this Message</button></a>
+    <a href="{{ url_for('messages.index', user_id=message.user_id) }}"><button style="margin-left: 20px;" class="fsSubmitButton">See All Messages from this User</button> </a>
+    <!-- <a href="{{url_for('users.index')}}"><button style="margin-left: 20px;" class="fsSubmitButton">See All Users</button></a> -->
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="edit_forms" method="POST" action="{{url_for('tags.show', id=tag.id)}}?_method=PATCH">
+        {{ form.csrf_token }}
+        <p>
+            {{form.name.label(class='iLabels')}}
+            {{form.name(value=tag.name, class='iTxtBoxes')}}
+        </p>
+        <span style="display: block">
+        {% if form.name.errors %}
+          {% for error in form.name.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+        </span>
+        <p>
+            {{form.messages}}
+        </p>
+
+    <button type="submit" class="fsSubmitButton">SAVE</button>
+</form>
+<form style="margin-left: 10px;" class="edit_forms" method="POST" action="{{url_for('tags.show', id=tag.id)}}?_method=DELETE">
+    {{ form.csrf_token }}
+    <input type="submit" class="fsSubmitButton" value="REMOVE TAG">
+</form>
+{% endblock %}

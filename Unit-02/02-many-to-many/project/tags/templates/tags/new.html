@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form class="edit_forms" method="POST" action="{{url_for('tags.index')}}">
+        {{ form.csrf_token }}
+        <p>
+            {{form.name.label(class='iLabelsFlex')}}
+            {{form.name(class='iTxtBoxes')}}
+        </p>
+        <p>
+            {{form.messages}}
+        </p>
+    <button type="submit" class="fsSubmitButton">CREATE</button>
+</form>
+{% endblock %}

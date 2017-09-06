@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>All Tags</h1>
+    <div style="margin-top: 10px; color: red;">
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+          {% for message in messages %}
+             <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+    <ul>
+    {% for val in tags %}
+        <li style="font-size:26px">{{ val.name }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

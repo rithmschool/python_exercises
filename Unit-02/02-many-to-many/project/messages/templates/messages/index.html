@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Messages List for {{ user.username}} </h1>
+    <span>(<a href="{{ url_for('messages.new', user_id=user.id) }}">Add New Message</a>)</span>
+    <!-- <span>(<a href="{{ url_for('users.index') }}">All Users</a>)</span> -->
+    <div style="margin-top: 10px; color: red;">
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+          {% for message in messages %}
+             <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+    <ul>
+    {% for val in user.messages %}
+        <li style="font-size:26px">{{ val.text }}
+        {% if val.tags|length != 0 %}
+          <span style="font-size:18px">(<b>Tags</b>:
+          {% for t in val.tags %}
+            {%- if loop.last %}
+              <a style="font-size:18px;" href="{{ url_for('tags.show', id=t.id) }}"> {{ t.name }} </a>
+            {% else %}
+              <a style="font-size:18px" href="{{ url_for('tags.show', id=t.id) }}"> {{ t.name }} </a> |
+            {% endif %}
+          {% endfor %}
+          )</span>
+        {% endif %}
+        <a style="font-size:18px" href="{{ url_for('messages.show', user_id=user.id, id=val.id) }}">Show Message Details</a>
+        </span>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

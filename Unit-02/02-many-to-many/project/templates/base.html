@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User-Messages CRUD</title>
+  <style>
+    #primary_nav_wrap
+    {
+      margin-top:15px;
+    }
+
+		#primary_nav_wrap ul
+		{
+			list-style:none;
+			position:relative;
+			float:left;
+			margin:0;
+			padding:0
+		}
+
+		#primary_nav_wrap ul a
+		{
+			display:block;
+			color:#333;
+			text-decoration:none;
+			font-weight:700;
+			font-size:12px;
+			line-height:32px;
+			padding:0 15px;
+			font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
+		}
+
+		#primary_nav_wrap ul li
+		{
+			position:relative;
+			float:left;
+			margin:0;
+			padding:0
+		}
+
+		#primary_nav_wrap ul li.current-menu-item
+		{
+			background:#ddd
+		}
+
+		#primary_nav_wrap ul li:hover
+		{
+			background:#f6f6f6
+		}
+
+		#primary_nav_wrap ul ul
+		{
+			display:none;
+			position:absolute;
+			top:100%;
+			left:0;
+			background:#fff;
+			padding:0
+		}
+
+		#primary_nav_wrap ul ul li
+		{
+			float:none;
+			width:200px
+		}
+
+		#primary_nav_wrap ul ul a
+		{
+			line-height:120%;
+			padding:10px 15px
+		}
+
+		#primary_nav_wrap ul ul ul
+		{
+			top:0;
+			left:100%
+		}
+
+		#primary_nav_wrap ul li:hover > ul
+		{
+			display:block
+		}
+
+		#primary_nav_wrap ul li>a:not(:only-child):after {
+		   color: #444;
+		   content: ' ▾';
+		}
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<div style="margin-left: auto;width: 400px;">
+	  <nav id="primary_nav_wrap">
+			<ul>
+			{% if current_user.is_authenticated %}
+			  <li><a href="{{url_for('users.logout')}}">Logout</a></li>
+			{% endif %}
+			{% if current_user.is_authenticated %}
+				<li><a href="{{ url_for('users.show', id=current_user.id) }}">Home</a></li>
+			{% endif %}
+			{% if not current_user.is_authenticated %}
+			  <li><a href="{{url_for('users.signup')}}">Signup</a></li>
+			{% endif %}
+			{% if current_user.is_anonymous %}
+			  <li><a href="{{url_for('users.login')}}">Login</a></li>
+			{% endif %}
+			{% if current_user.is_authenticated %}
+			  {% if current_user.is_admin %}
+			  <li><a href="#">Users</a>
+			    <ul>
+			      <li><a href="{{url_for('users.index')}}">Users List</a></li>
+			      <li><a href="{{url_for('users.new')}}">Add User</a></li>
+			    </ul>
+			  </li>
+			  {% endif %}
+			{% endif %}
+			  <li><a href="#">Messages</a>
+			    <ul>
+			      <li><a href="{{ url_for('all') }}">Messages List</a></li>
+			      {% if current_user.is_authenticated %}
+			      <li><a href="{{ url_for('messages.new', user_id=current_user.id) }}">Add Message</a></li>
+			      {% endif %}
+			    </ul>
+			  </li>
+			  <li><a href="#">Tags</a>
+			    <ul>
+			      <li><a href="{{url_for('tags.index')}}">Tags List</a></li>
+			      {% if current_user.is_authenticated %}
+			      <li><a href="{{url_for('tags.new')}}">Add Tag</a></li>
+			      {% endif %}
+			    </ul>
+			  </li>
+			</ul>
+	  </nav>
+	</div>
+	<div style="clear: left; margin-left: 20px;">
+	   {% block content %} 
+	   {% endblock %}
+	</div>
+</body>
+</html>

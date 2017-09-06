@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 style="margin-bottom: 0px;">Let's see some more information about this user!</h2>
+    <br>
+    <ul style="margin-top: 0px;">
+    	<li>Username is: {{ user.username }}</li>
+    	<li>First and Last Name is: {{ user.first_name }} {{ user.last_name }}</li>
+    	<li>Email is: {{ user.email }}</li>
+    </ul>
+    <a href="{{ url_for('users.edit', id=user.id) }}"><button class="fsSubmitButton">Edit this User</button></a>
+    <a href="{{ url_for('messages.index', user_id=user.id) }}"><button style="margin-left: 20px;" class="fsSubmitButton">See All Messages from this User</button> </a>
+    <a href="{{url_for('users.index')}}"><button style="margin-left: 20px;" class="fsSubmitButton">See All Users</button></a>
+{% endblock %}
