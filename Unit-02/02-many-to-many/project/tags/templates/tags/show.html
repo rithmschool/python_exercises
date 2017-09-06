@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Messages for tag - <span style="font-weight: lighter; font-size: larger;">{{tag.name}} </span>
+{% if current_user.is_admin %}
+<span> (<a href="{{ url_for('tags.edit', id=tag.id) }}">Edit Tag</a>)</span>
+{% endif %}
+</h2>
+{% if not current_user.messages %}
+  <p>No associated messages yet</p>
+{% else %}
+  <ul>
+  {% for m in current_user.messages %}
+      <li>
+          {{m.text}}
+      </li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}

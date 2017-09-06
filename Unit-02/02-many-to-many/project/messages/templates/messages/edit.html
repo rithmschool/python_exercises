@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div>
+  <form class="edit_forms" action="{{ url_for('messages.show', user_id=message.user_id, id=message.id) }}?_method=PATCH" method="POST">
+    {{ e_form.csrf_token }}
+        <!-- <p> -->
+            {{e_form.text.label(class='iLabels')}}
+            {{e_form.text(value=message.text, class='iTxtBoxes')}}
+        <!-- </p> -->
+        <!-- <p> -->
+            {{e_form.tags}}
+        <!-- </p> -->
+    <!-- {{e_form.hidden_tag()}}
+    {% for field in e_form if field.widget.input_type != 'hidden' %}
+      {{ field.label(class='iLabels') }}
+      {{ field(class='iTxtBoxes') }}
+      <span style="display: block">
+        {% if field.errors %}
+          {% for error in field.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </span>
+    {% endfor %} -->
+    <input type="submit" value="Update" class="fsSubmitButton">
+  </form>
+    <form style="margin-left: 10px;" class="edit_forms" action="{{ url_for('messages.show', user_id=message.user_id, id=message.id) }}?_method=DELETE" method="POST">
+      {{d_form.hidden_tag()}}
+      <input type="submit" value="Delete" class="fsSubmitButton">
+  </form>
+  </div>
+{% endblock %}
