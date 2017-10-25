@@ -2,7 +2,7 @@ import psycopg2
 import psycopg2.extras
 
 def connect():
-    conn = psycopg2.connect("dbname=flask-sql-snacks")
+    conn = psycopg2.connect("dbname=snack-db")
     return conn
 
 def create_table():
