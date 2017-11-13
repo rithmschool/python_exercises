@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href='{{url_for("users.logout")}}'>Logout</a>
+
+<h1>List of {{found_user.username}}'s Messages</h1>
+
+<form action="{{url_for('messages.new', user_id = found_user.id)}}">
+	<input type="submit" value ="Add New Message">
+</form>
+
+<ol>
+{% for message in message_list %}
+	<li>
+		<a href='{{url_for("messages.show", user_id=found_user.id, id=message.id)}}'>{{message.text}}</a> &nbsp;
+		<a href='{{url_for("messages.edit", user_id = found_user.id, id=message.id)}}'>Edit Message</a>
+	</li>
+{% endfor %}
+
+</ol>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p><a href='{{url_for("users.login")}}'>login</a> | <a href='{{url_for("users.signup")}}'>signup</a></p>
+<h1>List of All Messages</h1>
+
+<ol>
+{% for message in message_list %}
+	<li>
+		{{message.text}}
+	</li>
+{% endfor %}
+
+</ol>
+
+
+{% endblock %}

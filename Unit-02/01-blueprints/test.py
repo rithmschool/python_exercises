@@ -12,9 +12,9 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         db.create_all()
-        user1 = User("Elie", "Schoppik")
-        user2 = User("Tim", "Garcia")
-        user3 = User("Matt", "Lane")
+        user1 = User("Elie", "Schoppik", 'Elie', "elie@gmail.com")
+        user2 = User("Tim", "Garcia", "Tim", 'tim@gmail.com')
+        user3 = User("Matt", "Lane", 'Matt', 'matt@gmail.com')
         db.session.add_all([user1, user2, user3])
         message1 = Message("Hello Elie!!", 1)
         message2 = Message("Goodbye Elie!!", 1)
@@ -40,7 +40,7 @@ class BaseTestCase(TestCase):
     def test_users_create(self):
         response = self.client.post(
             '/users/',
-            data=dict(first_name="Awesome", last_name="Student"),
+            data=dict(first_name="Awesome", last_name="Student", username='Awesome', email='awesome@gmail.com'),
             follow_redirects=True
         )
         self.assertEqual(response.status_code, 200)
@@ -57,7 +57,7 @@ class BaseTestCase(TestCase):
     def test_users_update(self):
         response = self.client.patch(
             '/users/1?_method=PATCH',
-            data=dict(first_name="updated", last_name="information"),
+            data=dict(first_name="updated", last_name="information", username='update', email='update@gmail.com'),
             follow_redirects=True
         )
         self.assertIn(b'updated information', response.data)

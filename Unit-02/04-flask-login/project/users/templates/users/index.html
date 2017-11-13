@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+			<p>{{message}}</p>
+		{% endfor %}
+	{% endif %}
+{% endwith %}
+
+<h1>List of Users</h1>
+
+<form action="{{url_for('users.new')}}">
+	<input type="submit" value="Add New User">
+</form>
+
+<ol>
+{% for user in user_list %}
+	<li>
+		<a href='{{url_for("users.show", id=user.id)}}'>{{user.first_name}} {{user.last_name}}</a> &nbsp;
+		<a href='{{url_for("users.edit", id = user.id)}}'>Edit User</a> &nbsp;
+		- <a href='{{url_for("messages.index", user_id=user.id)}}'>Messages</a>
+	</li>
+{% endfor %}
+
+</ol>
+
+
+{% endblock %}

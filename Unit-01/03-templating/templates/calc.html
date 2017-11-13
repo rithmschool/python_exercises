@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/math">
+  num1<br>
+  <input type="text" name="num1" placeholder="num1">
+  <br>
+  num2<br>
+  <input type="text" name="num2" placeholder="num1">
+  <br><br>
+  <input type="radio" name="calculation" value="add">Add<br>
+  <input type="radio" name="calculation" value="subtract">Subtract<br>
+  <input type="radio" name="calculation" value="divide">Divide<br>
+  <input type="radio" name="calculation" value="multiply">Multiply<br>
+  <input type="submit" name="submit">
+</form>
+
+
+{% endblock %}

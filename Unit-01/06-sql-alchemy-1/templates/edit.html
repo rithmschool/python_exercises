@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{{url_for('show', id = found_snack.id)}}?_method=PATCH" method="POST">
+	Snack Name <input type="text" name="name" value={{found_snack.name}}> <br>
+	Snack Kind <input type="text" name="kind" value={{found_snack.kind}}><br>
+	<input type="submit" value="Edit">
+</form>
+<br>
+
+<form action="{{url_for('show', id = found_snack.id)}}?_method=DELETE" method="POST">
+	Delete snack??? &nbsp; <input type="submit" value="Delete">
+</form>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href='{{url_for("messages.index", user_id=found_user.id)}}'><- Back to Message List</a>
+<br>
+<br>
+
+<h1>{{found_message.text}}</h1>
+<h4>Tags:</h4>
+
+<ol>
+	{% if found_message.tags %}
+		{% for tag in found_message.tags %}
+			<li><a href='{{url_for("tags.show", id = tag.id)}}'>{{tag.text}}</a></li>
+		{% endfor %}
+	{% endif %}
+</ol>
+
+
+{% endblock %}

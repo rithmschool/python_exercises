@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href='{{url_for("users.index", user_id=found_user.id)}}'><- Back to User List</a>
+<br>
+<br>
+
+<h1>{{found_message.text}}</h1>
+
+
+{% endblock %}
