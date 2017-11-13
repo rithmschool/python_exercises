@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if links_length is equalto 0 %}
+  I got nothin'. Try searching with a more topical keyword!
+{% endif %}
+
+<ol>
+{% for link in links %}
+  <li><a href="{{link['href']}}">{{link.text}}</a></li>
+{% endfor %}
+</ol>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication App</title>
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+      {{ message }}
+    {% endfor %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

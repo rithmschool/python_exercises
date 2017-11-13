@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>User</th>
+      <th>Buttons</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <th scope="row">{{ user.id }}</th>
+      <td><a href="{{ url_for('users.show', id=user.id) }}">{{user.first_name}} {{user.last_name}}</a></td>
+      <td class="form-inline">
+        <a href="{{url_for('users.show', id = user.id)}}" class="btn btn-outline-primary">Show</a>
+        
+        {% if current_user.is_admin %}
+        <a href="{{url_for('users.edit', id = user.id)}}" class="btn btn-outline-primary">Edit</a>
+        <form action="{{url_for('users.show', id = user.id)}}?_method=DELETE" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="submit" value="Please, delete me, let me go!" class="btn btn-primary">
+        </form>
+        {% endif %}
+
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if current_user.is_admin %}
+  <a href="{{url_for('users.new')}}">Create a new user</a>
+{% endif %}
+
+{% endblock %}

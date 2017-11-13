@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{{url_for('messages.index', user_id = user.id)}}" method="POST">
+  {{form.hidden_tag()}}
+  {% for field in form if field.widget.input_type != 'hidden' %}
+  <div class="form-group">
+    {{field.label}}
+    {{field}}
+    <span>
+      {% if field.errors %}
+        {% for error in field.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </div>
+  {% endfor %}
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary">
+  </div>
+</form>
+{% endblock %}

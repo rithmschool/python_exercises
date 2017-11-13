@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <p>{{user.username}}</p>
+  <p>{{user.first_name}}</p>
+  <p>{{user.last_name}}</p>
+  <p>{{user.email}}</p>
+
+  <p>Pssst! Wanna see my <a href="{{url_for('index_message', user_id = user.id)}}">messages</a>?</p>
+  {% for message in messages %}
+    <p>{{message.text}}</p>
+  {% endfor %}
+{% endblock %}

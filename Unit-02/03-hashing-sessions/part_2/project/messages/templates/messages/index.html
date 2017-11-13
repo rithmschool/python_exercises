@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Message</th>
+      <th>Buttons</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for message in user.messages %}
+    <tr>
+      <th scope="row">{{ message.id }}</th>
+      <td>{{ message.text }}</td>
+      <td class="form-inline">
+        <a href="{{url_for('messages.show', user_id = user.id, id = message.id)}}" class="btn btn-outline-primary">Show</a>
+
+        {% if current_user.is_admin %}
+        <a href="{{url_for('messages.edit', user_id = user.id, id = message.id)}}" class="btn btn-outline-primary">Edit</a>
+        <form action="{{url_for('messages.show', user_id = user.id, id = message.id)}}?_method=DELETE" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="submit" value="Please, delete me, let me go!" class="btn btn-outline-danger">
+        </form>
+        {% endif %}
+
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if current_user.id == user.id %}
+  <a href="{{url_for('messages.new', user_id = user.id)}}">Create a new message</a>
+{% endif %}
+
+{% endblock %}
