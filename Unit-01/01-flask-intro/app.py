@@ -7,16 +7,16 @@ def greet():
     return "Welcome!"
 
 @app.route("/welcome/home")
-    def greet():
-        return "Welcome Home!"
+def greetHome():
+    return "Welcome Home!"
 
 @app.route("welcome/back")
-    def greet():
-        return "Welcome Back!"
+def greetBack():
+    return "Welcome Back!"
 
 @app.route("/sum")
-    def sum(x, y):
-        return x + y
+def sum(x, y):
+    return x + y
 
 
 if __name__ == "__main__":
