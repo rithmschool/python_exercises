@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="{{ url_for('math') }}">
+	<div>
+		<label for="num1">First Number</label>
+		<input type="number" id="num1" name="num1">
+		<label for="num2">Second Number</label>
+		<input type="number" id="num2" name="num2">
+	</div>
+	<div>
+		<label>Calculation</label>
+		<label for="add">Add</label>
+		<input type="radio" name = "calculation" id="add" value="add">
+		<label for="subtract">Subtract</label>
+		<input type="radio" name = "calculation" id="subtract" value="subtract">
+		<label for="multiply">Multiply</label>
+		<input type="radio" name = "calculation" id="multiply" value="multiply">
+		<label for="divide">Divide</label>
+		<input type="radio" name = "calculation" id="divide" value="divide">
+	</div>
+	<div>
+		<input type="submit" value="Submit Form">	
+	</div>
+</form>
+{% endblock %}
