@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 
 @app.route("/add/<int:x>/<int:y>")
-def add():
-    return "<int:x>" + "<int:y>"
+def add(x, y):
+    return x + y
 
 @app.route("/sub/<int:x>/<int:y>")
 def sub(x, y):
