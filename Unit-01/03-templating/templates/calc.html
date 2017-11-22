@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+	<form action="/math" method="POST">
+		<label for="num1">First number:</label>
+		<input type="number" id="num1" name="num1" required><br>
+		<label for="num2">Second number:</label>
+		<input type="number" id="num2" name="num2"><br>
+		<input type="radio" name="opp" value="add" required> Add<br>
+		<input type="radio" name="opp" value="subtract" required> Subtract<br>
+		<input type="radio" name="opp" value="multiply" required> Multiply<br>
+		<input type="radio" name="opp" value="divide" required> Divide<br>
+		<input type="submit">
+	{% endblock %}
