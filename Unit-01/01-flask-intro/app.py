@@ -2,19 +2,19 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/welcome")
+@app.route("/")
 def greet():
     return "Welcome!"
 
-@app.route("/welcome/home")
+@app.route("/home")
 def greetHome():
     return "Welcome Home!"
 
-@app.route("welcome/back")
+@app.route("/back")
 def greetBack():
     return "Welcome Back!"
 
-@app.route("/sum")
+@app.route("/add")
 def sum(x, y):
     return x + y
 
