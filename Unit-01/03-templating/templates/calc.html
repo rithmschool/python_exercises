@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>mathematical</h1>
+<form action="{{ url_for('math') }}">
+	<input type="numbers" name="num1">
+	<input type="numbers" name= "num2">
+	<input type="submit" name = "calculation" value="add">
+	<input type="submit" name = "calculation" value="subtract">
+	<input type="submit" name = "calculation" value="multiply">
+	<input type="submit" name = "calculation" value="divide">
+</form>
+<h2>enter two numbers</h2>
+{% endblock %}
