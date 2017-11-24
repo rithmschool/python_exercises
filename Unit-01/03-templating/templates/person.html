@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h2>Hi {{ name.title() }}! And here is your number -  {{ age }}</h2>
+
+	<!-- <form action="/person/<name>/<int:age>>">
+		<label>Name: </label>
+        <input type="text" name="name">
+        <label>Age: </label>
+        <input type="number" name="age">
+        <input type="submit" value="Submit Form">
+    </form> -->
+{% endblock %}
