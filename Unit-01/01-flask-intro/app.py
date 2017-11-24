@@ -14,7 +14,7 @@ def greetHome():
 def greetBack():
     return "Welcome Back!"
 
-@app.route("/sum/x/y")
+@app.route("/sum/<int:x>/<int:y>")
 def sum(x, y):
     return x + y
 
