@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+	<ul>
+		{% for snack in snack_list %}
+			<li>{{ snack.name.title() }} ({{ snack.kind }})</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
