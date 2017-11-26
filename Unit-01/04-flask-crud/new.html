@@ -1,0 +1,9 @@
+{% extrends 'base.html' %}
+
+{% block content %}
+<h1>Add a new Snack</h1>
+<form action="{{url_for('index')}}" method = 'POST'></form>
+<input type="text" name = 'name'>
+<input type="text" name = 'kind'>
+</form>
+{% endblock %}
