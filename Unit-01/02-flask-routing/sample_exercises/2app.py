@@ -1,6 +1,16 @@
 from flask import Flask, render_template, request
 from random import random
 app = Flask(__name__)
+modus = Modus(app)
+
+from functools import wraps
+
+def ensure_valid_id(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        from IPython import embed; embed()
+        return fn(*args, **kwargs)
+    return wrapper
 
 #see a list of all fruits
 #form to add a fruits
@@ -8,6 +18,8 @@ app = Flask(__name__)
     # the list
     # send you to the original form
 fruits = ["apple", "banana", "oranges", "pears"]
+
+
 
 @app.route("/greet")
 def greet():
@@ -62,7 +74,18 @@ def fruit_form():
 #         last_name=last_name
 #     )
 
+@app.route("/fruits/<int:id>", methods=["GET", "DELETE"])
+def show(id):
+        found_fruit = [
+        fruit for fruit in fruits if fruit.id == id
+        ]
+        if request.method == b:"DELETE":
+            fruits.remove(found_fruit[0])
+        if found_fruit and request.method == "GET":
+            return render_template("show.html", fruit=found_fruit[0])
+        return redirect(url_for("index"))
 
+@app.route("/fruits/<int:id>", methods=[])
 
 
 if __name__ == "__main__":
