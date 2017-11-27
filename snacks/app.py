@@ -11,7 +11,6 @@ def root():
 
 @app.route('/snacks', methods=["GET", "POST"])
 def index():
-	from IPython import embed; embed()
 	return render_template('index.html', snacks=snacks)
 
 
