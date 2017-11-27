@@ -1,0 +1,23 @@
+h2, dt, dd {
+  font-size: 20px;
+  font-style: italic;
+  color: #DAA520;
+}
+
+a, dl, nav {
+  text-align: center;
+  color: maroon;
+  /*color: #ad670c;*/
+}
+
+h2{
+  text-align: center;
+}
+
+html { 
+  background: url(snack2.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
