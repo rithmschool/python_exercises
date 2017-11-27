@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1> Add A Snack: </h1>
+<form action="{{url_for('index')}}" method="POST">
+	<label for="name">Name:</label>
+	<input type="text" name="name" id="name" required>
+	<br>
+	<br>
+	<fieldset>
+		<legend>Kind:</legend>
+		<label for="healthy">Healthy</label>
+		<input type="radio" name="kind" id="healthy" value="healthy" required>
+		<br>
+		<label for="unhealthy">Unhealthy</label>
+		<input type="radio" name="kind" id="unhealthy" value="unhealthy" required>
+		<br>
+		<label for="other">Other</label>
+		<input type="radio" name="kind" id="other" value="other" required>
+	</fieldset>
+	<br>
+	<input type="submit" value="Add Snack">
+</form>
+{% endblock %}
