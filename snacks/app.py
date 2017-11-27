@@ -3,7 +3,7 @@ from snacks import Snack
 
 app = Flask(__name__)
 
-snacks = []
+snacks = [Snack('fritos', 'delicious')]
 
 @app.route('/')
 def root():
@@ -11,6 +11,7 @@ def root():
 
 @app.route('/snacks', methods=["GET", "POST"])
 def index():
+	from IPython import embed; embed()
 	return render_template('index.html', snacks=snacks)
 
 
