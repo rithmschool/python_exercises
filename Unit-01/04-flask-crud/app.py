@@ -46,5 +46,13 @@ def edit(id):
 	found_snack = find_snack(id)
 	return render_template('edit.html', snack=found_snack)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_error(e):
+    return "500 error"
+
 if __name__ == '__main__':
-	app.run(debug = True, port=3000)
+	app.run(port=3000)
