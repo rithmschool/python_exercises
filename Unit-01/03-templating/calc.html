@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+{% block content %}
+
+
+	<form action="{{ url_for('index') }}" method="POST">
+		<label for="num1">Num1</label>
+		<input type="radio" name="num1" value="add">
+		<input type="radio" name="num1" value="subtract">
+		<input type="radio" name="num1" value="divide">
+		<input type="radio" name="num1" value="multiply">
+		<label for="num2">Num2</label>
+		<input type="radio" name="num2" value="add">
+		<input type="radio" name="num2" value="subtract">
+		<input type="radio" name="num2" value="divide">
+		<input type="radio" name="num2" value= "divide"> 
+	
+</form>
+{% endblock %}
