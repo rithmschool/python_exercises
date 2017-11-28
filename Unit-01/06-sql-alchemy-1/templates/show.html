@@ -1,0 +1,18 @@
+{% extends"base.html" %}
+{% block content %}
+<div class="d-flex flex-column align-items-center">
+	<div class="card m-5" style="width: 20rem">
+		<div class="card-content p-3">
+			<h3 class="card-title text-uppercase">{{snack.name}}</h1>
+			<h5 class="card-subtitle mb-2 text-muted">snack</h5>
+			<p>name: <span class="font-italic">{{snack.name}}</span></p>
+			<p>kind: <span class="font-italic">{{snack.kind}}</span></p>
+			<div class="d-flex">
+				<button class="btn btn-light"><a href="{{url_for('edit', id=snack.id)}}" class="card-link"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></button>
+				<form action="{{url_for('show', id=snack.id)}}?_method=DELETE" method="POST"><button class="btn btn-light ml-3" type="submit"><i class="fa fa-trash-o text-primary" aria-hidden="true"></i></button></form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
