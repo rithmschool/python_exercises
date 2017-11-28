@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<dl>
+    {% for snack in snacks %}
+        <dt>Name: {{ snack.name }} </dt>
+        <dd>Kind: {{ snack.kind }} </dd>
+    {% endfor %}
+</dl>
+
+<div id="form">
+<form action="{{url_for('show', id=snack.id)}}?_method=DELETE" method="POST">
+	<label for="name" style="color:maroon; font-size: 18px; font-style: italic;">Delete a snack:</label>
+	<input type="text" name="name" value="{{snack.name}}">
+    <input type="submit" value="Delete a snack">
+</form> 
+</div>
+{% endblock %}
+

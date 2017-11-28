@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Snacks</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<div id="container">
+		<div id="nav">	
+		<nav>
+			<a href="{{url_for('index')}}">Show all the snacks</a>
+			<a href="{{ url_for('new') }}">Add a snack</a>
+			<a href="{{ url_for('edit', id=1) }}">Edit a snack</a>
+			<a href="{{ url_for('delete', id=1) }}">Delete a snack</a>
+	    </nav> 
+	    </div>
+
+	    <h2>A SNACK LIST</h2>
+		{% block content %}
+		{% endblock %}
+    </div>
+</body>
+</html>

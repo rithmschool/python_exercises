@@ -1,0 +1,59 @@
+#container {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 5px;
+   
+}
+
+h2, dt, dd {
+  font-size: 20px;
+  font-style: italic;
+  color: #DAA520;
+}
+
+a, dl, nav {
+  text-align: center;
+  color: maroon;
+  /*color: #ad670c;*/
+}
+
+dl {
+  margin-bottom: 50px;
+}
+
+form { 
+  display: inline-block;  
+  margin: 0 auto; 
+  text-align: left;
+}
+
+nav{
+  display: inline-block;  
+  margin: 0 auto; 
+  text-align: left;
+}
+#nav {
+  display: block;
+  text-align: center;
+}
+
+#form {
+  display: block;
+  text-align: center;
+}
+
+
+h2{
+  text-align: center;
+}
+
+html { 
+  background: url(snack2.jpg) no-repeat center center fixed; 
+  width: 80%;
+  margin: 0 auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

@@ -1,0 +1,10 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<dl>
+    {% for snack in snacks %}
+        <dt>Name: {{ snack.name }} </dt>
+        <dd>Kind: {{ snack.kind }} </dd>
+    {% endfor %}
+</dl>
+{% endblock %}
