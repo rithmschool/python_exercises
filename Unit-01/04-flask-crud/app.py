@@ -1,23 +1,38 @@
 from flask import Flask, render_template, url_for, redirect, request
 from flask_modus import Modus
-from snack import Snack
+from flask_sqlalchemy import SQLAlchemy
 
 app=Flask(__name__)
 modus=Modus(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/snacks-db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
-snack_list = [Snack(name="licorice", kind="candy"), Snack(name="pistachios", kind="nuts"), Snack(name="strawberries", kind="fruit")]
+class Snack(db.Model):
+	__tablename__="snacks"
+
+	id= db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.Text)
+	kind = db.Column(db.Text)
+
+	def __init__(self, name, kind):
+		self.name = name
+		self.kind = kind
+
+	def __repr__(self):
+		return "Name: {self.name}; Kind: {self.kind}"	
 
 
 
 @app.route("/snacks", methods=["GET", "POST"])
 def index():
 	if request.method == "POST":
-		print(request.form)
 		name = request.form.get('name')
 		kind = request.form.get('kind')
-		snack_list.append(Snack(name, kind))
+		db.session.add(Snack(name, kind))
+		db.session.commit()
 		return redirect(url_for('index'))
-	return render_template("index.html", snacks=snack_list)
+	return render_template("index.html", snacks=Snack.query.order_by(Snack.id).all())
 
 @app.route("/snacks/new")
 def new():
@@ -26,17 +41,17 @@ def new():
 @app.route("/snacks/<int:id>", methods=["GET", "PATCH", "DELETE"])
 def show(id):
 	try:
-		individual_snack = next(snack for snack in snack_list if snack.id == id) or None
+		individual_snack = Snack.query.get(id)
 	
 		if request.method == b"PATCH":
-			individual_snack_index = next(index for index, val in enumerate(snack_list) if val.id == id)
-			snack_list[individual_snack_index] = individual_snack
-			snack_list[individual_snack_index].name = (request.form['name'])
-			snack_list[individual_snack_index].kind = (request.form['kind'])
+			individual_snack.name = (request.form['name'])
+			individual_snack.kind = (request.form['kind'])
+			db.session.add(individual_snack)
+			db.session.commit()
 
-	
 		elif request.method == b"DELETE":
-			snack_list.remove(individual_snack)
+			db.session.delete(individual_snack)
+			db.session.commit()
 			return redirect(url_for('index'))
 	
 		return render_template('show.html', snack = individual_snack)	
@@ -45,10 +60,11 @@ def show(id):
 
 @app.route("/snacks/<int:id>/edit")
 def edit(id):
-	individual_snack = [snack for snack in snack_list if snack.id == id]
-	if individual_snack == []:
+	try:
+		individual_snack = Snack.query.get(id)
+		return render_template('edit.html', snack=individual_snack)	
+	except:
 		return redirect(url_for('not_found', id=id))
-	return render_template('edit.html', snack=individual_snack[0])	
 
 
 

@@ -1,6 +1,6 @@
 {% extends"base.html" %}
 {% block content %}
-<div class="jumbotron d-flex flex-column align-items-center"
+<div class="jumbotron d-flex flex-column align-items-center">
 <form action="{{url_for('show', id=snack.id)}}?_method=PATCH" method="POST">
 	<div>	
 		<label for="name">Name</label>
@@ -12,5 +12,6 @@
 	</div>	
 		<input type="submit" value="add changes" class="btn btn-light">
 	</form>
+</div>	
 
 {% endblock %}
