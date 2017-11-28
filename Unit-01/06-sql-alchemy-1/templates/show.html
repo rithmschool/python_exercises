@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2> info on {{ snack.id }}</h2>
+<h3>{{ snack.name }}</h3>
+<h3>{{ snack.kind }}</h3>
+<a href="{{ url_for('edit', id=snack.id) }}"> edit snack</a>
+
+
+{% endblock %}

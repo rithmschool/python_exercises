@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>snax on snax on snax</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<nav>
+	<a href="{{ url_for('index') }}">home</a>
+	<a href="{{ url_for('new') }}">add a snack</a>
+	</nav>
+	{% block content %}
+	{% endblock %}
+</body>
+</html>

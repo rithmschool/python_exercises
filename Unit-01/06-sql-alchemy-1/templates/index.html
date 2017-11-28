@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>here are some snacks</h1>
+	<ol>
+		{% for snack in snacks %}
+		<li><a href="{{ url_for('show', id=snack.id) }}">{{ snack.name }}</a>, {{ snack.kind }}</li>
+		{% endfor %}
+	</ol>
+{% endblock %}

@@ -1,0 +1,16 @@
+nav {
+  font-size: 15px;
+}
+li {
+  font-size: 20px;
+  position: relative;
+  margin-left: 300px;
+}
+
+h1, p {
+  text-align: center;
+}
+
+body {
+  font-family: sans-serif;
+}
