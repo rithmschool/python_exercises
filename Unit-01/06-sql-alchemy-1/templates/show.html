@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>More about this snack:</h1>
+<p>Name:{{snack.name}}</p>
+<p>Kind:{{snack.kind}}</p>
+<form action="{{url_for('show', id=snack.id)}}?_method=DELETE" method="POST">
+<input type="submit" value="delete">
+</form>
+<a href="{{url_for('edit', id=snack.id)}}">Edit snack</a>
+<a href="{{url_for('index')}}">Go home</a>
+{% endblock %}
