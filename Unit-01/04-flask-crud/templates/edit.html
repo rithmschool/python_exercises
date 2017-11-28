@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Edit this snack</h1>
+	<form method="POST" action="{{ url_for('show', id=snack.id) }}?_method=PATCH">
+		<label for="name">Name: </label>
+		<input type="text" id='name' name="name" value="{{ snack.name }}">
+		<label for="kind">Kind: </label>
+		<input type="text" id='kind' name="kind" value="{{ snack.kind }}">
+		<input type="submit" value="Edit Snack!">		
+	</form>
+{% endblock %}

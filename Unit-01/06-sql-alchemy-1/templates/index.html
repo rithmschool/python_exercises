@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href = "{{url_for('new')}}">Add a new snack</a>
+    <h1>See all the snacks</h1>
+    {% for snack in snack_list %}
+    <p>
+        {{snack.name}} {{snack.kind}}
+        <a href="{{url_for('show', id=snack.id)}}">See more</a>
+        <a href="{{url_for('edit', id=snack.id)}}">Edit</a>
+        <form action="{{url_for('show', id=snack.id)}}?_method=DELETE" method="POST">
+            <input type="submit" value="X">
+        </form>
+    </p>
+    {% endfor %}
+{% endblock %}
