@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="/static/css/reset.css?q=1280549780"
+   type="text/css">
+</head>
+<body>
+	<h1>
+		<a href="{{ url_for('index') }}">Home</a>
+		<a href="{{ url_for('new') }}">New Snack!</a>
+	</h1>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>
