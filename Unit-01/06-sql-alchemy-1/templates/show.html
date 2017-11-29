@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>{{snack.name}} is of kind {{snack.kind}}</h1>
+	<a href="{{url_for('edit', id=snack.id)}}">Edit this snack</a>
+
+	<h1>Delete this snack</h1>
+	<div class="container">
+		<div class='row'>
+			<form method="POST" action="{{url_for('show', id=snack.id)}}?_method=DELETE">
+				<button type='submit' class='btn btn-danger'>Delete</button>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
