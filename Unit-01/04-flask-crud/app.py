@@ -26,15 +26,18 @@ def new():
 
 @app.route('/snacks/<int:id>')
 def show(id):
-    for snack in snack_list:
-        if snack.id == id:
-            found_snack = snack
+    found_snack = next(snack for snack in snack_list if snack.id == id)
+
+    if request.method == b"PATCH":
+        found_snack.name = request.form['name']
+        return redirect(url_for('index'))
+
     return render_template('show.html', snack=found_snack)
 
 @app.route('/snacks/<int:id>/edit')
 def edit(id):
     #refactored using a list comprehension
-    found_snack = [snack for snack in snack_list if snack.id == id][0]
+    found_snack = next(snack for snack in snack_list if snack.id == id)
     return render_template('edit.html', snack=found_snack)
 
 
