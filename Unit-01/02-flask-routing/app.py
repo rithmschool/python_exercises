@@ -8,11 +8,22 @@ def home():
 
 @app.route('/add/<int:num1>/<int:num2>')
 def add(num1,num2):
-    return "The sum is {}".format(num1 + num2)
+    return f"{num1 + num2}"
 
-@app.route('/name/<int:num1>/<int:num2>')
-def favorite_number(num1,num2):
-    return "Your sum is {}, which is made of {} and {}".format(num1 + num2, num1, num2)
+@app.route('/subtract/<int:num1>/<int:num2>')
+def subtract(num1,num2):
+    return f"{num1 - num2}"
 
+@app.route('/multiply/<int:num1>/<int:num2>')
+def multiply(num1,num2):
+    return f"{num1 * num2}"
 
-app.run(debug=True)
+@app.route('/divide/<int:num1>/<int:num2>')
+def divide(num1,num2):
+    return f"{num1 / num2}"
+
+@app.route('/math/<string>/<int:num1>/<int:num2>')
+def math(string,num1,num2):
+    return f"{string, num1 / num2}"    
+
+app.run(debug=True, port=3000)
