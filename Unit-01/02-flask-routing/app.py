@@ -24,6 +24,13 @@ def divide(num1,num2):
 
 @app.route('/math/<string>/<int:num1>/<int:num2>')
 def math(string,num1,num2):
-    return f"{string, num1 / num2}"    
+  if string == 'add':
+    return add(num1,num2)
+  elif string == 'subtract':
+    return subtract(num1,num2)
+  elif string == 'multiply':
+    return multiply(num1,num2)    	
+  elif string == 'divide':
+    return divide(num1,num2)    	
 
 app.run(debug=True, port=3000)
