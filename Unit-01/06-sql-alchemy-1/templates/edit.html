@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1> Edit/Delete A Snack: </h1>
+<form action="{{url_for('show', id = snack.id)}}?_method=PATCH" method="POST">
+	<label for="name">Name:</label>
+	<input type="text" name="name" id="name" required value="{{snack.name}}">
+	<br>
+	<br>
+	<fieldset>
+		<legend>Kind:</legend>
+		<label for="healthy">Healthy</label>
+		<input type="radio" name="kind" id="healthy" value="healthy" required {% if snack.kind == "healthy" %} checked = "checked" {% endif %}>
+		<br>
+		<label for="unhealthy">Unhealthy</label>
+		<input type="radio" name="kind" id="unhealthy" value="unhealthy" required{% if snack.kind == "unhealthy" %} checked = "checked" {% endif %}>
+		<br>
+		<label for="other">Other</label>
+		<input type="radio" name="kind" id="other" value="other" required {% if snack.kind == "other" %} checked = "checked" {% endif %}>
+	</fieldset>
+	<br>
+	<input type="submit" value="Update Snack">
+</form>
+{% endblock %}
