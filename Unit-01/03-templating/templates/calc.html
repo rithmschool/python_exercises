@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="{{ url_for('math') }}">
+  Number<input type="text" name="num1">	
+  <select name="operator" id="operator">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+  </select>
+  Number<input type="text" name="num2">
+  <input type="submit" name="Submit Form">
+</form>
+
+{% endblock %}
