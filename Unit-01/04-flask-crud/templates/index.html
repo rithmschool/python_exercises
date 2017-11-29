@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Snacks App</h1>
+
+  <ul>
+    {% for snack in snacks %}
+      <li>{{ snack.name }}</li>
+      {% endfor %}
+  </ul>
+
+{% endblock %}
