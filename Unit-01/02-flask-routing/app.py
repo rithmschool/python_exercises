@@ -33,4 +33,5 @@ def math(string,num1,num2):
   elif string == 'divide':
     return divide(num1,num2)    	
 
-app.run(debug=True, port=3000)
+if __name__ == '__main__':
+  app.run(debug=True, port=3000)
