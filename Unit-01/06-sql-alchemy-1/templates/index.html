@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1>List of tasty snacks</h1>
+  <p>Mmmmm</p>
+</div>
+
+
+<div class="list-group">
+	{% for snack in snacks %}
+	<p>
+		<a href="{{url_for('show', id=snack.id)}}" class="list-group-item list-group-item-action">
+			<strong>Name:</strong> {{snack.name}} <br>
+			<strong>Kind:</strong> {{snack.kind}}</a>
+	</p>
+	{% endfor %}
+</div>
+
+
+{% endblock %}
