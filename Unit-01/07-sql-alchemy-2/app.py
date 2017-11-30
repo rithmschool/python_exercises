@@ -71,7 +71,7 @@ def show(id):
 @app.route("/users/<int:id>/edit")
 def edit(id):
 	user = User.query.get(id)
-	return render_template('m_edit.html', user = user)
+	return render_template('messages/edit.html', user = user)
 
 @app.route("/users/<int:user_id>/messages", methods = ["GET", "POST"])
 def m_index(user_id):
@@ -81,12 +81,12 @@ def m_index(user_id):
 		db.session.commit()
 		return redirect(url_for('m_index'), user_id = user_id)
 	user = User.query.get(user_id)
-	return render_template('m_index.html', user = user)
+	return render_template('messages/index.html', user = user)
 
 @app.route("/users/<int:user_id>/messages/new")
 def m_new(user_id):
 	user = User.query.get(user_id)
-	return render_template('m_new.html', user = user)
+	return render_template('messages/new.html', user = user)
 
 @app.route("/users/<int:user_id>/messages/<int:id>", methods = ["GET", "PATCH", "DELETE"])
 def m_show(user_id, id):
@@ -100,13 +100,12 @@ def m_show(user_id, id):
 	if request.method == b"DELETE":
 		db.session.delete(message)
 		return redirect(url_for('m_index'), user_id = user_id)
-	user = User.query.get(user_id)	
-	return render_template('m_show.html', user = user)
+	return render_template('messages/show.html', message = message)
 
 @app.route("/users/<int:user_id>/messages/<int:id>/edit")
 def m_edit(user_id, id):
 	message = Message.query.get(id)
-	return render_template('m_edit.html', message = message)
+	return render_template('messages/edit.html', message = message)
 
 
 

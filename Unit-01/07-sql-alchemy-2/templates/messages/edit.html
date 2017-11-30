@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1> Edit {{message.user.first_name}}'s message {{message.id}}</h1>
+<form method="POST" action="{{url_for('index')}}?_method=PATCH">
+	<label for="text">Text:</label>
+	<input type="text" name="text" id="text" required value=message.text>
+	<label for="img">Optional Image:</label>
+	<input type="text" name="img" id="img"  value=message.img> 
+	<!-- image is optional. May break if don't have an image -->
+	<input type="submit" value="Add message">
+</form>
+{% endblock %}

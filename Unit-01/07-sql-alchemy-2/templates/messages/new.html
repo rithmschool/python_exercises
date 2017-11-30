@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1> Add a message </h1>
+<form method="POST" action="{{url_for('index')}}">
+	<label for="text">Text:</label>
+	<input type="text" name="text" id="text" required>
+	<label for="img">Optional Image:</label>
+	<input type="text" name="img" id="img">
+	<input type="submit" value="Add message">
+</form>
+{% endblock %}
