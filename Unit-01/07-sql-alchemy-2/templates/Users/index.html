@@ -6,7 +6,7 @@
 
 	{% for user in users %}
 	<p>
-		{{user.first_name}} {{user.last_name}}
+		{{user.first_name}} {{user.last_name}} <small>member since {{ moment(user.created_on, local=True).fromNow() }}</small>
 		<br>
 		<a href="{{url_for('edit', id=user.id)}}">Edit {{user.first_name}}</a> |
 		<a href="{{url_for('messages_index', user_id=user.id)}}"> See {{user.first_name}}'s messages</a>

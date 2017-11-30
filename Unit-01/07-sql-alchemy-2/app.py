@@ -21,6 +21,8 @@ class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	first_name = db.Column(db.Text)
 	last_name = db.Column(db.Text)
+	created_on = db.Column(db.DateTime, server_default=db.func.now())
+	updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 	messages = db.relationship('Message', backref='user', lazy='dynamic', cascade='all, delete')
 
 	def __init__(self, first_name, last_name):
