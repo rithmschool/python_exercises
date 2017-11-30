@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <a href="{{url_for('new')}}">Add a new user!</a>
+  <h1>See all the users!</h1>
+  {% for user in users %}
+    <p>
+      {{user.first_name}} {{user.last_name}}
+      <br>
+      <a href="{{url_for('messages_index', user_id=user.id)}}">See all messages for {{user.first_name}}!</a>
+      <a href="{{url_for('edit', id=user.id)}}">Edit a user!</a>
+      <form action="{{url_for('show', id=user.id)}}?_method=DELETE" method="POST">
+        <input type="submit" value="X">
+      </form>
+    </p>
+  {% endfor %}
+{% endblock %}

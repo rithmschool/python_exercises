@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Add a new user!</h1>
+  <form method="POST" action="{{url_for('index')}}">
+    <input type="text" name="first_name">
+    <input type="text" name="last_name">
+    <button>Add a user!</button>
+  </form>
+{% endblock %}

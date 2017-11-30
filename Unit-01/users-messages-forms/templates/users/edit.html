@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Add a new user!</h1>
+  <form method="POST" action="{{url_for('show', id=user.id)}}?_method=PATCH">
+    <input type="text" name="first_name" value="{{user.first_name}}">
+    <input type="text" name="last_name" value="{{user.last_name}}">
+    <button>Edit a user!</button>
+  </form>
+{% endblock %}
