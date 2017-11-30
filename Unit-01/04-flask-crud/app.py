@@ -5,14 +5,7 @@ from snack import Snack
 app = Flask(__name__)
 modus = Modus(app)
 
-
-pringles = Snack(name='pringles', kind='chips')
-cake = Snack(name='cake', kind='baked_goods')
-cupcake = Snack(name='cupcake', kind='baked_goods')
-rice_krispies = Snack(name='rice_krispies', kind='baked_goods')
-cheetos = Snack(name='cheetos', kind='chips')
-
-snack_list = [pringles, cake, cupcake, rice_krispies, cheetos]
+snack_list = []
 
 @app.route('/snacks', methods=["GET", "POST"])
 def index():
