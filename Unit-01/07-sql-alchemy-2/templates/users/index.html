@@ -6,4 +6,5 @@
 	<li><a href={{url_for('show', id = user.id)}}> {{user.first_name}} {{user.last_name}}</a></li>
 	{% endfor %}
 </ol>
+<a href="{{url_for('new')}}"> Make a new user </a>
 {% endblock %}

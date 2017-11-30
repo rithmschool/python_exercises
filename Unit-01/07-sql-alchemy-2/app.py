@@ -3,10 +3,11 @@ from flask_modus import Modus
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/user'#user
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/user'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-modus = Modus(app)#we don't use this either
-db = SQLAlchemy(app)#we use this
+app.config['SQLALCHEMY_ECHO'] = True
+modus = Modus(app)
+db = SQLAlchemy(app)
 
 class User(db.Model):
 
@@ -23,16 +24,17 @@ class User(db.Model):
 
 class Message(db.Model):
 
-	__tablename__ = "users"
+	__tablename__ = "messages"
 
 	id = db.Column(db.Integer, primary_key = True)
 	text = db.Column(db.Text)
 	img = db.Column(db.Text)
 	user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-	def __init__(self, first_name, last_name):
-		self.first_name = first_name
-		self.last_name = last_name
+	def __init__(self, text, img, user_id):
+		self.text = text
+		self.img = img
+		self.user_id = user_id
 
 
 @app.route("/")
@@ -46,12 +48,12 @@ def index():
 		db.session.add(user)
 		db.session.commit()
 		return redirect(url_for('index'))
-	users = User.query.all()
-	return render_template('index.html', users = users)
+	users = User.query.all() 
+	return render_template('users/index.html', users = users)
 
 @app.route("/users/new")
 def new():
-	return render_template('new.html')
+	return render_template('users/new.html')
 
 @app.route("/users/<int:id>", methods = ["GET", "PATCH", "DELETE"])
 def show(id):
@@ -66,12 +68,12 @@ def show(id):
 		db.session.delete(user)
 		db.session.commit()
 		return redirect(url_for('index'))
-	return render_template('show.html', user = user)
+	return render_template('users/show.html', user = user)
 
 @app.route("/users/<int:id>/edit")
 def edit(id):
 	user = User.query.get(id)
-	return render_template('messages/edit.html', user = user)
+	return render_template('users/edit.html', user = user)
 
 @app.route("/users/<int:user_id>/messages", methods = ["GET", "POST"])
 def m_index(user_id):
@@ -107,5 +109,6 @@ def m_edit(user_id, id):
 	message = Message.query.get(id)
 	return render_template('messages/edit.html', message = message)
 
-
+if __name__ == '__main__':
+  app.run(debug=True)
 

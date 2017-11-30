@@ -2,8 +2,9 @@
 {% block content %}
 <h1>User {{user.first_name}}'s messages:</h1>
 <ol>
+	<h1></h1>
 	{% for message in user.messages %}
-	<li><a href={{url_for('show', user_id = user.id, id = message.id)}}> {{message.id message.text}}<img src="{{message.img}}"></a></li>
+	<li><a href={{url_for('show', user_id = user.id, id = message.id)}}> {{message.text}}<img src="{{message.img}}"></a></li>
 	{% endfor %}
 </ol>
 {% endblock %}
