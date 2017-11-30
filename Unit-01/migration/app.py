@@ -49,6 +49,8 @@ def show(id):
 	if request.method == b'PATCH':
 		found_snack.name = request.form['name']
 		found_snack.kind = request.form['kind']
+		db.session.add(found_snack)
+		db.session.commit()
 		return redirect(url_for('index'))
 	if request.method == b'DELETE':
 		db.session.remove(found_snack)
@@ -65,42 +67,3 @@ def edit(id):
 
 if __name__== '__main__':
 	app.run(debug=True, port=3000) 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
