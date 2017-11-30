@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Leave a message for {{user.first_name}}</h1>
+	<form method="POST" action="{{url_for('messages_index', user_id=user.id)}}">
+		<input type="text" name='content'>
+		<input type="submit" class="btn btn-primary btn-sm" value="submit">
+	</form>
+{% endblock %}
