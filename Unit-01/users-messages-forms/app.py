@@ -97,6 +97,7 @@ def show(id):
 @app.route('/users/<int:user_id>/messages', methods=["GET", "POST"])
 def messages_index(user_id):
   # find a user - that's it!
+  delete_form = DeleteForm()
   if request.method == "POST":
     message_form = MessageForm(request.form)
     if message_form.validate():
@@ -107,7 +108,7 @@ def messages_index(user_id):
       return redirect(url_for('messages_index', user_id=user_id))
     else:
       return render_template('messages/new.html', user=User.query.get(user_id), form=message_form)
-  return render_template('messages/index.html', user=User.query.get(user_id))
+  return render_template('messages/index.html', user=User.query.get(user_id), delete_form=delete_form)
 
 @app.route('/users/<int:user_id>/messages/new', methods=["GET", "POST"])
 def messages_new(user_id):
@@ -136,8 +137,11 @@ def messages_show(user_id, id):
     return render_template('messages/edit.html', message=found_message, form=message_form)
 
   if request.method == b"DELETE":
-    db.session.delete(found_message)
-    db.session.commit()
+    delete_form = DeleteForm(request.form)
+    if delete_form.validate():
+      db.session.delete(found_message)
+      db.session.commit()
+      flash("Message Successfully Deleted!")
     return redirect(url_for('messages_index', user_id=user_id))
   return render_template('messages/show.html', message=found_message)
 
