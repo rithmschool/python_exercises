@@ -4,6 +4,7 @@
 <p> First Name: {{user.first_name}}</p>
 <p> Last Name: {{user.last_name}} </p>
 <form action="{{url_for('show', id = user.id)}}?_method=DELETE" method="Post">
+	{{delete_form.hidden_tag()}}
 	<input type="submit" value="Delete this user">
 </form>
 <p><a href="{{url_for('edit', id = user.id)}}"> Edit this user</a></p>

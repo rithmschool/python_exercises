@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> Edit user </h1>
+<h1> Edit user {{user.first_name}}</h1>
 <form method="POST" action="{{url_for('show', id=user.id)}}?_method=PATCH">
-	<label for="first_name">First Name:</label>
-	<input type="text" name="first_name" id="first_name" required value="{{user.first_name}}">
-	<label for="last_name">Last Name:</label>
-	<input type="text" name="last_name" id="last_name" required value="{{user.last_name}}">
+	{{form.hidden_tag()}}
+	{% for field in form if field.widget.input_type != 'hidden'%}
+	<div> 
+		{{field.label}}
+		{{field}} 
+		{% if field.errors %}
+			{% for error in field.errors %}
+			<span> {{error}}
+			{% endfor %}
+		{% endif %}
+	</div>
+	{% endfor %}
 	<input type="submit" value="Edit user">
 </form>
 {% endblock %}

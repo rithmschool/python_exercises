@@ -1,11 +1,14 @@
 from flask import Flask, url_for, redirect, render_template, request
 from flask_modus import Modus
 from flask_sqlalchemy import SQLAlchemy
+from forms import UserForm, MessageForm, DeleteForm
+from os import environ
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/user'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
+app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 modus = Modus(app)
 db = SQLAlchemy(app)
 
@@ -44,36 +47,47 @@ def root():
 @app.route("/users", methods = ["GET", "POST"])
 def index():
 	if request.method == "POST":
-		user = User(request.form.get("first_name"),request.form.get("last_name"))
-		db.session.add(user)
-		db.session.commit()
-		return redirect(url_for('index'))
+		form = UserForm(request.form)
+		if form.validate():
+			user = User(form.first_name.data, form.last_name.data)
+			db.session.add(user)
+			db.session.commit()
+			return redirect(url_for('index'))
+		return render_template('users/new.html', form = form)	
 	users = User.query.all() 
 	return render_template('users/index.html', users = users)
 
 @app.route("/users/new")
 def new():
-	return render_template('users/new.html')
+	form = UserForm()
+	return render_template('users/new.html', form = form)
 
 @app.route("/users/<int:id>", methods = ["GET", "PATCH", "DELETE"])
 def show(id):
 	user = User.query.get(id)
 	if request.method == b"PATCH":
-		user.first_name = request.form.get("first_name")
-		user.last_name = request.form.get("last_name")
-		db.session.add(user)
-		db.session.commit()
-		return redirect(url_for('index'))
+		form = UserForm(request.form)
+		if form.validate():
+			user.first_name = form.first_name.data
+			user.last_name = form.last_name.data
+			db.session.add(user)
+			db.session.commit()
+			return redirect(url_for('index'))
+		return render_template('users/edit.html', user = user, form = form)
 	if request.method == b"DELETE":
-		db.session.delete(user)
-		db.session.commit()
+		delete_form = DeleteForm(request.form)
+		if delete_form.validate():
+			db.session.delete(user)
+			db.session.commit()
 		return redirect(url_for('index'))
-	return render_template('users/show.html', user = user)
+	delete_form = DeleteForm()
+	return render_template('users/show.html', user = user, delete_form = delete_form)
 
 @app.route("/users/<int:id>/edit")
 def edit(id):
 	user = User.query.get(id)
-	return render_template('users/edit.html', user = user)
+	form = UserForm(obj=user)
+	return render_template('users/edit.html', user = user, form = form)
 
 @app.route("/users/<int:user_id>/messages", methods = ["GET", "POST"])
 def m_index(user_id):
