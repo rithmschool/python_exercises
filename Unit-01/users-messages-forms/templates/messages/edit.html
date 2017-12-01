@@ -3,7 +3,21 @@
 {% block content %}
   <h1>Edit a new message!</h1>
   <form method="POST" action="{{url_for('messages_show', user_id=message.user_id, id=message.id)}}?_method=PATCH">
-    <input type="text" name="content" value="{{message.content}}">
-    <button>Edit a new message!</button>
+    
+	{{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+			<p>
+				{{field.label}}
+				{{field}}
+				<span>
+					{% if field.errors %}
+						{% for error in field.errors %}
+							{{error}}
+						{% endfor %}
+					{% endif %}
+				</span>
+			</p>
+    {% endfor %}
+    <button>Edit this message</button>
   </form>
 {% endblock %}

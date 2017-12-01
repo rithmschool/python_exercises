@@ -5,6 +5,15 @@
   <title>Document</title>
 </head>
 <body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p style="font-family: sans-serif; border-width: 2px;
+border-radius: 15px; color: lightgreen; font-size: 1.6em; border-color: lightgreen; border-style: dashed; text-align: center">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
   {% block content %}
   {% endblock %}
 </body>
