@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>New User Sign-Up</h1>
+	<form method="POST" action="{{url_for('index')}}">
+		{{form.hidden_tag()}}
+		{% for field in form if field.widget.input_type != 'hidden' %}
+			<p>
+				{{field.label}}
+				{{field(placeholder='...', required=True)}}
+				<span class='p-0 text-white bg-danger'>
+					{% if field.errors %}
+						{% for error in field.errors %}
+							{{ error }}
+						{% endfor %}
+					{% endif %}
+				</span>
+			</p>
+		{% endfor %}
+		<input type="submit" class="btn btn-primary btn-sm" value='Create'>
+	</form>
+
+{% endblock %}
