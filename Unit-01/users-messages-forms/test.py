@@ -35,7 +35,7 @@ class BaseTestCase(TestCase):
         response = self.client.get('/users/1')
         self.assertEqual(response.status_code, 200)
 
-    def test_users_create(self):
+    def test_users_create_correctly(self):
         response = self.client.post(
             '/users',
             data=dict(first_name="Awesome", last_name="Student"),
@@ -43,6 +43,15 @@ class BaseTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Awesome', response.data)
+
+    def test_users_create_incorrectly(self):
+        response = self.client.post(
+            '/users',
+            data=dict(first_name="", last_name="Student"),
+            follow_redirects=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'This field is required', response.data)
 
     def test_users_edit(self):
         response = self.client.get(
@@ -79,7 +88,7 @@ class BaseTestCase(TestCase):
         response = self.client.get('/users/1/messages/1')
         self.assertEqual(response.status_code, 200)
 
-    def test_messages_create(self):
+    def test_messages_create_correctly(self):
         response = self.client.post(
             '/users/1/messages',
             data=dict(content="Hi Matt!!", user_id=3),
@@ -87,6 +96,15 @@ class BaseTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Hi Matt!!', response.data)
+
+    def test_messages_create_incorrectly(self):
+        response = self.client.post(
+            '/users/1/messages',
+            data=dict(content=""),
+            follow_redirects=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'This field is required', response.data)
 
     def test_messages_edit(self):
         response = self.client.get(
