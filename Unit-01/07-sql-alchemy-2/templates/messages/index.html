@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>User {{user.first_name}}'s messages:</h1>
-<ol>
+<ul>
 	<h1></h1>
 	{% for message in user.messages %}
-	<li><a href={{url_for('show', user_id = user.id, id = message.id)}}> {{message.text}}<img src="{{message.img}}"></a></li>
+	<li><a href={{url_for('m_show', user_id = user.id, id = message.id)}}> {{message.text}}<img src="{{message.img}}" width="5%"></a></li>
 	{% endfor %}
-</ol>
+</ul>
+<a href="{{url_for('m_new', user_id = user.id)}}"> Make a new message </a>
+<a href="{{url_for('index')}}" style="margin-left:5px"> Go back to users </a>
 {% endblock %}

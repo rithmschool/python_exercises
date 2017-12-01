@@ -39,7 +39,7 @@ class Message(db.Model):
 		self.img = img
 		self.user_id = user_id
 
-
+# USERS SECTION
 @app.route("/")
 def root():
 	return redirect(url_for('index'))
@@ -89,39 +89,49 @@ def edit(id):
 	form = UserForm(obj=user)
 	return render_template('users/edit.html', user = user, form = form)
 
+#USERS/MESSAGES SECTION
 @app.route("/users/<int:user_id>/messages", methods = ["GET", "POST"])
 def m_index(user_id):
 	if request.method == "POST":
-		message = Message(request.form.get("text"), request.form.get("img"))
+		message = Message(request.form.get("text"), request.form.get("img"), user_id)
 		db.session.add(message)
 		db.session.commit()
-		return redirect(url_for('m_index'), user_id = user_id)
+		return redirect(url_for('m_index', user_id = user_id))
 	user = User.query.get(user_id)
 	return render_template('messages/index.html', user = user)
 
 @app.route("/users/<int:user_id>/messages/new")
 def m_new(user_id):
+	form = MessageForm()
 	user = User.query.get(user_id)
-	return render_template('messages/new.html', user = user)
+	return render_template('messages/new.html', user = user, form = form)
 
 @app.route("/users/<int:user_id>/messages/<int:id>", methods = ["GET", "PATCH", "DELETE"])
 def m_show(user_id, id):
 	message = Message.query.get(id)
 	if request.method == b"PATCH":
-		message.text = request.form.get("text") 
-		message.img = request.form.get("img")
-		db.session.add(message)
-		db.session.commit()
-		return redirect(url_for('m_index'), user_id = user_id)
+		form = MessageForm(request.form)
+		if form.validate():
+			message.text = form.text.data
+			message.img = form.img.data
+			db.session.add(message)
+			db.session.commit()
+			return redirect(url_for('m_index', user_id = user_id))
+		return render_template('messages/edit.html', message = message, form = form)
 	if request.method == b"DELETE":
-		db.session.delete(message)
-		return redirect(url_for('m_index'), user_id = user_id)
-	return render_template('messages/show.html', message = message)
+		delete_form = DeleteForm(request.form)
+		if delete_form.validate():
+			db.session.delete(message)
+			db.session.commit()
+		return redirect(url_for('m_index', user_id = user_id))
+	delete_form = DeleteForm()
+	return render_template('messages/show.html', message = message, delete_form=delete_form)
 
 @app.route("/users/<int:user_id>/messages/<int:id>/edit")
 def m_edit(user_id, id):
 	message = Message.query.get(id)
-	return render_template('messages/edit.html', message = message)
+	form = MessageForm(obj=message)
+	return render_template('messages/edit.html', message = message, form = form)
 
 if __name__ == '__main__':
   app.run(debug=True)

@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> Edit {{message.user.first_name}}'s message {{message.id}}</h1>
-<form method="POST" action="{{url_for('index')}}?_method=PATCH">
-	<label for="text">Text:</label>
-	<input type="text" name="text" id="text" required value=message.text>
-	<label for="img">Optional Image:</label>
-	<input type="text" name="img" id="img"  value=message.img> 
-	<!-- image is optional. May break if don't have an image -->
-	<input type="submit" value="Add message">
+<h1> Edit {{message.user.first_name}}'s message</h1>
+<form method="POST" action="{{url_for('m_show', user_id = message.user.id, id = message.id)}}?_method=PATCH">
+	{{form.hidden_tag()}}
+	{% for field in form if field.widget.input_type != 'hidden' %}
+		<div>
+			{{field.label}}
+			{{field}}
+			{% if field.errors %}
+				{% for error in field.errors %}
+					{{error}}
+				{% endfor %}
+			{% endif %}
+		</div>
+	{% endfor %}	
+	<input type="submit" value="Edit message">
 </form>
 {% endblock %}

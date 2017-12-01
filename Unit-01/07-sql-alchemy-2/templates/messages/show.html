@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{message.user.first_name}}'s message {{message.id}}</h1>
-<p> {{message.text}} <img src="{{message.url"></p>
-<form action="{{url_for('m_show', user_id = message.user.id, id=message.id)}}?_method=DELETE" method="Post">
+<h1>{{message.user.first_name}}'s message</h1>
+<p> {{message.text}} <img src="{{message.img}}" width="30%"></p>
+<form action="{{url_for('m_show', user_id = message.user.id, id=message.id)}}?_method=DELETE" method="POST">
+	{{delete_form.hidden_tag()}}
 	<input type="submit" value="Delete this message">
 </form>
-<a href={{url.for('m_edit', user_id=message.user.id, id = message.id)}}> Edit this message </a>
-<a href={{url.for('m_index' user_id = message.user.id)}}> Go back to messages </a>
+<a href={{url_for('m_edit', user_id = message.user.id, id = message.id)}}> Edit this message </a>
+<a href={{url_for('m_index', user_id = message.user.id)}}> Go back to messages </a>
 {% endblock %}
