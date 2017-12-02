@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1> Edit {{message.user.first_name}}'s message</h1>
-<form method="POST" action="{{url_for('m_show', user_id = message.user.id, id = message.id)}}?_method=PATCH">
+<form method="POST" action="{{url_for('messages.show', user_id = message.user.id, id = message.id)}}?_method=PATCH">
 	{{form.hidden_tag()}}
 	{% for field in form if field.widget.input_type != 'hidden' %}
 		<div>

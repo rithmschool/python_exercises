@@ -4,9 +4,9 @@
 <ul>
 	<h1></h1>
 	{% for message in user.messages %}
-	<li><a href={{url_for('m_show', user_id = user.id, id = message.id)}}> {{message.text}}<img src="{{message.img}}" width="5%"></a></li>
+	<li><a href={{url_for('messages.show', user_id = user.id, id = message.id)}}> {{message.text}}<img src="{{message.img}}" width="5%"></a></li>
 	{% endfor %}
 </ul>
-<a href="{{url_for('m_new', user_id = user.id)}}"> Make a new message </a>
-<a href="{{url_for('index')}}" style="margin-left:5px"> Go back to users </a>
+<a href="{{url_for('messages.new', user_id = user.id)}}"> Make a new message </a>
+<a href="{{url_for('users.index')}}" style="margin-left:5px"> Go back to users </a> 
 {% endblock %}
