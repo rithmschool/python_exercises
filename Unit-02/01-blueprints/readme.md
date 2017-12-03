@@ -3,9 +3,13 @@
 ### Part I - Questions
 
 1. Describe the MVC pattern.
+The MVC pattern separates concerns into data retrieval and manipulation, information and pages passed to the client, and the controller which contains the business logic and serves as a go between for the view and the model.
 2. In the MVC pattern, does the model communicate directly with the view?
+No, the controller is responsible for handling the results of the queries and passing them in a usable format to the view. 
 2. What is the purpose of blueprints?
+Blueprints abstract complex routing and accessing templates.
 3. How does using blueprints help us organize bigger applications?
+Blueprints help with the separation of concerns and structuring relationships between different resources.
 
 ### Part II - Exercise
 
