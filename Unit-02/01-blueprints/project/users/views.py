@@ -11,14 +11,16 @@ users_blueprint= Blueprint(
 
 @users_blueprint.route('/', methods=['GET', 'POST'])
 def index():
+	delete_form=DeleteForm()
 	if request.method == 'POST':
 		user_form = UserForm(request.form)
 		if user_form.validate():
-			new_user = User(user_form.data.first_name, user_form.data.last_name)
+			new_user = User(user_form.data['first_name'], user_form.data['last_name'])
 			db.session.add(new_user)
 			db.session.commit()
 			return redirect(url_for('users.index'))
-	return render_template('index.html', users=User.query.order_by(User.id).all())
+		return render_template('new.html', form=user_form)	
+	return render_template('index.html', users=User.query.order_by(User.id).all(), delete_form=delete_form)
 
 @users_blueprint.route('/new')
 def new():
@@ -31,11 +33,11 @@ def show(id):
 	if request.method == b'PATCH':
 		user_form = UserForm(request.form)
 		if user_form.validate():
-			user.first_name = user_form.data.first_name
-			user.last_name = user_form.data.last_name
+			user.first_name = user_form.data['first_name']
+			user.last_name = user_form.data['last_name']
 			db.session.add(user)
 			db.session.commit()
-			return redirect(url_for('user.show'))
+			return redirect(url_for('users.index'))
 		else:
 			return render_template('edit.html', form=user_form, user=user)
 	elif request.method == b'DELETE':
@@ -43,13 +45,15 @@ def show(id):
 		if delete_form.validate():
 			db.session.delete(user)
 			db.session.commit()
-			return redirect(url_for('user.index'))			
-	return render_template('show.html', user=user)
+			return redirect(url_for('users.index'))
+		else:
+			return "error"				
+	return redirect(url_for('messages.index', user_id=id))
 
 @users_blueprint.route('/<int:id>/edit')
 def edit(id):
 	user=User.query.get(id)
-	user_form=UserForm()
+	user_form=UserForm(obj=user)
 	return render_template('edit.html', form=user_form, user=user)
 
 

@@ -7,7 +7,7 @@ from project import db
 messages_blueprint= Blueprint(
 	'messages',
 	__name__,
-	template_folder = 'templates/messages'
+	template_folder = 'templates'
 	)
 
 @messages_blueprint.route('/', methods=['GET', 'POST'])
@@ -22,12 +22,12 @@ def index(user_id):
 			return redirect(url_for('messages.index', user_id=user_id))
 		else:
 			return render_template('new.html', user=User.query.get(user_id), form=messages_form)	
-	return render_template('index.html', user=User.query.get(user_id), delete_form=delete_form)
+	return render_template('messages/index.html', user=User.query.get(user_id), delete_form=delete_form)
 
 @messages_blueprint.route('/new')
 def new(user_id):
 	messages_form=MessageForm()
-	return render_template('new.html', user=User.query.get(user_id), form=messages_form)
+	return render_template('messages/new.html', user=User.query.get(user_id), form=messages_form)
 
 @messages_blueprint.route('/<int:id>', methods = ['GET', 'PATCH', 'DELETE'])
 def show(user_id, id):
@@ -35,22 +35,22 @@ def show(user_id, id):
 	if request.method == b'PATCH':
 		messages_form = MessageForm(request.form)
 		if messages_form.validate():
-			message.content = messages_form.content.data
+			message.content = messages_form.data['content']
 			db.session.add(message)
 			db.session.commit()
 			return redirect(url_for('messages.index', user_id=user_id))
 		else:
-			return render_template('edit.html', form=messages_form, message=message)
+			return render_template('messages/edit.html', user_id=user_id, form=messages_form, message=message)
 	elif request.method == b'DELETE':
-		delete_form=DeleteForm()
+		delete_form=DeleteForm(request.form)
 		if delete_form.validate():
 			db.session.delete(message)
 			db.session.commit()
-			return redirect(url_for('message.index', user_id=user_id))			
-	return render_template('show.html', user_id=user_id, message=message)
+			return redirect(url_for('messages.index', user_id=user_id))			
+	return render_template('messages/show.html', user_id=user_id, message=message)
 
 @messages_blueprint.route('/<int:id>/edit')
 def edit(user_id, id):
 	message=Message.query.get(id)
 	messages_form=MessageForm()
-	return render_template('edit.html', form=messages_form, message=message)
+	return render_template('messages/edit.html', user_id=user_id, form=messages_form, message=message)
