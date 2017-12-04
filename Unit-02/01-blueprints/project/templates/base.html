@@ -6,8 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
 	</head>
 	<body>
-	<h1 id="header"> Welcome to my App </h1>
-	<div>
+	<h1> Welcome to my App </h1>
+	<div id="flash">
 		{% with messages = get_flashed_messages() %}
 			{% if messages %}
 				{% for message in messages %}
@@ -16,7 +16,7 @@
 			{% endif %}
 		{% endwith %}
 	</div>
-	<div>
+	<div id="content">
 		{% block content %}
 		
 		{% endblock %}

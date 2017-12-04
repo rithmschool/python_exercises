@@ -9,25 +9,34 @@ body div {
 }
 
 ul,
-h1,
-form {
+h2,
+form,
+.content {
 	border: solid black 2px;
 	padding: 2vmax;
 	background-color: #bff4fc;
-	margin: 0px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.delete {
+	border: none;
+	padding: 0;
 }
 
 h1 {
-	margin: 0 auto;
-	text-decoration: none;
-	border-bottom: none;
-	text-align: center;
-}
-
-#header {
 	border: none;
 	margin-bottom: 5px;
 	background-color: lightblue;
+	text-align: center;
+}
+
+h2 {
+	margin: 0 auto;
+	padding: 0;
+	text-decoration: none;
+	border-bottom: none;
+	text-align: center;
 }
 
 li,
@@ -37,11 +46,21 @@ form {
 	list-style-position: inside;
 }
 
-li a {
-	width: 50%;
-	vertical-align: baseline;
+a {
+	padding: 0 2px;
 }
 
-li img {
-	vertical-align: baseline;
+li a img {
+	width: 5%;
+}
+
+/*trying to set it up so each main component of the content class occupies 50% space */
+.content > p,
+.content > img {
+	box-sizing: border-box;
+	width: 49%;
+}
+/*trying to cause image to move to right of the p content area */
+.content > p {
+	display: inline-block;
 }
