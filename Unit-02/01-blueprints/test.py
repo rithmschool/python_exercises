@@ -1,6 +1,4 @@
-from project import app,db
-from project.users.models import User
-from project.messages.models import Message
+from app import app,db, User, Message
 from flask_testing import TestCase
 import unittest
 
@@ -39,13 +37,12 @@ class BaseTestCase(TestCase):
 
     def test_users_create(self):
         response = self.client.post(
-            '/users/',
+            '/users',
             data=dict(first_name="Awesome", last_name="Student"),
             follow_redirects=True
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Awesome', response.data)
-        self.assertIn(b'User Created!', response.data)
 
     def test_users_edit(self):
         response = self.client.get(
@@ -84,8 +81,8 @@ class BaseTestCase(TestCase):
 
     def test_messages_create(self):
         response = self.client.post(
-            '/users/1/messages/',
-            data=dict(text="Hi Matt!!", user_id=3),
+            '/users/1/messages',
+            data=dict(content="Hi Matt!!", user_id=3),
             follow_redirects=True
         )
         self.assertEqual(response.status_code, 200)
@@ -105,7 +102,7 @@ class BaseTestCase(TestCase):
     def test_messages_update(self):
         response = self.client.patch(
             '/users/1/messages/1?_method=PATCH',
-            data=dict(text="Welcome Back Elie!"),
+            data=dict(content="Welcome Back Elie!"),
             follow_redirects=True
         )
         self.assertIn(b'Welcome Back Elie!', response.data)

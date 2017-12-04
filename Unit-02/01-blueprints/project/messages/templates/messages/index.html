@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>User {{user.first_name}}'s messages:</h2>
+<ul>
+	{% for message in user.messages %}
+	<li><a href={{url_for('messages.show', user_id = user.id, id = message.id)}}> {{message.text}}<img src="{{message.img}}" width="5%"></a></li>
+	{% endfor %}
+</ul>
+<a href="{{url_for('messages.new', user_id = user.id)}}"> Make a new message </a>
+<a href="{{url_for('users.index')}}"> Go back to users </a> 
+{% endblock %}
