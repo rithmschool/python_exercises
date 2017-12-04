@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %}
+<div class="row justify-content-center my-5">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <p>Hello {{ name.title() }}! You are {{ age }} years old. Have a marvelous day!</p>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

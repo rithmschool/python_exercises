@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %}
+<div class="row justify-content-center my-5">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <form action="/math" method="GET">
+          <div class="form-group">
+            <label for="num1">Number One</label>
+            <input type="text" class="form-control" id="num1" name="num1">
+          </div>
+          <div class="form-group">
+            <label for="num2">Number Two</label>
+            <input type="text" class="form-control" id="num2" name="num2">
+          </div>
+          <div class="form-group">
+            <label for="MathOperator">Math Operation</label>
+            <select class="form-control" id="MathOperator" name="oper">
+              <option>add</option>
+              <option>subtract</option>
+              <option>multiply</option>
+              <option>divide</option>
+            </select>
+          </div>
+          <input type="submit" value="Calculate">
+        </form>
+        <p>{{oper}}</p>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
