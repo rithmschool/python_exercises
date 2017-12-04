@@ -9,7 +9,7 @@ def index():
 
 @app.route("/person/<name>/<age>")
 def part1(name,age):
-  return render_template("part1.html", name=name,age=age)
+  return render_template("part1.html", name=name,age=age) 
 
 @app.route("/calc")
 def calc():
