@@ -2,21 +2,28 @@
 
 {% block content %}
 	<h1>Add a new message</h1>
-	<form method = "POST" action="{{url_for('messages.index', user_id = user.id)}}">
-		{{form.hidden_tag()}}
-		{% for field in form if field.widget.input_type != 'hidden' %}
-			<p>
-				{{field.label}}
-				{{field}}
-				<span>
-			      {% if field.errors %}
-			        {% for error in field.errors %}
-			          {{ error }}
-			        {% endfor %}
-			      {% endif %}
-				</span>
-			</p>
-		{% endfor %}
-		<input type="submit" value = "Add a user!">
-	</form>
+	<div class='container'>
+		<div class='row justify-content-center'>
+			<form method = "POST" action="{{url_for('messages.index', user_id = user.id)}}">
+				{{form.hidden_tag()}}
+				{% for field in form if field.widget.input_type != 'hidden' %}
+					<div class='form-group'>
+						{{field.label}}
+						{{field(class_='form-control')}}
+						<span class='error'>
+					      {% if field.errors %}
+					        {% for error in field.errors %}
+					          {{ error }}
+					        {% endfor %}
+					      {% endif %}
+						</span>
+					</div>
+				{% endfor %}
+				<input type="submit" value = "Add message!">
+			</form>
+		</div>
+	</div>
+
+
 {% endblock %}
+

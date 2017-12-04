@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy 
 from flask_modus import Modus 
 from os import environ
@@ -19,3 +19,7 @@ app.register_blueprint(messages_blueprint, url_prefix = '/users/<int:user_id>/me
 @app.route('/')
 def root():
 	return redirect(url_for('users.index'))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('users/404.html', e=e), 404
