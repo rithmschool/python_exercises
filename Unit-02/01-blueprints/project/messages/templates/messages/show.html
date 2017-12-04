@@ -2,7 +2,7 @@
 {% block content %}
 	<h2>{{message.user.first_name}}'s message:</h2>
 	<div class = "content">
-		<p>{{message.text}}</p><img src="{{message.img}}" width="30%">
+		<p>Content: "{{message.text}}"</p><img src="{{message.img}}" width="30%">
 		<form class = "delete" action="{{url_for('messages.show', user_id = message.user.id, id=message.id)}}?_method=DELETE" method="POST">
 			{{delete_form.hidden_tag()}}
 			<input type="submit" value="Delete this message">

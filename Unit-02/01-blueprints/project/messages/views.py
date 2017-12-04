@@ -49,7 +49,7 @@ def show(user_id, id):
 	delete_form = DeleteForm()
 	return render_template('messages/show.html', message=message, delete_form=delete_form)
 
-@messages_blueprint.route("/edit")
+@messages_blueprint.route("/<int:id>/edit")
 def edit(user_id, id):
 	message = Message.query.get(id)
 	form = MessageForm(obj=message)

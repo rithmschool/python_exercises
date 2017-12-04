@@ -64,3 +64,11 @@ li a img {
 .content > p {
 	display: inline-block;
 }
+
+.content > img {
+	vertical-align: middle;
+	max-height: 20vh;
+	width: auto;
+	height: auto;
+}
+
