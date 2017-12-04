@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, redirect, render_template, request
+from flask import Blueprint, url_for, redirect, render_template, request, flash
 from project.models import Message, User
 from project.forms import MessageForm, DeleteForm
 from project import db
@@ -15,6 +15,7 @@ def index(user_id):
 		message = Message(request.form.get("text"), request.form.get("img"), user_id)
 		db.session.add(message)
 		db.session.commit()
+		flash('Message Created')
 		return redirect(url_for('messages.index', user_id=user_id))
 	user = User.query.get(user_id)
 	return render_template('messages/index.html', user=user)
@@ -35,6 +36,7 @@ def show(user_id, id):
 			message.img = form.img.data
 			db.session.add(message)
 			db.session.commit()
+			flash('Message Updated')
 			return redirect(url_for('messages.index', user_id=user_id))
 		return render_template('messages/edit.html', message=message, form=form)
 	if request.method == b"DELETE":
@@ -42,6 +44,7 @@ def show(user_id, id):
 		if delete_form.validate():
 			db.session.delete(message)
 			db.session.commit()
+			flash('Message Deleted')
 		return redirect(url_for('messages.index', user_id=user_id))
 	delete_form = DeleteForm()
 	return render_template('messages/show.html', message=message, delete_form=delete_form)

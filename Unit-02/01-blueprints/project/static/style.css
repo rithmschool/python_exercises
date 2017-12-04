@@ -1,0 +1,47 @@
+body {
+	background-color: lightblue;
+	width: 100%;
+}
+
+body div {
+	width: 80vw;
+	margin: 0 auto;
+}
+
+ul,
+h1,
+form {
+	border: solid black 2px;
+	padding: 2vmax;
+	background-color: #bff4fc;
+	margin: 0px;
+}
+
+h1 {
+	margin: 0 auto;
+	text-decoration: none;
+	border-bottom: none;
+	text-align: center;
+}
+
+#header {
+	border: none;
+	margin-bottom: 5px;
+	background-color: lightblue;
+}
+
+li,
+form {
+	text-align: left;
+	cursor: pointer;
+	list-style-position: inside;
+}
+
+li a {
+	width: 50%;
+	vertical-align: baseline;
+}
+
+li img {
+	vertical-align: baseline;
+}

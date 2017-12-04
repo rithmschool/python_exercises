@@ -3,9 +3,15 @@
 ### Part I - Questions
 
 1. Describe the MVC pattern.
+ Model- Where you create the Class that maps to the database
+ View - What the user sees
+ Controller - The logic of what to do: handles what data to get from the database, what actions to perform, and what view to give user
 2. In the MVC pattern, does the model communicate directly with the view?
-2. What is the purpose of blueprints?
-3. How does using blueprints help us organize bigger applications?
+No, the Controller is the part that handles the logic
+3. What is the purpose of blueprints?
+The purpose of blueprints is to organize the app in a way that can scale as the project gets bigger
+4. How does using blueprints help us organize bigger applications?
+Instead of having a very long app.py file where it's difficult to find where info is located (since it includes forms, classes, and routing for all sections in one place), the sections are organized by folders named after the class name so that it is easy to find what you are looking for. It also helps with prefixing the url. 
 
 ### Part II - Exercise
 
