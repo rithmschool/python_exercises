@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Edit the message</h1>
+	<div class="container">
+		<div class="justify-content-center row">
+			<form method = "POST" action="{{url_for('messages.show', user_id = message.user_id, id=message.id)}}?_method=PATCH">
+				{{form.hidden_tag()}}
+				{% for field in form if field.widget.input_type != 'hidden' %}
+					<div class=form-group>
+						{{field.label}}
+						{{field(class_='form-control')}}
+						<span class='error'>
+					      {% if field.errors %}
+					        {% for error in field.errors %}
+					          {{ error }}
+					        {% endfor %}
+					      {% endif %}
+						</span>
+					</div>
+				{% endfor %}
+				<input type="submit" value = "Edit message!">
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+
+
+

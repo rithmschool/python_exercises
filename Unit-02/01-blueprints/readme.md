@@ -3,9 +3,20 @@
 ### Part I - Questions
 
 1. Describe the MVC pattern.
+
+MVC stands for model, view and controller which describes an architectural design pattern for web applications. The model describes the data schema. The view is the template is what the user sees and is rendered to HTML. The controller is where all the logic happens. It talks witht he model to get data and updates the view/ 
+
 2. In the MVC pattern, does the model communicate directly with the view?
+
+No it does not. The controller is the intermediate which glues communication between the model and template.
+
 2. What is the purpose of blueprints?
+
+Blueprints helps organize our web app
+
 3. How does using blueprints help us organize bigger applications?
+
+Using blueprints can help us register and affiliate it with a certain subdomain. For example, we can assoiate user_blueprint with '/users'. In addition, we can assoiate templates with their respective controller/resource. redirect(url_for('users.index'))
 
 ### Part II - Exercise
 
