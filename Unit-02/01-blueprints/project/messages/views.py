@@ -31,14 +31,14 @@ def new(user_id):
   return render_template('messages/new.html', user=User.query.get(user_id), form=message_form)
 
 # Edit a message for a specific user
-@messages_blueprint.route('/<int:id>/edit/')
+@messages_blueprint.route('/<int:id>/edit')
 def edit(user_id, id):
   found_message = Message.query.get(id)
   message_form = MessageForm(obj=found_message)
   return render_template('messages/edit.html', message=found_message, form=message_form)
 
 # Delete a message for a specific user
-@messages_blueprint.route('/<int:id>/', methods=["GET", "PATCH", "DELETE"])
+@messages_blueprint.route('/<int:id>', methods=["GET", "PATCH", "DELETE"])
 def show(user_id, id):
   found_message = Message.query.get(id)
   if request.method == b"PATCH":
@@ -58,5 +58,6 @@ def show(user_id, id):
       db.session.commit()
       flash("Message Deleted!")
     return redirect(url_for('messages.index', user_id=user_id))
-  return render_template('messages/edit.html', message=found_message)
+  
+  return render_template('messages/show.html', message=found_message)
 
