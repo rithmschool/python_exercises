@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Employee Directory</h1>
+{% for employee in employees %}
+    <div style="display: flex;">
+        <div>
+	        <span>
+	        	<a href="{{url_for('employees.edit', id=employee.id)}}" class="btn btn-primary">Edit</a>
+	        </span>
+	        <span>	
+	         	<form method="POST" action="{{url_for('employees.show', id=employee.id)}}?_method=DELETE">
+	        	{{delete_form.hidden_tag()}}
+	        		    <button type="submit" class="btn btn-danger">
+        						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	        	</form>
+	        </span>
+				</div>
+				<div style="margin-left: 25px">
+	        {{employee.name}} - {{employee.years_at_company}} years of service. 
+					<br>
+	        Departments <br>
+	        {% for department in employee.departments %}
+				{{department.name}} <br>
+	        {% endfor %}
+        </div>
+    </div>
+		<br>
+		<br>
+{% endfor %}
+
+{% endblock %}
