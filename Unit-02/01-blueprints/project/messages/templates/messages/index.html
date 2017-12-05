@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>here are all of {{ user.username }}'s messages</h2>
+<a href="{{ url_for('messages.new', user_id=user.id) }}">add a new message</a>
+{% for message in user.messages %}
+<p>
+	{{ message.text }}
+	<br><a href="{{ url_for('messages.edit', user_id = user.id, id=message.id) }}">edit message</a>
+</p>
+{% endfor %}
+{% endblock %}
