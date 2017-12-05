@@ -1,23 +1,39 @@
-# Many to Many
+# Many To Many Example
 
-### Part 1 
+A departments and employees app that illustrates many to many.
 
-1. Finish building CRUD in the many to many application with employees and departments. You can find the starter code [here](https://github.com/rithmschool/flask-many-many-example)
+### Setup
 
-Your app should have the following features:
+* Make a virtual environment
 
-* Full CRUD on employees
-* Full CRUD on departments 
-* The index or show page for employees should show the department name for each employee
-* The index or show page for departments should show all employees in the department
-* Use WTForms for all CRUD operations for both employees and departments 
+```sh
+mkvirtualenv m2m
+```
 
-### Part 2 
+* Make the `many-many-example` database:
 
-Add another resource to your users and messages application! Create a resource for tags which has a many to many relationship with messages. 
+```sh
+createdb many-many-example
+```
 
-- You should be able to create full CRUD on tags 
-- When you create a message, you should be able to add existing tags to it. 
-- When you edit a message, you should be able to modify the tags associated to it. 
-- When you create a tag, you should be able to add existing messages to it.
-- When you edit a tag, you should be able to modify the messages associated to it. 
+* pip install requirements.txt:
+
+```sh
+pip install -r requirements.txt
+```
+
+* Upgrade the database so that your tables are created correctly:
+
+```sh
+python manage.py db upgrade
+```
+
+### Testing
+
+Unit tests are located in `project/tests`.  To run all the tests as once, type `green` in the root of the project.
+
+To run a specific tests (if you want to debug with ipython):
+
+```sh
+python -m project.tests.<name_of_test> # no .py at the end
+```

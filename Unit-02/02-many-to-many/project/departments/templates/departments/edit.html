@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" action="{{url_for('departments.show', id=department.id)}}?_method=PATCH">
+        {{ form.csrf_token }}
+        <p>
+            {{form.name.label}}
+            {{form.name(value=department.name)}}
+        </p>
+
+    <button type="submit" class="btn btn-primary">SAVE</button>
+</form>
+{% endblock %}

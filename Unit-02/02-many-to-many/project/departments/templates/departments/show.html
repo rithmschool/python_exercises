@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Employees in {{department.name}} Department</h1>
+{% if department.employees|length == 0 %}
+  No employees yet
+{% else %}
+  {% for e in department.employees %}
+      <p>
+          {{e.name}}
+      </p>
+  {% endfor %}
+{% endif %}
+
+<a href="{{url_for('departments.edit', id=department.id)}}" class="btn btn-primary"> &nbsp &nbsp  Edit department &nbsp&nbsp </a>
+<form action="{{url_for('departments.show', id=department.id)}}?_method=DELETE" method="POST">
+ 	{{delete_form.hidden_tag()}}
+  <input type="submit" class="btn btn-danger" value="Remove department">
+</form>
+
+
+{% endblock %}
