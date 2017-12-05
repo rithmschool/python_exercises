@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>App</title>
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+	</head>
+	<body>
+	<h1> Welcome to my App </h1>
+	<div id="flash">
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+					<p> {{message}} </p>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+	</div>
+	<div id="content">
+		{% block content %}
+		
+		{% endblock %}
+	</div>
+</body>
+</html>
