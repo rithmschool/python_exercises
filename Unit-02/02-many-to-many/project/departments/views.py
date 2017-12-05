@@ -24,10 +24,6 @@ def index():
 
 @departments_blueprint.route('/<int:id>', methods=['GET', 'DELETE', 'PATCH'])
 def show(id):
-    # if request.method == b'DELETE':
-    #     db.session.delete(department)
-    #     db.session.commit()
-    #     return redirect(url_for('departments.index'))
     delete_form = DeleteForm()
     department = Department.query.get_or_404(id)
     if request.method == b"DELETE":
