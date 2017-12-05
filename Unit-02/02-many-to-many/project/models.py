@@ -10,28 +10,24 @@ class Department(db.Model):
 	__tablename__ = "departments"
 
 	id = db.Column(db.Integer, primary_key=True)
-	dept_name = db.Column(db.Text)
+	department_name = db.Column(db.Text)
 	employees = db.relationship("Employee", 
 		secondary=EmployeeDepartment,
 		backref=db.backref("departments"))
 	
 
-	def __init__(self, dept_name)
-		self.dept_name = dept_name
+	def __init__(self, department_name)
+		self.department_name = department_name
 
 class Employee(db.Model):
 
 	__tablename__ = "emloyees"
 
 	id = db.Column(db.Integer, primary_key=True)
-	first_name = db.Column(db.Text)
-	last_name = db.Column(db.Text)
+	employee_name = db.Column(db.Text)
 
-	
-
-	def __init__(self, first_name, last_name)
-		self.first_name = first_name
-		self.last_name = last_name
+	def __init__(self, employee_name)
+		self.employee_name = employee_name
 
 
 
