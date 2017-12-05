@@ -12,7 +12,7 @@ departments_blueprint = Blueprint(
 #GET, POST
 @departments_blueprint.route('/', methods=["GET", "POST"])
 def index():
-	if request.method = "POST"
+	if request.method == "POST":
 		form = DepartmentForm(request.form)
 		if form.validate():
 			department = Department(form.department_name.data)
@@ -34,9 +34,9 @@ def new():
 @departments_blueprint.route("/show", methods=["GET", "PATCH", "DELETE"])
 def show():
 	#get department
-	if request.method = b"PATCH":
+	if request.method == b"PATCH":
 		pass
-	if request.method = b"DELETE":
+	if request.method == b"DELETE":
 		pass
 	render_template('show.html', department=department)
 

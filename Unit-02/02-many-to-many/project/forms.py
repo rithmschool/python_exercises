@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import Stringfield, validators
+from wtforms import StringField, SelectMultipleField, validators, widgets
+from project.models import Department, Employee
 
 class DepartmentForm(FlaskForm):
 	department_name = StringField("Department name:", [validators.DataRequired()])
@@ -17,3 +18,6 @@ class EmployeeForm(FlaskForm):
 
 	def set_choices(self):
 		self.departments.choices = [(department.id, departments.name) for department in Department.query.all()]
+
+class DeleteForm(FlaskForm):
+	pass

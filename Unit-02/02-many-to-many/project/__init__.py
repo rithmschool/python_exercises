@@ -1,8 +1,7 @@
 from flask import Flask, url_for, redirect
 from os import environ
-from modus import Modus
+from flask_modus import Modus
 from flask_sqlalchemy import SQLAlchemy
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/02-many-to-many'

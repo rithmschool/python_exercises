@@ -11,7 +11,7 @@ employees_blueprint = Blueprint(
 #GET, POST
 @employees_blueprint.route('/', methods=["GET", "POST"])
 def index():
-	if request.method = "POST"
+	if request.method == "POST":
 		form = EmployeeForm(request.form)
 		if form.validate():
 			employee = Department(form.employee_name.data)
@@ -33,9 +33,9 @@ def new():
 @employees_blueprint.route("/show", methods=["GET", "PATCH", "DELETE"])
 def show():
 	#get employee
-	if request.method = b"PATCH":
+	if request.method == b"PATCH":
 		pass
-	if request.method = b"DELETE":
+	if request.method == b"DELETE":
 		pass
 	render_template('show.html', employee=employee)
 
@@ -43,3 +43,4 @@ def show():
 @employees_blueprint.route("/edit")
 def edit():
 	#get form
+	pass

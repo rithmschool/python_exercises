@@ -16,17 +16,17 @@ class Department(db.Model):
 		backref=db.backref("departments"))
 	
 
-	def __init__(self, department_name)
+	def __init__(self, department_name):
 		self.department_name = department_name
 
 class Employee(db.Model):
 
-	__tablename__ = "emloyees"
+	__tablename__ = "employees"
 
 	id = db.Column(db.Integer, primary_key=True)
 	employee_name = db.Column(db.Text)
 
-	def __init__(self, employee_name)
+	def __init__(self, employee_name):
 		self.employee_name = employee_name
 
 
