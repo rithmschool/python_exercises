@@ -14,13 +14,15 @@ class Snack(db.Model):
 	id= db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.Text)
 	kind = db.Column(db.Text)
+	rating = db.Column(db.Text)
 
-	def __init__(self, name, kind):
+	def __init__(self, name, kind, rating):
 		self.name = name
 		self.kind = kind
+		self.rating = rating
 
 	def __repr__(self):
-		return "Name: {self.name}; Kind: {self.kind}"	
+		return "Name: {self.name}; Kind: {self.kind}; Rating: {self.rating}"	
 
 
 

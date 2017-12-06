@@ -1,0 +1,12 @@
+{% extends"base.html" %}
+{% block content %}
+<div class= "d-flex flex-column align-items-center">
+<h1>Snacks</h1>
+<ul class="list-group">
+	{% for snack in snacks %}
+		<li class="list-group item d-flex justify-content-between"><span><a href = "{{url_for('show', id=snack.id)}}"<i class="fa fa-cog text-primary" aria-hidden="true"></i></a><strong class="px-2">{{snack.name}}</strong> <small class="px-2">{{snack.kind}}</small></span></li>
+	{% endfor %}
+</ul>
+</div>
+
+{% endblock %}
