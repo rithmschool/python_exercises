@@ -1,4 +1,4 @@
-from project import db
+from project import db, bcrypt
 
 class User(db.Model):
 

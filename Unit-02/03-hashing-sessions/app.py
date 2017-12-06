@@ -1,4 +1,4 @@
-from project import app #what is this this
+from project import app 
 
 if __name__ == '__main__':
   app.run(debug=True)
