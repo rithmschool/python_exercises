@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2> Edit employee </h2>
-<form method="POST" action="{{url_for('employees.index')}}">
+<form method="POST" action="{{url_for('employees.show', id=employee.id)}}?_method=PATCH">
 	{{form.hidden_tag()}}
 	{%for field in form if field.widget.input_type != 'hidden'%}
 	<div> 

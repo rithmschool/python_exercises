@@ -37,18 +37,19 @@ def show(id):
 		form = EmployeeForm(request.form)
 		if form.validate():
 			employee.name = form.name.data
-			employee.departments = [Department.query.get(department.id) for department in form.departments.data]
+			employee.departments = [Department.query.get(department) for department in form.departments.data]
 			db.session.add(employee)
 			db.session.commit()
-			return redirect(url_for('employees.show'))
+			return redirect(url_for('employees.show', id=employee.id))
 		return render_template('employees/edit.html', department=departments)
 	if request.method == b"DELETE":
-		form = EmployeeForm(request.form)
-		if form.validate():
+		delete_form = DeleteForm(request.form)
+		if delete_form.validate():
 			db.session.delete(employee)
 			db.session.commit()
-		return redirect('url_for(employees.index')
-	return render_template('employees/show.html', employee=employee)
+		return redirect(url_for('employees.index'))
+	delete_form = DeleteForm()
+	return render_template('employees/show.html', employee=employee, delete_form=delete_form)
 
 #GET
 @employees_blueprint.route("/<int:id>/edit")
@@ -56,4 +57,4 @@ def edit(id):
 	employee = Employee.query.get(id)
 	form = EmployeeForm(obj=employee)
 	form.set_choices()
-	return render_template('employees/edit.html', form=form)
+	return render_template('employees/edit.html', employee=employee, form=form)

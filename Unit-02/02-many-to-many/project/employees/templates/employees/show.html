@@ -7,6 +7,10 @@
 		<li> {{department.name}} </li>
 	{% endfor %}
 </ul>
-<a href="{{url_for('employee.edit', id=department.id)}}">Edit this employee</a>
-<a href="{{url_for('employee.index')}}">Go back to employee</a>
+<form action="{{url_for('employees.show', id=employee.id)}}?_method=DELETE" method="POST" >
+	{{delete_form.hidden_tag()}}
+	<input type="submit" value="Delete this employee">
+</form>
+<a href="{{url_for('employees.edit', id=employee.id)}}">Edit this employee</a>
+<a href="{{url_for('employees.index')}}">Go back to employee</a>
 {% endblock %}
