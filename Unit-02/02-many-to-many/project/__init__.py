@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/02-many-to-many'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = environ.get('SECRET_KEY') or "hi"
+app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 modus = Modus(app)
 db = SQLAlchemy(app)
 

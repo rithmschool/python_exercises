@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<h2> Info about {{employee.name}}</h2>
+<ul> 
+	<h3> Departments: </h3>
+	{% for department in employee.departments %}
+		<li> {{department.name}} </li>
+	{% endfor %}
+</ul>
+<a href="{{url_for('employee.edit', id=department.id)}}">Edit this employee</a>
+<a href="{{url_for('employee.index')}}">Go back to employee</a>
 {% endblock %}

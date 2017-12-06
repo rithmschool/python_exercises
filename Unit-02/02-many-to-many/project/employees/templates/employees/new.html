@@ -1,4 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<h2> Add an employee </h2>
+<form method="POST" action="{{url_for('employees.index')}}">
+	{{form.hidden_tag()}}
+	{%for field in form if field.widget.input_type != 'hidden'%}
+	<div> 
+		{{field.label}}
+		{{field}}
+		{% if field.errors %}
+			{% for error in field.errors %}
+				{{error}}
+			{% endfor %}
+		{% endif %}
+	</div>
+	{% endfor %}
+	<input type="submit" value="Add employee">
+</form>
 {% endblock %}
