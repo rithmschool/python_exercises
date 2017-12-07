@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Hello, {{g.current_user.username}}! You are logged in!</h1>
+<a href="{{ url_for('users.logout') }}">Logout</a>
+<h1>See all users!</h1>
+
+{% for user in users %}
+
+<p>
+    <a href="{{ url_for('users.show', id=user.id) }}">{{ user.first_name }} {{ user.last_name }}</a>
+    <br>
+    <a href="{{ url_for('messages.index', user_id=user.id) }}">See all messages for {{user.first_name}} </a>
+    <br>
+	<a href="{{ url_for('users.edit', id=user.id) }}"> Edit user!</a>
+	<br>
+
+</p>
+{% endfor %}
+
+{% endblock %}

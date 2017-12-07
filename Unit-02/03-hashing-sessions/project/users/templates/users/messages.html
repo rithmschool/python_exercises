@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>please show something</h1>
+
+{% for message in messages %}
+	<li>{{ message.content }}</li>
+{% endfor %}
+
+{% endblock %}

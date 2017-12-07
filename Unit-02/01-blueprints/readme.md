@@ -3,9 +3,20 @@
 ### Part I - Questions
 
 1. Describe the MVC pattern.
+
+MVC is a pattern that is used to create web apps. There are three main parts to the pattern: model, view, controller. These three parts help manage the interactions between the user and the application
+
 2. In the MVC pattern, does the model communicate directly with the view?
+
+The model does not communicate directly with the view. Rather, the controler receives a request from the user and looks to the models to retrieve the necessary data. Once it's compiled the controller then sends off the product to view.
+
 2. What is the purpose of blueprints?
+
+It helps to organize and better structure our app building code. Currently, the code we've built all lives in one main file, and blueprints helps to separate the code into main categories
+
 3. How does using blueprints help us organize bigger applications?
+
+Blueprints uses the MVC structure to break apart our app's code. In order to do so, additional folders are created to help organize each section of code.
 
 ### Part II - Exercise
 

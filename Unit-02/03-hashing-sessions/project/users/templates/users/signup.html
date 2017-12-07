@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST" action="{{url_for('users.signup')}}">
+  {{ form.csrf_token }}
+  <p>
+    {{ form.first_name(placeholder="first name") }}
+    <span>
+      {% if form.first_name.errors %}
+        {% for error in form.first_name.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <p>
+    {{ form.last_name(placeholder="last name") }}
+    <span>
+      {% if form.last_name.errors %}
+        {% for error in form.last_name.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <p>{{ form.username(placeholder="username") }}
+    <span>
+      {% if form.username.errors %}
+        {% for error in form.username.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <p>
+    {{ form.password(placeholder="password") }}
+    <span>
+      {% if form.password.errors %}
+        {% for error in form.password.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <button type="submit">Sign Up!</button>
+  <p>already have a username? <a href="{{url_for('users.login')}}">login here.</a></p>
+</form>
+
+{% endblock %}

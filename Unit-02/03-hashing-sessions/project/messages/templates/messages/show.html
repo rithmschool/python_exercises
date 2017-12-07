@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Here is your message: {{message.content}}</h1>
+
+<a href="{{ url_for('messages.edit', user_id=user.id, id=message.id) }}">Edit this message!</a>
+
+
+{% endblock %}
