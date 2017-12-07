@@ -17,6 +17,16 @@ class User(db.Model):
 		self.username = username
 		self.password = bcrypt.generate_password_hash(password).decode('UTF-8')
 
+	@classmethod
+	def authenticate(clss, username, password):
+		found = clss.query.filter_by(username=username).first()	
+		if found:
+			is_authenticated = bcrypt.check_password_hash(found.password, password)
+			#what is clss referring to?
+			if is_authenticated:
+				return found
+		return False
+
 class Message(db.Model):
 
 	__tablename__ = "messages"

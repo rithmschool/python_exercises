@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2> Add new user </h2>
-<form method="POST" action="{{url_for('users.index')}}">
+<form method="POST" action="{{url_for('users.signup')}}">
 	{{form.hidden_tag()}}
 	{% for field in form if field.widget.input_type != 'hidden'%}
 	<div> 

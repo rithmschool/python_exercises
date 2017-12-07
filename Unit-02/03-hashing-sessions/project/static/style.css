@@ -72,3 +72,11 @@ li a img {
 	height: auto;
 }
 
+#flash {
+	color: #28706a;
+	font-size: larger;
+}
+
+body > p:first-child {
+	display: inline-block;
+}
