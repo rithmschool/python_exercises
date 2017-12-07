@@ -5,7 +5,7 @@ from os import environ
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/user'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/03_hashing'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')

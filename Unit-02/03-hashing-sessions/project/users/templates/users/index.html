@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Users:</h2>
+<h2>Welcome back {{g.current_user.username}}</h2>
 <ul>
 	{% for user in users %}
 	<li><a href="{{url_for('users.show', id = user.id)}}"> {{user.first_name}} {{user.last_name}}</a><a href="{{url_for('messages.index', user_id = user.id)}}"> (See messages) </a>

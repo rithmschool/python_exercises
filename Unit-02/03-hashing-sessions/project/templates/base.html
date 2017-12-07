@@ -16,6 +16,14 @@
 			{% endif %}
 		{% endwith %}
 	</div>
+	<p>
+		{% if g.current_user %}
+		<a href="{{url_for('users.logout')}}">Logout!</a>
+		{% else %}
+		<a href="{{url_for('users.login')}}">Login!</a>
+		{% endif %}
+	</p>
+	
 	<div id="content">
 		{% block content %}
 		

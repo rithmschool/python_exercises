@@ -2,6 +2,7 @@ from flask import Blueprint, url_for, redirect, render_template, request, flash
 from project.models import Message, User
 from project.forms import MessageForm, DeleteForm
 from project import db
+from project.decorators import ensure_authenticated, ensure_correct_user_message
 
 messages_blueprint = Blueprint(
 	'messages',
@@ -10,6 +11,8 @@ messages_blueprint = Blueprint(
 )	
 
 @messages_blueprint.route("/", methods=["GET", "POST"])
+@ensure_authenticated
+@ensure_correct_user_message
 def index(user_id):
 	if request.method == "POST":
 		message = Message(request.form.get("text"), request.form.get("img"), user_id)
@@ -21,12 +24,14 @@ def index(user_id):
 	return render_template('messages/index.html', user=user)
 
 @messages_blueprint.route("/new")
+@ensure_authenticated
 def new(user_id):
 	form = MessageForm()
 	user = User.query.get(user_id)
 	return render_template('messages/new.html', user=user, form=form)
 
 @messages_blueprint.route("/<int:id>", methods = ["GET", "PATCH", "DELETE"])
+@ensure_authenticated
 def show(user_id, id):
 	message = Message.query.get(id)
 	if request.method == b"PATCH":
@@ -50,6 +55,8 @@ def show(user_id, id):
 	return render_template('messages/show.html', message=message, delete_form=delete_form)
 
 @messages_blueprint.route("/<int:id>/edit")
+@ensure_correct_user_message
+@ensure_authenticated
 def edit(user_id, id):
 	message = Message.query.get(id)
 	form = MessageForm(obj=message)
