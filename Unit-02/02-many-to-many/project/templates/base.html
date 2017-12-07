@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Many-To-Many</title>
+</head>
+<body>
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				<p> {{message}} </p>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+	<navbar>
+		<a href="{{url_for('departments.index')}}"> Go to Departments </a>
+		<a href="{{url_for('employees.index')}}"> Go to Employees </a>
+	</navbar>
+	<h1> Many-To-Many </h1>
+	{% block content %}
+	
+	{% endblock %}
+</body>
+</html>
