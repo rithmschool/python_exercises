@@ -2,7 +2,8 @@ from flask import Blueprint, url_for, redirect, render_template, request, flash,
 from project.models import Message, User
 from project.forms import MessageForm, DeleteForm
 from project import db
-from project.decorators import ensure_authentication, prevent_login_signup, ensure_message_authorization
+from project.decorators import prevent_login_signup, ensure_message_authorization
+from flask_login import login_required
 
 messages_blueprint = Blueprint(
 	'messages',
@@ -10,17 +11,7 @@ messages_blueprint = Blueprint(
 	template_folder='templates'
 )
 
-
-@messages_blueprint.before_request
-def current_user():
-	if session.get('user_id'):
-		g.current_user = User.query.get(session['user_id'])
-	else:
-		g.current_user = None	
-
-
 @messages_blueprint.route("/", methods=["GET", "POST"])
-@ensure_authentication
 @ensure_message_authorization
 def index(user_id):
 	if request.method == "POST":
@@ -34,7 +25,6 @@ def index(user_id):
 
 
 @messages_blueprint.route("/new")
-@ensure_authentication
 @ensure_message_authorization
 def new(user_id):
 	form = MessageForm()
@@ -43,7 +33,6 @@ def new(user_id):
 
 
 @messages_blueprint.route("/<int:id>", methods = ["GET", "PATCH", "DELETE"])
-@ensure_authentication
 @ensure_message_authorization
 def show(user_id, id):
 	message = Message.query.get(id)
@@ -69,7 +58,6 @@ def show(user_id, id):
 
 
 @messages_blueprint.route("/<int:id>/edit")
-@ensure_authentication
 @ensure_message_authorization
 def edit(user_id, id):
 	message = Message.query.get(id)
