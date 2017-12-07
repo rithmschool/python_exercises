@@ -1,0 +1,7 @@
+{% extends "base.html" %} {% block content %}
+<h1>This is the edit page for</h1>
+<form action="{{url_for('messages.show', user_id=message.user_id, id=message.id)}}?_method=PATCH" method="POST">
+     <input type="text" name="content" value="{{message.content}}">
+    <input type="submit" value="Edit a Message">
+</form>
+{% endblock %}

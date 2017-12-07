@@ -1,0 +1,8 @@
+{% extends "base.html" %} {% block content %}
+<h1>See information about {{ user.first_name }} {{user.last_name}}</h1>
+<a href="{{url_for('users.edit', id=user.id)}}">Edit Student Information</a>
+<form method="POST" action="{{url_for('users.show', id=user.id)}}?_method=DELETE">
+     {{ delete_form.hidden_tag() }}
+    <input type="submit" name="" value="Delete User">
+</form>
+{% endblock %}
