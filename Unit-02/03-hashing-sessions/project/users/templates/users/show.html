@@ -4,11 +4,15 @@
 <div class="content">
 	<p> First name: {{user.first_name}}</p>
 	<p> Last name: {{user.last_name}} </p>
+{% if g.current_user.id == user.id %}
 <form class = "delete" action="{{url_for('users.show', id = user.id)}}?_method=DELETE" method="Post">
 	{{delete_form.hidden_tag()}}
 	<input type="submit" value="Delete this user">
 </form>
+{% endif %}
 </div>
-<p><a href="{{url_for('users.edit', id = user.id)}}"> Edit this user</a></p>
+{% if g.current_user.id == user.id %}
+	<p><a href="{{url_for('users.edit', id = user.id)}}"> Edit this user</a></p>
+{% endif %}
 <p><a href="{{url_for('users.index')}}"> Go back to users</a></p>
 {% endblock %}

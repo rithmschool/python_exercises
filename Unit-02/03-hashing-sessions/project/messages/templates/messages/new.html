@@ -16,4 +16,5 @@
 	{% endfor %}
 	<input type="submit" value="Add message">
 </form>
+<a href="{{url_for('messages.index', user_id=g.current_user.id)}}">  Go back to your messages </a> 
 {% endblock %}

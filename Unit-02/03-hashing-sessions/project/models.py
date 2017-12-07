@@ -22,7 +22,6 @@ class User(db.Model):
 		found = clss.query.filter_by(username=username).first()	
 		if found:
 			is_authenticated = bcrypt.check_password_hash(found.password, password)
-			#what is clss referring to?
 			if is_authenticated:
 				return found
 		return False

@@ -19,7 +19,6 @@ def current_user():
 		g.current_user = None
 
 @users_blueprint.route("/")
-@ensure_authentication
 def index():
 	return render_template('users/index.html', users=User.query.all()) 
 
@@ -57,6 +56,13 @@ def login():
         flash('Invalid Credentials')
     return render_template('users/login.html', form=form)
 
+
+@users_blueprint.route("/<int:id>")
+def show_page(id):
+	user = User.query.get(id)
+	delete_form = DeleteForm()
+	return render_template('users/show.html', user=user, delete_form=delete_form)
+
 @users_blueprint.route("/<int:id>", methods = ["GET", "PATCH", "DELETE"])
 @ensure_authentication
 @ensure_authorization
@@ -77,10 +83,11 @@ def show(id):
 		if delete_form.validate():
 			db.session.delete(user)
 			db.session.commit()
+			session.pop('user_id')
+			g.current_user = None
 			flash('User Deleted')
 		return redirect(url_for('users.index'))
-	delete_form = DeleteForm()
-	return render_template('users/show.html', user=user, delete_form=delete_form)
+	
 
 @users_blueprint.route("/<int:id>/edit")
 @ensure_authentication

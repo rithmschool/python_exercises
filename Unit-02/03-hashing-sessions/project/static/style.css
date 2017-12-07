@@ -77,6 +77,6 @@ li a img {
 	font-size: larger;
 }
 
-body > p:first-child {
+nav > p:first-child {
 	display: inline-block;
 }

@@ -9,5 +9,5 @@
 		</form>
 	</div>
 	<a href={{url_for('messages.edit', user_id = message.user.id, id = message.id)}}> Edit this message </a>
-	<a href={{url_for('messages.index', user_id = message.user.id)}}> Go back to messages </a>
+	<a href={{url_for('messages.index', user_id = message.user.id)}}> Your messages </a>
 {% endblock %}

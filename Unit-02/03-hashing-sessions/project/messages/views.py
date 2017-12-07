@@ -10,7 +10,6 @@ messages_blueprint = Blueprint(
 	template_folder='templates'
 )
 
-
 @messages_blueprint.before_request
 def current_user():
 	if session.get('user_id'):
@@ -18,8 +17,12 @@ def current_user():
 	else:
 		g.current_user = None	
 
+@messages_blueprint.route("/messages")
+def show_all():
+	return render_template('messages/show_all.html', messages=Message.query.all())
 
-@messages_blueprint.route("/", methods=["GET", "POST"])
+
+@messages_blueprint.route("/users/<int:user_id>/messages", methods=["GET", "POST"])
 @ensure_authentication
 @ensure_message_authorization
 def index(user_id):
@@ -32,8 +35,7 @@ def index(user_id):
 	user = User.query.get(user_id)
 	return render_template('messages/index.html', user=user)
 
-
-@messages_blueprint.route("/new")
+@messages_blueprint.route("/users/<int:user_id>/messages/new")
 @ensure_authentication
 @ensure_message_authorization
 def new(user_id):
@@ -41,8 +43,7 @@ def new(user_id):
 	user = User.query.get(user_id)
 	return render_template('messages/new.html', user=user, form=form)
 
-
-@messages_blueprint.route("/<int:id>", methods = ["GET", "PATCH", "DELETE"])
+@messages_blueprint.route("/users/<int:user_id>/messages/<int:id>", methods = ["GET", "PATCH", "DELETE"])
 @ensure_authentication
 @ensure_message_authorization
 def show(user_id, id):
@@ -67,8 +68,7 @@ def show(user_id, id):
 	delete_form = DeleteForm()
 	return render_template('messages/show.html', message=message, delete_form=delete_form)
 
-
-@messages_blueprint.route("/<int:id>/edit")
+@messages_blueprint.route("/users/<int:user_id>/messages/<int:id>/edit")
 @ensure_authentication
 @ensure_message_authorization
 def edit(user_id, id):

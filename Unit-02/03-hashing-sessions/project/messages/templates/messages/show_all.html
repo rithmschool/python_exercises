@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<ul>
+	{% for message in messages %}
+		{% if g.current_user %}
+			{% if message.user.id == g.current_user.id %}
+				<li><a href={{url_for('messages.show', user_id = message.user.id, id = message.id)}}>{{message.text}}<img src="{{message.img}}" width="5%"></a></li>
+			{% else %}
+				<li>{{message.text}}<img src="{{message.img}}" width="5%"></li>
+			{% endif %}
+		{% else %}
+			<li>{{message.text}}<img src="{{message.img}}" width="5%"></li>
+		{% endif %}
+	{% endfor %}
+</ul>
+{% if g.current_user %}
+<a href="{{url_for('messages.index', user_id = g.current_user.id)}}">Your messages</a>
+{% endif %}
+{% endblock %}

@@ -16,4 +16,5 @@
 	{% endfor %}	
 	<input type="submit" value="Edit message">
 </form>
+<a href="{{url_for('messages.index', user_id=g.current_user.id)}}"> Your messages </a> 
 {% endblock %}
