@@ -5,20 +5,21 @@
 	<div class="container">
 		<div class="justify-content-center row">
 			<form method = "POST" action="{{url_for('messages.show', user_id = message.user_id, id=message.id)}}?_method=PATCH">
-				{{form.hidden_tag()}}
-				{% for field in form if field.widget.input_type != 'hidden' %}
-					<div class=form-group>
-						{{field.label}}
-						{{field(class_='form-control')}}
-						<span class='error'>
-					      {% if field.errors %}
-					        {% for error in field.errors %}
-					          {{ error }}
-					        {% endfor %}
-					      {% endif %}
-						</span>
-					</div>
-				{% endfor %}
+		        {{ form.csrf_token }}
+		        <div class='form-group'>
+		            {{form.content.label}}
+		            {{form.content(value=message.content)}}
+					<span class='error'>
+				      {% if form.content.errors %}
+				        {% for error in form.content.errors %}
+				          {{ error }}
+				        {% endfor %}
+				      {% endif %}
+					</span>
+		        </div>
+		        <div class='form-group'>
+		            {{form.tags(class_='form-control')}}
+		        </div>
 				<input type="submit" value = "Edit message!">
 			</form>
 		</div>

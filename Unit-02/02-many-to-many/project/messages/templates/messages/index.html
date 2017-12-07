@@ -1,29 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 	
-	<div class='container'>
-		<div class='row justify-content-center'>
-			<h1>Messages for {{user.first_name}} {{user.last_name}}</h1>
-		</div>
+	<div class='container justify-content-center'>
+		
+		
+	
 		<div class='row justify-content-center'>
 			<img class= 'profile_picture' src="{{user.profile_link}}" alt="Profile Link">
 		</div>
-		<a href="{{url_for('messages.new', user_id=user.id)}}">Add a new message!</a>
-
-		<div class='list-group'>
-			{% for message in user.messages %}
-			<div>
-				<a href="{{url_for('messages.edit', user_id=user.id, id=message.id)}}" class="list-group-item list-group-item-action">{{message.content}} 
-				<form method = 'POST' action="{{url_for('messages.show', user_id = user.id, id=message.id)}}?_method=DELETE">
-					{{delete_form.hidden_tag()}}
-					<button class='btn btn-danger'>Delete message</button>
-				</form>
-				</a>
-				<br>
-			</div>
-			{% endfor %}
+		<br>
+		<div class='row justify-content-center'>
+			<a class="btn btn-primary btn-lg active" role="button" href="{{url_for('messages.new', user_id=user.id)}}">Create a new message</a>
 		</div>
-
+		<br>
+		<div class='row justify-content-center'>
+			<h1>Messages for {{user.first_name}} {{user.last_name}}</h1>
+		</div>
+		<br>
+		
+		<div class='row justify-content-center'>
+			<div class='list-group'>
+				{% for message in user.messages %}
+				<div>
+					<a href="{{url_for('messages.edit', user_id=user.id, id=message.id)}}" class="list-group-item list-group-item-action">{{message.content}} 
+					<form method = 'POST' action="{{url_for('messages.show', user_id = user.id, id=message.id)}}?_method=DELETE">
+						{{delete_form.hidden_tag()}}
+						<button class='btn btn-danger'>Delete message</button>
+					</form>
+					</a>
+					<br>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
 	</div>
 {% endblock %}
 

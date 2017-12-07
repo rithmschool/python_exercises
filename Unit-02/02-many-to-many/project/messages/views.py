@@ -1,6 +1,7 @@
 from flask import redirect, render_template, request, url_for, Blueprint, flash
 from project.messages.models import Message
 from project.users.models import User
+from project.tags.models import Tag
 from project.messages.forms import MessageForm, DeleteForm
 from project import db
 
@@ -16,12 +17,14 @@ def index(user_id):
 	delete_form = DeleteForm()
 	if request.method == 'POST':
 		form = MessageForm(request.form)
+		form.set_choices()
 		if form.validate():
 			new_message = Message(request.form.get('content'), user_id)
+			for tag in form.tags.data:
+				new_message.tags.append(Tag.query.get(tag))
 			db.session.add(new_message)
 			db.session.commit()
 			flash("Message Created!")
-			return redirect(url_for('messages.index', user_id = user_id))
 		else:
 			return render_template('messages/new.html', user = User.query.get_or_404(user_id), form = form)
 	return render_template('messages/index.html', user=User.query.get_or_404(user_id), delete_form=delete_form)
@@ -29,13 +32,16 @@ def index(user_id):
 @messages_blueprint.route('/new')
 def new(user_id):
 	message_form = MessageForm()
+	message_form.set_choices()
 	# pass in the user here cause need it for the post request
 	return render_template('messages/new.html', user = User.query.get_or_404(user_id), form = message_form)
 
 @messages_blueprint.route('/<int:id>/edit')
 def edit(user_id, id):
 	found_message = Message.query.get_or_404(id)
-	message_form = MessageForm(obj=found_message)
+	tags = [tag.id for tag in found_message.tags]
+	message_form = MessageForm(tags=tags)
+	message_form.set_choices()
 	return render_template('messages/edit.html', message = found_message, form=message_form)
 
 @messages_blueprint.route('/<int:id>', methods = ["GET", "PATCH", "DELETE"])
@@ -43,8 +49,12 @@ def show(user_id, id):
 	found_message = Message.query.get_or_404(id)
 	if request.method == b'PATCH':
 		form = MessageForm(request.form)
+		form.set_choices()
 		if form.validate():
 			found_message.content = request.form.get('content')
+			found_message.tags = []
+			for tag in form.tags.data:
+				found_message.tags.append(Tag.query.get(tag))
 			db.session.add(found_message)
 			db.session.commit()
 			flash("Message Updated!")
