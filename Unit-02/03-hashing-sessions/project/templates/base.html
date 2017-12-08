@@ -17,7 +17,7 @@
 		{% endwith %}
 	</div>
 	<p>
-		{% if g.current_user %}
+		{% if current_user.is_authenticated %}
 		<a href="{{url_for('users.logout')}}">Logout!</a>
 		{% else %}
 		<a href="{{url_for('users.login')}}">Login!</a>

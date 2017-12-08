@@ -1,24 +1,19 @@
-from flask import Blueprint, url_for, redirect, render_template, request, flash, session, g
+from flask import Blueprint, url_for, redirect, render_template, request, flash
 from project.models import User
+from project import db
 from project.forms import UserForm, DeleteForm, LoginForm
-from project import db, bcrypt
 from sqlalchemy.exc import IntegrityError
 from project.decorators import ensure_authenticated, ensure_correct_user, prevent_loginsignup
+from flask_login import login_user, logout_user, login_required
 
 users_blueprint = Blueprint(
 	'users',
 	__name__,
 	template_folder='templates'
 )
-@users_blueprint.before_request
-def current_user():
-	if session.get('user_id'):
-		g.current_user = User.query.get(session['user_id'])
-	else:
-		g.current_user = None
 
 @users_blueprint.route('/')
-@ensure_authenticated
+@login_required
 def index():
 	delete_form = DeleteForm()
 	return render_template('users/index.html', users=User.query.all(), delete_form=delete_form)
@@ -28,9 +23,10 @@ def signup():
 	form = UserForm(request.form)
 	if request.method == "POST" and form.validate():
 		try:
-			user = User(form.first_name.data, form.last_name.data, form.username.data, form.password.data)
-			db.session.add(user)
+			new_user = User(form.first_name.data, form.last_name.data, form.username.data, form.password.data)
+			db.session.add(new_user)
 			db.session.commit()
+			login_user(new_user)
 			flash('User Created')
 			return redirect(url_for('users.index'))
 		except IntegrityError as e:
@@ -51,7 +47,7 @@ def login():
     if request.method == "POST" and form.validate():
         authenticated_user = User.authenticate(form.username.data, form.password.data)
         if authenticated_user:
-        	session['user_id'] = authenticated_user.id
+        	login_user(authenticated_user)
         	flash('You are logged in!')
         	return redirect(url_for('users.index'))
         else: 
@@ -83,6 +79,7 @@ def show(id):
 		if delete_form.validate():
 			db.session.delete(user)
 			db.session.commit()
+			logout_user()
 			flash('User Deleted')
 		return redirect(url_for('users.index'))
 	delete_form = DeleteForm()
@@ -100,6 +97,6 @@ def edit(id):
 @users_blueprint.route('/logout')
 @ensure_authenticated
 def logout():
-	session.pop('user_id')
+	login_user()
 	flash('Logged out!')
 	return redirect('users.login')
