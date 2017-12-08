@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome, {{ current_user.username }}. You are logged in, fren.</h1>
+<h3>here are all the users</h3>
+	{% for user in users %}
+		<p>
+		<a href="{{ url_for('users.show', id=user.id) }}"><b>{{ user.username }}</b></a>
+		<br><a href="{{ url_for('messages.index', user_id=user.id) }}"> read all messages by {{ user.username }}</a>
+		<br><a href="{{ url_for('users.edit', id=user.id) }}">edit info</a>
+		</p>
+	{% endfor %}
+{% endblock %}

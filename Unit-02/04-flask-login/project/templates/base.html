@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Users Messages Blueprint</title>
+	    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+</head>
+<body>
+	<div class='container'>
+	<a href="{{ url_for('users.welcome') }}">home</a> //
+	<a href="{{ url_for('users.messages') }}">see all messages</a>
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				<p>{{ message }}</p>
+			{% endfor %}
+		{% endif %}	
+	{% endwith %}		
+
+	{% block content %}
+	{% endblock %}
+	<p>
+		{% if current_user.is_authenticated %}
+		<a href="{{ url_for('users.logout') }}">logout</a>
+		{% else %}
+	<a href="{{ url_for('users.login') }}">login</a>
+	{% endif %}
+	</p>
+	</div>
+</body>
+</html>
