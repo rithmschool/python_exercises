@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Messages in {{tag.category}} category</h1>
+{% if tag.messages|length == 0 %}
+  No messages yet
+{% else %}
+  {% for message in tag.messages %}
+      <p>
+          {{message.content}} by {{message.user.first_name}}  {{message.user.last_name}}
+      </p>
+  {% endfor %}
+{% endif %}
+
+<a href="{{url_for('tags.edit', id=tag.id)}}" class="btn btn-primary"> &nbsp &nbsp  Edit tag &nbsp&nbsp </a>
+<form action="{{url_for('tags.show', id=tag.id)}}?_method=DELETE" method="POST">
+ 	{{delete_form.hidden_tag()}}
+  <input type="submit" class="btn btn-danger" value="Remove tag">
+</form>
+
+
+{% endblock %}
+
