@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+	{% for message in messages %}
+	<p>{{ message.content }}</p>
+	{% endfor %}
+{% endblock %}
