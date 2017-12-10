@@ -51,11 +51,13 @@ def index():
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('index.html', users=User.query.all())
+    return render_template('users/index.html', users=User.query.all())
+
+
 
 @app.route('/users/new')
 def new():
-    return render_template('new.html')
+    return render_template('users/new.html')
 
 @app.route('/users/<int:id>', methods=["GET", "PATCH", "DELETE"])
 def show(id):
@@ -72,15 +74,41 @@ def show(id):
         db.session.delete(found_user)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('show.html', user=found_user)
+    return render_template('users/show.html', user=found_user)
 
-    return render_template('show.html', user=found_user)
+    return render_template('users/show.html', user=found_user)
 
 @app.route('/users/<int:id>/edit')
 def edit(id):
     #refactored using a list comprehension
     found_user = User.query.get(id)
-    return render_template('edit.html', user=found_user)
+    return render_template('users/edit.html', user=found_user)
+
+
+
+@app.route('/users/<int:id>/messages', methods=["GET", "POST"])
+def messages_index(user_id):
+    if request.method == "POST":
+        new_message = Message(request.form['content'], user_id)
+        db.session.add(new_message)
+        db.commit()
+        return redirect(url_for('messages_index', user_id=user_id))
+    return render_template('messages/index.html', user=User.query.get(user_id))
+
+@app.route('/users/<int:id>/messages/new')
+def messages_new(user_id):
+    return render_template('messages/new.html', user=User.query.get(user_id))
+
+@app.route('/users/<int:id>/messages/<int:id>', methods=['GET', 'POST', 'DELETE'])
+def messages_show(user_id, id):
+    found_message = Message.query.get(id)
+
+    if request.method == b'PATCH':
+        found_message.content = request.form['content']
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
