@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>{{message.content}}</h1>
+	{% if message.tags|length == 0 %}
+		<p>{{message.content}} isn't tagged!</p>
+	{% else %}
+		{% for tag in message.tags %}
+			<p>
+				{{tag.text}} 
+			</p>
+		{% endfor %}
+	{% endif %}
+	<a href="{{url_for('messages.edit', user_id=message.user.id, id=message.id)}}" class="btn btn-primary">Edit</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>All Tags</h1>
+	{% for tag in tags %}
+		<p>
+			{{ tag.text }}
+			<br>
+			<a href="{{url_for('tags.edit', id=tag.id)}}" class="btn btn-primary btn-sm">Edit</a> | <a href="{{url_for('tags.show', id=tag.id)}}" class="btn btn-info btn-sm">See More</a>
+		</p>
+	{% endfor %}
+{% endblock %}

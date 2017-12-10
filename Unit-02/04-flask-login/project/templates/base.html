@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>user-messages-login</title>
+	<link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+    {{ moment.include_moment() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+	  <a class="navbar-brand" href="{{url_for('users.index')}}">user-messages-login</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	    <div class="navbar-nav">
+	      <a class="nav-item nav-link" href="{{url_for('users.index')}}">All Users</a>
+	      <a class="nav-item nav-link" href="{{url_for('users.signup')}}">Add User</a>
+	      <a class="nav-item nav-link" href="{{url_for('tags.new')}}">Add Tag</a>
+	      <a class="nav-item nav-link" href="{{url_for('tags.index')}}">All Tags</a>
+	      	{% if current_user.is_authenticated %}
+	     		<a class="nav-item nav-link" href="{{url_for('users.logout')}}">Logout!</a>
+			{% else %}
+				<a class="nav-item nav-link" href="{{url_for('users.login')}}">Login!</a>
+	      	{% endif %}
+	    </div>
+	  </div>
+	</nav>
+<!-- 	<div class="jumbotron">
+		<h1 class="display-3">Hello!</h1>
+		<p class="lead">Welcome to the user messaging system...now more secure</p>
+		<hr class="my-4">
+		<p>Send messages to your friends OR yourself! Now with MORE TAGS!</p>
+		<p class="lead">
+		  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+		</p>
+	</div> -->
+	
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+				<p class='p-0 text-center text-white bg-success'>{{message}}</p>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+
+
+		{% block content %}
+		{% endblock %}
+			
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>	
+</body>
+</html>		

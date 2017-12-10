@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<h1>All Users</h1>
+	<h2>Welcome Back {{current_user.username}}</h2>
+	{% for user in users %}
+	<p>
+		{{user.first_name.title()}} {{user.last_name.title()}} <small>member since {{ moment(user.created_on, local=True).fromNow() }}</small>
+		<br>
+		{% if current_user.id == user.id %}
+			<a href="{{url_for('users.edit', id=user.id)}}">Edit Profile</a> |
+		{% endif %}
+
+		{% if current_user.id == user.id %}
+		<a href="{{url_for('messages.index', user_id=user.id)}}"> Check Your Messages</a>
+		{% else %}
+		<a href="{{url_for('messages.index', user_id=user.id)}}"> See {{user.first_name.title()}}'s Messages</a>
+		{% endif %}
+
+		
+<!-- 		{% if current_user.id == user.id %}
+		<form method="POST" action="{{url_for('users.show', id=user.id)}}?_method=DELETE">
+			  delete_form.hidden_tag() 
+			<input type="submit" class="btn btn-danger btn-sm" value="Delete {{user.first_name}}">
+		
+		</form>
+		{% endif %} -->
+		<hr>
+	</p>
+	{% endfor %}
+
+{% endblock %}

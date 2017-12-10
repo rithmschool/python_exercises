@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>See All Messages for {{user.first_name}}</h1>
+	<a href="{{url_for('messages.new', user_id=user.id)}}">Send {{user.first_name}} a message</a>
+	<br>
+
+	{% for message in user.messages %}
+	<p>
+		{{message.content}} 
+		<small>
+			posted {{ moment(message.updated_on, local=True).fromNow() }}
+			{% for tag in message.tags %}
+				<p>
+					{{tag.text}}
+				</p>
+			{% endfor %}
+		</small>
+
+		<a href="{{url_for('messages.edit', user_id=user.id, id=message.id)}}">Edit this message</a> | 
+		<a href="{{url_for('messages.show', user_id=user.id, id=message.id)}}">See More</a>
+
+		
+
+	</p>
+	{% endfor %}
+{% endblock %}

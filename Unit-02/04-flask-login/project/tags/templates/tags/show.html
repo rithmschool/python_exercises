@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Messages with the "{{tag.text}}"" Tag</h1>
+{% if tag.messages|length == 0 %}
+  <p>No messages yet</p>
+{% else %}
+  {% for m in tag.messages %}
+      <p>
+          {{m.content}}
+      </p>
+  {% endfor %}
+{% endif %}
+<a href="{{url_for('tags.edit', id=tag.id)}}" class="btn btn-primary">Edit</a>
+<form action="{{url_for('tags.show', id=tag.id)}}?_method=DELETE" method="POST">
+	{{ form.csrf_token }}
+  	<input type="submit" class="btn btn-danger" value="Remove Tag">
+</form>
+{% endblock %}

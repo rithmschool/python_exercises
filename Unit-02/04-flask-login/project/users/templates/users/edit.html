@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Edit {{current_user.username}}</h1>
+	<form method="POST" action="{{url_for('users.show', id=user.id)}}?_method=PATCH">
+		{{form.hidden_tag()}}
+		{% for field in form if field.widget.input_type != 'hidden' %}
+			<p>
+				<!-- {{field.label}} -->
+				{{field(placeholder=field.label.text)}}
+				<span class='p-0 text-white bg-danger'>
+					{% if field.errors %}
+						{% for error in field.errors %}
+							{{ error }}
+						{% endfor %}
+					{% endif %}
+				</span>
+			</p>
+		{% endfor %}
+		<input type="submit" class="btn btn-primary btn-sm col-4" value='Edit'>
+	</form>
+	<form method="POST" action="{{url_for('users.show', id=user.id)}}?_method=DELETE">
+		{{  delete_form.csrf_token }}
+		<input type="submit" class="btn btn-danger btn-sm col-4" value="Delete {{user.first_name.title()}}">
+		
+	</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Edit Your Message to {{message.user.first_name}}</h1>
+	<form method="POST" action="{{url_for('messages.show', user_id=message.user.id, id=message.id)}}?_method=PATCH">
+		{{form.csrf_token}}
+		
+			<p>
+				<!-- {{form.label}} -->
+				{{form.content(placeholder="Edit Your Message to "+message.user.first_name)}}
+				<br>
+				<span class='p-0 text-white bg-danger'>
+					{% if form.content.errors %}
+						{% for error in form.content.errors %}
+							{{ error }}
+						{% endfor %}
+					{% endif %}
+				</span>
+			</p>
+		
+		{{form.tags}}
+		<input type="submit" class="btn btn-primary btn-sm col-6" value="Edit">
+	</form>
+	<br>
+
+	<form method="POST" action="{{url_for('messages.show', user_id=message.user.id, id=message.id)}}?_method=DELETE">
+		{{form.csrf_token}}
+		<input type="submit" class="btn btn-danger btn-sm col-6" value="Delete">
+	</form>
+{% endblock %}

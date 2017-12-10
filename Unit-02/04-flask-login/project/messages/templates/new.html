@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Leave a Message for {{user.first_name}}</h1>
+	<form method="POST" action="{{url_for('messages.index', user_id=user.id)}}">
+		{{form.csrf_token}}
+			<p>
+				<!-- {{form.label}} -->
+				{{form.content(placeholder="Limit to 280 characters")}}
+				<br>
+				<span class='p-0 text-white bg-danger'>
+					{% if form.content.errors %}
+						{% for error in form.content.errors %}
+							{{ error }}
+						{% endfor %}
+					{% endif %}
+				</span>
+
+			</p>
+		
+		<p>
+			{{form.tags}}
+		</p>
+		<input type="submit" class="btn btn-primary btn-sm col-6" value="submit">
+	</form>
+{% endblock %}
