@@ -1,10 +1,11 @@
-from flask import redirect, render_template, request, url_for, Blueprint, flash
+from flask import redirect, render_template, request, url_for, Blueprint, flash, abort
 from project.users.models import User
 from project.users.forms import UserForm, DeleteForm, LoginForm
 from project import db, bcrypt
 from sqlalchemy.exc import IntegrityError
 from project.decorators import prevent_login_signup, ensure_correct_user
 from flask_login import login_user, logout_user, login_required
+from urllib.parse import urlparse, urljoin
 
 users_blueprint = Blueprint(
 	'users',
@@ -12,6 +13,11 @@ users_blueprint = Blueprint(
 	template_folder = 'templates'
 )
 
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and \
+           ref_url.netloc == test_url.netloc
 
 @users_blueprint.route('/')
 @login_required
@@ -51,7 +57,10 @@ def login():
         if authenticated_user:
             login_user(authenticated_user)
             flash("You are now logged in!")
-            return redirect(url_for('users.index'))
+            next = request.args.get('next')
+            if not is_safe_url(next):
+            	return abort(400)
+            return redirect(next or url_for('users.index'))
         else:
             flash("Invalid Credentials")
             return redirect(url_for('users.login'))

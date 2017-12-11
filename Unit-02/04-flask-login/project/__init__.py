@@ -26,6 +26,8 @@ app.register_blueprint(tags_blueprint, url_prefix = '/tags')
 login_manager.login_view = 'users.login'
 
 from project.users.models import User
+from project.messages.models import Message
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -35,6 +37,10 @@ def load_user(user_id):
 def root():
 	return redirect(url_for('users.index'))
 
+@app.route('/messages')
+def messages():
+	messages = Message.query.all()
+	return render_template('messages.html', messages = messages)
 
 @app.errorhandler(404)
 def page_not_found(e):

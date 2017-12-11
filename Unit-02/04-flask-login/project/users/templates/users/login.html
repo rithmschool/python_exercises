@@ -4,7 +4,7 @@
 	<h1>Login!</h1>
 	<div class='container'>
 		<div class= 'row justify-content-center'>
-			<form method = "POST" action="{{url_for('users.login')}}">
+			<form method = "POST">
 				{{form.hidden_tag()}}
 				{% for field in form if field.widget.input_type != 'hidden' %}
 					<div class='form-group'>
