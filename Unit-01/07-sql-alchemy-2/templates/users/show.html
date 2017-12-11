@@ -9,5 +9,7 @@
     <a href="{{url_for('index')}}">See all the users</a>
     <br>
     <a href="{{url_for('edit', id=user.id)}}">Edit this user</a>
+    <br>
+    <a href="{{url_for('messages_index', user_id=user.id)}}">See user's messages</a>
 
 {% endblock %}

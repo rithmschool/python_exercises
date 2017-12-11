@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+<h2>Edit Your Message</h2>
 
-<form action="{{url_for('messages_show', id=message.user.id, )}}?_method=PATCH" method="POST">
-    <input type="text" name="message.content" value="{{user.first_name}}">
-    <input type="text" name="last_name" value="{{user.last_name}}">
-    <input type="submit" value="Edit User">
+<form action="{{url_for('messages_show', user_id=user.id, id=message.id)}}?_method=PATCH" method="POST">
+    <input type="text" name="content" value="{{message.content}}">
+
+    <input type="submit" value="Edit Message">
 </form>
 
-<form action="{{url_for('messages_show', id=user.id)}}?_method=DELETE" method="POST">
-  <input type="submit" value="Delete User">
+<form action="{{url_for('messages_show', id=message.id, user_id=user.id)}}?_method=DELETE" method="POST">
+  <input type="submit" value="Delete Message">
 
 </form>
 

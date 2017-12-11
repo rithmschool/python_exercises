@@ -21,6 +21,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.Text)
     last_name = db.Column(db.Text)
+    messages = db.relationship('Message', backref= 'user', lazy='dynamic', cascade='all,delete')
 
     def __init__(self, first_name, last_name):
         self.first_name = first_name
@@ -70,13 +71,14 @@ def show(id):
         db.session.commit()
         return redirect(url_for('index'))
 
+
     if request.method == b"DELETE":
         db.session.delete(found_user)
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('users/show.html', user=found_user)
 
-    return render_template('users/show.html', user=found_user)
+
 
 @app.route('/users/<int:id>/edit')
 def edit(id):
@@ -86,25 +88,42 @@ def edit(id):
 
 
 
-@app.route('/users/<int:id>/messages', methods=["GET", "POST"])
+@app.route('/users/<int:user_id>/messages', methods=["GET", "POST"])
 def messages_index(user_id):
     if request.method == "POST":
         new_message = Message(request.form['content'], user_id)
         db.session.add(new_message)
-        db.commit()
+        db.session.commit()
         return redirect(url_for('messages_index', user_id=user_id))
     return render_template('messages/index.html', user=User.query.get(user_id))
 
-@app.route('/users/<int:id>/messages/new')
+@app.route('/users/<int:user_id>/messages/new')
 def messages_new(user_id):
     return render_template('messages/new.html', user=User.query.get(user_id))
 
-@app.route('/users/<int:id>/messages/<int:id>', methods=['GET', 'POST', 'DELETE'])
+@app.route('/users/<int:user_id>/messages/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def messages_show(user_id, id):
     found_message = Message.query.get(id)
 
     if request.method == b'PATCH':
         found_message.content = request.form['content']
+        db.session.add(found_message)
+        db.session.commit()
+        return redirect(url_for('messages_index', user_id=user_id))
+
+    elif request.method == b'DELETE':
+        db.session.delete(found_message)
+        db.session.commit()
+        return redirect(url_for('messages_index', user_id=user_id))
+    return render_template('messages/show.html', message=found_message)
+
+@app.route('/users/<int:user_id>/messages/<int:id>/edit')
+def messages_edit(user_id, id):
+    found_message = Message.query.get(id)
+    user=User.query.get(user_id)
+    return render_template('messages/edit.html', message=found_message, user=user)
+
+
 
 
 

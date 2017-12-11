@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Add User</h2>
+<h2>Add A Message For {{user.first_name}} {{user.last_name}}</h2>
 
-  <form action="{{url_for('index')}}" method="POST">
-    <label for="first_name">First Name</label>
-    <input type="text" name="first_name">
-    <label for="last_name">Last Name</label>
-    <input type="text" name="last_name">
-    <input type="submit" value="Add User">
+  <form action="{{url_for('messages_index', user_id=user.id)}}" method="POST">
+    <label for="content">Message:</label>
+    <input type="text" name="content">
+    
+    <input type="submit" value="Send Message">
 
   </form>
 
