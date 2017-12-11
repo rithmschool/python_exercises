@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Messages for {{user.first_name}}</h1>
+
+<a href="{{url_for('messages_new', user_id=user.id)}}"> Add A New Message</a>
+
+
+<p>
+    {% for message in user.messages %}
+
+
+
+          {{message.content}}
+
+        <a href="{{url_for('messages_edit', user_id=user.id, id=message.id)}}">Edit your message</a>
+
+        <form method='POST' action="{{url_for('messages_show', user_id= user.id, id=message.id)}}?_method=DELETE">
+          <input type="submit" value="Delete your message">
+        </form>
+
+
+      {% endfor %}
+</p>
+
+{% endblock %}
