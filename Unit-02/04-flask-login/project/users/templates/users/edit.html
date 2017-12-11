@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Edit user!</h1>
+	<div class='container'>
+		<div class='row justify-content-center'>
+			<form method = "POST" action="{{url_for('users.show', id=user.id)}}?_method=PATCH">
+				{{form.hidden_tag()}}
+				{% for field in form if field.widget.input_type != 'hidden' %}
+					<div class='form-group'>
+						{{field.label}}
+						{{field(class_='form-control')}}
+						<span class='error'>
+					      {% if field.errors %}
+					        {% for error in field.errors %}
+					          {{ error }}
+					        {% endfor %}
+					      {% endif %}
+						</span>
+
+					</div>
+				{% endfor %}
+				<input class = 'btn btn-warning' type="submit" value = "Edit user!">
+			</form>
+		</div>
+
+	</div>
+{% endblock %}
+
