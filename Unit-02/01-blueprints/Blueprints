@@ -1,0 +1,9 @@
+Blueprints
+
+1. The MVC pattern is a design pattern that is used normally for building web applications. Essentially the 'Model' is responsible for managing the data storage, retrieval and validation within the application. To be more specific, models in SQLAlchemy help a lot with that. The views are what the user sees when they are on the website. It includes the different routes the user could be redirected to. The controller is responsible for talking to the model and the view. It serves as a middleman where actions are processed and what data to receive from the model.
+
+2. The model does not communite directly with the view, that is the controller's purpose.
+
+3.The purpose of blueprints is to organize the MVC in a way where it can scale to larger applications
+
+4. It helps us organize bigger applications because it seperates the Models,forms, and views to different areas. As well as sepereates the different CRUD parts so there is much less confusion compared to having everything within the app.py file.
