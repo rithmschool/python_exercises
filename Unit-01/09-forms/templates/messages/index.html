@@ -8,16 +8,23 @@
 
 <p>
     {% for message in user.messages %}
+    <h4>
 
 
-
+    <div class="card">
+      <div class="card-block">
           {{message.content}}
 
-        <a href="{{url_for('messages_edit', user_id=user.id, id=message.id)}}">Edit your message</a>
+    </h4>
+
+
+        <a href="{{url_for('messages_edit', user_id=user.id, id=message.id)}}"><button type= "submit" class="btn btn-sm btn-info">Edit message</button></a>
 
         <form method='POST' action="{{url_for('messages_show', user_id= user.id, id=message.id)}}?_method=DELETE">{{ delete_form.hidden_tag()}}
-          <button>X</button>
+
+          <button type= "submit" class="btn btn-sm btn-danger">Delete</button>
         </form>
+
   </p>
 
       {% endfor %}
