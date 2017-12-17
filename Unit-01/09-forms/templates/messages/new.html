@@ -4,10 +4,24 @@
 <h2>Add A Message For {{user.first_name}} {{user.last_name}}</h2>
 
   <form action="{{url_for('messages_index', user_id=user.id)}}" method="POST">
-    <label for="content">Message:</label>
-    <input type="text" name="content">
-    
-    <input type="submit" value="Send Message">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+        <p>
+          {{ field.label }}
+          {{ field }}
+          <span>
+              {% if field.errors %}
+                  {% for error in field.errors %}
+                      {{ error }}
+                  {% endfor %}
+
+              {% endif %}
+
+          </span>
+
+          </p>
+    {% endfor %}
+      <button type="button" class="btn btn-secondary btn-sm">Add Message!</button>
 
   </form>
 

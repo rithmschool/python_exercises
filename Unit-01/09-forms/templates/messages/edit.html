@@ -3,14 +3,25 @@
 <h2>Edit Your Message</h2>
 
 <form action="{{url_for('messages_show', user_id=user.id, id=message.id)}}?_method=PATCH" method="POST">
-    <input type="text" name="content" value="{{message.content}}">
+  {{ message_form.hidden_tag() }}
+  {% for field in form if field.widget.input_type != 'hidden' %}
 
-    <input type="submit" value="Edit Message">
-</form>
+      <p>
+        {{ field.label }}
+        {{ field }}
+        <span>
+          {% if field.errors %}
+              {% for error in field.errors %}
+                  {{ error }}
+              {% endfor %}
 
-<form action="{{url_for('messages_show', id=message.id, user_id=user.id)}}?_method=DELETE" method="POST">
-  <input type="submit" value="Delete Message">
+          {% endif %}
 
-</form>
+        </span>
+      </p>
+  {% endfor %}
+
+    <button>Edit message</button>
+    </form>
 
 {% endblock %}

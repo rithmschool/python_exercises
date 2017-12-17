@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Users App</h1>
 
-<a href="{{url_for('new')}}"> Add A New User</a>
 
+<h1>See all the Users!</h1>
+<br>
+  <a href="{{url_for('new')}}"> Add A New User</a>
   <ul>
+
     {% for user in users %}
       <li>
-        <a href="{{url_for('show', id=user.id)}}">{{ user.first_name }} {{user.last_name}}</a>
+      {{user.first_name}} {{user.last_name}}
+      <br>
+
+        <a href="{{url_for('messages_index', user_id=user.id)}}">See all messages for {{user.first_name}}!</a>
+        <br>
+        <a href="{{url_for('edit', id=user.id)}}">Edit a user!</a>
+        <form action="{{url_for('show', id=user.id)}}?_method=DELETE" method="POST"> {{ delete_form.hidden_tag()}}<button>X</button>
+        </form>
       </li>
+
       {% endfor %}
   </ul>
 

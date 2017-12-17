@@ -15,12 +15,12 @@
 
         <a href="{{url_for('messages_edit', user_id=user.id, id=message.id)}}">Edit your message</a>
 
-        <form method='POST' action="{{url_for('messages_show', user_id= user.id, id=message.id)}}?_method=DELETE">
-          <input type="submit" value="Delete your message">
+        <form method='POST' action="{{url_for('messages_show', user_id= user.id, id=message.id)}}?_method=DELETE">{{ delete_form.hidden_tag()}}
+          <button type="button" class="btn btn-secondary btn-sm">X</button>
         </form>
-
+  </p>
 
       {% endfor %}
-</p>
+
 
 {% endblock %}
