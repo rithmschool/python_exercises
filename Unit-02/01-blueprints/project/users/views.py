@@ -1,8 +1,66 @@
-from flask import Blueprint
-from project.users.models import User
+from flask import redirect, render_template, request, url_for, flash, Blueprint
+from project.models import User
+from project.users.forms import UserForm, DeleteForm
+from project import db
 
-users_blueprint = BLueprint(
+users_blueprint = Blueprint(
     'users',
-    __name__'
+    __name__,
     template_folder='templates'
 )
+
+@users_blueprint.route('/', methods=["GET", "POST"])
+def index():
+    delete_form = DeleteForm()
+    if request.method == "POST":
+        form = UserForm(request.form)
+        if form.validate():
+            new_user = User(request.form['first_name'], request.form['last_name'])  # name from type in new.html#
+            db.session.add(new_user)
+            db.session.commit()
+            flash('User Created!')
+            return redirect(url_for('index'))
+        else:
+            return render_template('users/new.html', form=form)
+    return render_template('users/index.html', users=User.query.all(), delete_form=delete_form)
+
+
+
+@users_blueprint.route('/new')
+def new():
+    user_form = UserForm()
+    return render_template('users/new.html', form=user_form)
+
+
+
+@users_blueprint.route('/<int:id>', methods=["GET", "PATCH", "DELETE"])
+def show(id):
+    found_user = User.query.get(id)
+
+    if request.method == b"PATCH":
+        form = UserForm(request.form)
+        if form.validate():
+            found_user.first_name = form.first_name.data
+            found_user.last_name = form.last_name.data
+            db.session.add(found_user)
+            db.session.commit()
+            flash('User Updated!')
+            return redirect(url_for('index'))
+        return render_template('users/edit.html', user=found_user, form=form)
+
+    if request.method == b"DELETE":
+        delete_form = DeleteForm(request.form)
+        if delete_form.validate():
+            db.session.delete(found_user)
+            db.session.commit()
+            flash('User Deleted!')
+            return redirect(url_for('index'))
+    return render_template('users/show.html', user=found_user)
+
+
+@users_blueprint.route('/<int:id>/edit')
+def edit(id):
+    #refactored using a list comprehension
+    found_user = User.query.get(id)
+    user_form = UserForm(obj=found_user) #do not use request.form, use obj= to prepopulate the form
+    return render_template('users/edit.html', user=found_user, form=user_form)

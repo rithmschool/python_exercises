@@ -12,6 +12,20 @@
 
 
   <a href="{{url_for('index')}}">Home</a>
+  {% with messages = get_flashed_messages()%}
+    {% if messages %}
+      {% for message in messages %}
+
+        <p>{{ message }}</p>
+
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+
+      blockofcode
+  {% endif %}
+
   {% block content %}
   {% endblock %}
   </div>

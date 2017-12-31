@@ -5,7 +5,7 @@
 
 <h1>See all the Users!</h1>
 <br>
-  <a href="{{url_for('new')}}"> Add A New User</a>
+  <a href="{{url_for('users.new')}}"> Add A New User</a>
   <ul>
 
     {% for user in users %}
@@ -15,10 +15,10 @@
         </h4>
 
 
-        <a href="{{url_for('messages_index', user_id=user.id)}}">See all messages for {{user.first_name}}!</a>
+        <a href="{{url_for('messages.index', user_id=user.id)}}">See all messages for {{user.first_name}}!</a>
         <br>
-        <a href="{{url_for('edit', id=user.id)}}"><button type= "submit" class="btn btn-sm btn-info">Edit a user</button></a>
-        <form action="{{url_for('show', id=user.id)}}?_method=DELETE" method="POST"> {{ delete_form.hidden_tag()}}<button type= "submit" class="btn btn-sm btn-danger">Delete</button>
+        <a href="{{url_for('users.edit', id=user.id)}}"><button type= "submit" class="btn btn-sm btn-info">Edit a user</button></a>
+        <form action="{{url_for('users.show', id=user.id)}}?_method=DELETE" method="POST"> {{ delete_form.hidden_tag()}}<button type= "submit" class="btn btn-sm btn-danger">Delete</button>
         </form>
       </li>
 
