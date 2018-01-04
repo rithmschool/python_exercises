@@ -3,7 +3,7 @@
 
 <h1>Messages for {{user.first_name}}</h1>
 
-<a href="{{url_for('messages_new', user_id=user.id)}}"> Add A New Message</a>
+<a href="{{url_for('messages.new', user_id=user.id)}}"> Add A New Message</a>
 
 
 <p>
@@ -18,9 +18,9 @@
     </h4>
 
 
-        <a href="{{url_for('messages_edit', user_id=user.id, id=message.id)}}"><button type= "submit" class="btn btn-sm btn-info">Edit message</button></a>
+        <a href="{{url_for('messages.edit', user_id=user.id, id=message.id)}}"><button type= "submit" class="btn btn-sm btn-info">Edit message</button></a>
 
-        <form method='POST' action="{{url_for('messages_show', user_id= user.id, id=message.id)}}?_method=DELETE">{{ delete_form.hidden_tag()}}
+        <form method='POST' action="{{url_for('messages.show', user_id= user.id, id=message.id)}}?_method=DELETE">{{ delete_form.hidden_tag()}}
 
           <button type= "submit" class="btn btn-sm btn-danger">Delete</button>
         </form>

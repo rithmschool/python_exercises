@@ -3,7 +3,7 @@
 
 <h2>Add User</h2>
 
-  <form action="{{url_for('index')}}" method="POST">
+  <form action="{{url_for('users.index')}}" method="POST">
         {{ form.hidden_tag() }}
 
         {% for field in form if field.widget.input_type != 'hidden' %}
@@ -19,7 +19,7 @@
             </span>
         </p>
         {% endfor %}
-        <button type= "submit" class="btn btn-sm btn-primary">Add user!</button>
+        <button type= "submit" class="btn btn-sm btn-primary">Add User!</button>
 
   </form>
 

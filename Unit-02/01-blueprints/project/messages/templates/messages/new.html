@@ -3,7 +3,7 @@
 
 <h2>Add A Message For {{user.first_name}} {{user.last_name}}</h2>
 
-  <form action="{{url_for('messages_index', user_id=user.id)}}" method="POST">
+  <form action="{{url_for('messages.index', user_id=user.id)}}" method="POST">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
         <p>

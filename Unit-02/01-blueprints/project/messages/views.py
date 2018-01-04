@@ -9,7 +9,7 @@ messages_blueprint = Blueprint(
     template_folder='templates'
 )
 
-@messages_blueprint.route('/users/<int:user_id>/messages', methods=["GET", "POST"])
+@messages_blueprint.route('/', methods=["GET", "POST"])
 def index(user_id):
     delete_form = DeleteForm()
     if request.method == "POST":
@@ -24,12 +24,12 @@ def index(user_id):
             return render_template('messages/new.html', user=User.query.get(user_id), form=message_form)
     return render_template('messages/index.html', user=User.query.get(user_id), delete_form=delete_form)
 
-@messages_blueprint.route('/users/<int:user_id>/messages/new')
+@messages_blueprint.route('/new')
 def new(user_id):
     message_form = MessageForm(request.form)
     return render_template('messages/new.html', user=User.query.get(user_id), form=message_form)
 
-@messages_blueprint.route('/users/<int:user_id>/messages/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+@messages_blueprint.route('/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def show(user_id, id):
     found_message = Message.query.get(id)
 
@@ -52,7 +52,7 @@ def show(user_id, id):
         return redirect(url_for('messages.index', user_id=user_id))
     return render_template('messages/show.html', message=found_message, form=message_form)
 
-@messages_blueprint.route('/users/<int:user_id>/messages/<int:id>/edit')
+@messages_blueprint.route('/<int:id>/edit')
 def edit(user_id, id):
     found_message = Message.query.get(id)
     message_form = MessageForm(obj=found_message)

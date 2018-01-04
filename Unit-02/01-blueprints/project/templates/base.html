@@ -11,7 +11,7 @@
   <div class="container">
 
 
-  <a href="{{url_for('index')}}">Home</a>
+  <a href="{{url_for('users.index')}}">Home</a>
   {% with messages = get_flashed_messages()%}
     {% if messages %}
       {% for message in messages %}
@@ -21,10 +21,6 @@
       {% endfor %}
     {% endif %}
   {% endwith %}
-
-
-      blockofcode
-  {% endif %}
 
   {% block content %}
   {% endblock %}
